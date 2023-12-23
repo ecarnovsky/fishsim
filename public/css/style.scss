@@ -1,0 +1,30 @@
+html{
+    font-size: 62.5%;
+    font-family: 'Noto Sans', sans-serif;
+}
+body {
+    font-size: 2rem;
+    max-width: 600px;
+}
+header ul  {
+    display: flex;
+}
+li {
+    display: inline;
+    text-decoration: none;
+    padding-right: 10px;
+}
+
+.logo {
+    font-size: 5.6rem;
+}
+.logo-image{
+    max-width: 55px;
+}
+p {
+    font-size: 2rem;
+}
+h1 {
+    font-size: 3rem;
+    font-weight: 400;
+}
