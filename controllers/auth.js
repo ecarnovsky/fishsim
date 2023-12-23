@@ -2,14 +2,14 @@ const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
 
- exports.getLogin = (req, res) => {
-    if (req.user) {
-      return res.redirect('/todos')
-    }
-    res.render('login', {
-      title: 'Login'
-    })
-  }
+//  exports.getLogin = (req, res) => {
+//     if (req.user) {
+//       return res.redirect('/todos')
+//     }
+//     res.render('login', {
+//       title: 'Login'
+//     })
+//   }
   
   exports.postLogin = (req, res, next) => {
     const validationErrors = []
@@ -18,7 +18,7 @@ const User = require('../models/User')
   
     if (validationErrors.length) {
       req.flash('errors', validationErrors)
-      return res.redirect('/login')
+      return res.redirect('/')
     }
     req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
   
@@ -26,12 +26,12 @@ const User = require('../models/User')
       if (err) { return next(err) }
       if (!user) {
         req.flash('errors', info)
-        return res.redirect('/login')
+        return res.redirect('/')
       }
       req.logIn(user, (err) => {
         if (err) { return next(err) }
         req.flash('success', { msg: 'Success! You are logged in.' })
-        res.redirect(req.session.returnTo || '/todos')
+        res.redirect(req.session.returnTo || '/')
       })
     })(req, res, next)
   }
@@ -71,6 +71,7 @@ const User = require('../models/User')
     const user = new User({
       userName: req.body.userName,
       email: req.body.email,
+      money: 50.00,
       password: req.body.password
     })
   

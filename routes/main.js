@@ -9,5 +9,6 @@ router.get('/', homeController.getIndex)
 router.get('/signup', authController.getSignup)
 router.post('/signup', authController.postSignup)
 router.get('/fish', ensureAuth, homeController.getFish)
+router.post('/login', authController.postLogin)
 
 module.exports = router

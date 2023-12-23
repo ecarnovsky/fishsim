@@ -1,9 +1,11 @@
 const bcrypt = require('bcrypt')
+const { Decimal128 } = require('mongodb')
 const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
   userName: { type: String, unique: true },
   email: { type: String, unique: true },
+  money: {type: Decimal128},
   password: String
 })
 
