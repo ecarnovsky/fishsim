@@ -21,9 +21,11 @@
                 <li><a href="/town">Town</a></li>
                 <li><a href="/search">Search</a></li>
                 <li><a href="/inventory">Inventory</a></li>
-                <li><a href="#"><%=user.userName %></a></li>
-                <li><%=user.money%></li>
+                <% if (user) { %>
+                <li><a href="#"><%= user.userName%></a></li>
+                <li><%= user.money%></li>
                 <li><a href="/logout">Logout</a></li>
+                <% } %>
             </ul>
             <img src="/images/seaweedandfish.png" class="logo-image" alt="">
             <span class="logo">FishSim</span>
