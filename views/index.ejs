@@ -41,13 +41,18 @@
             <div class="alert alert-danger"><%= el.msg %></div>
         <% }) %>    
     <% } %>
+    <% if (!user){ %>
     <form action="/login" method="POST">
         <input type="email" name="email" placeholder="Email">
         <input type="password" name="password" placeholder="Password">
         <input type="submit" value="Log in">
     </form>
+    <% } %>
+
     <h1>What is FishSim?</h1>
     <p>FishSim is an exciting aquarium simulator where you can care for and breed pet fish. Collect guppies, bettas, koi, or all three! 100% free to play, join today! </p>
+    <% if (!user){ %>
     <a href="/signup">Make an account for free!</a>
+    <% } %>
 </body>
 </html>
