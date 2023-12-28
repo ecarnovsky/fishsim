@@ -1,6 +1,7 @@
 const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
+const Fish = require ('../models/Fish')
 
 //  exports.getLogin = (req, res) => {
 //     if (req.user) {
@@ -74,6 +75,20 @@ const User = require('../models/User')
       money: 50.00,
       password: req.body.password
     })
+    const fish1 = new Fish({
+      name: 'Starter Fish 1',
+      species: 'Guppy',
+      isMale: false,
+      ownerId: user._id,
+      age: 6
+    })
+    const fish2 = new Fish({
+      name: 'Starter Fish 2',
+      species: 'Guppy',
+      isMale: true,
+      ownerId: user._id,
+      age: 6
+    })
   
     User.findOne({$or: [
       {email: req.body.email},
@@ -90,8 +105,10 @@ const User = require('../models/User')
           if (err) {
             return next(err)
           }
+          Fish.create(fish1, fish2)
           res.redirect('/')
         })
       })
+      
     })
   }
