@@ -35,4 +35,21 @@ h1 {
   font-weight: 400;
 }
 
+.fish-tank-view-container {
+  display: flex;
+}
+
+.fish-block-tank-view {
+  max-width: 200px;
+}
+.fish-block-tank-view * {
+  display: block;
+  text-align: center;
+  margin: auto;
+}
+
+.fish-image-tank-view {
+  max-width: 200px;
+}
+
 /*# sourceMappingURL=style.css.map */

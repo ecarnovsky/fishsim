@@ -28,3 +28,27 @@ h1 {
     font-size: 3rem;
     font-weight: 400;
 }
+
+.fish-tank-view-container{
+    display: flex;
+}
+
+.fish-block-tank-view{
+    max-width: 200px;
+
+    *{
+        display: block;
+        text-align: center;
+        margin: auto;
+    }
+}
+
+// .fish-block-tank-view:hover{
+//     background: rgb(234, 234, 234);
+//     border: 2px rgb(203, 203, 203) solid;
+//     cursor: pointer;
+// }
+
+.fish-image-tank-view{
+    max-width: 200px;
+}

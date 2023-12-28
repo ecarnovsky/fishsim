@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const FishSchema = new mongoose.Schema({
   name: { type: String, unique: false },
   species: {type: String, unique: false},
-  isMale: { type: Boolean, unique: true },
+  isMale: { type: Boolean, unique: false },
   ownerId: {type: String, uniqie: false},
   age: {type: Number, unique: false}
 })
