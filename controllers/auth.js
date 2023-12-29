@@ -80,7 +80,7 @@ const Tank = require('../models/tank')
       name: 'First Tank',
       gallons: 20,
       ownerId: user._id,
-      temperature: 78.00
+      temperature: 78
     })
     const fish1 = new Fish({
       name: 'Starter Fish 1',

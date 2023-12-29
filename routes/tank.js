@@ -5,5 +5,6 @@ const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 
 router.get('/*', ensureAuth, tankController.getTank)
+router.put('/changeTemperature', ensureAuth, tankController.changeTemperature)
 
 module.exports = router 

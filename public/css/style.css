@@ -52,4 +52,8 @@ h1 {
   max-width: 200px;
 }
 
+.temperature-control {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=style.css.map */

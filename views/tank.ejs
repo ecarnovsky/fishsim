@@ -36,13 +36,16 @@
     <main>
 
         <button id="daily-turnover-button">Day pass</button>
-        
+
         <!-- give this a data- attribute for the tank id -->
         <form action="/feedfish" method="PUT">
             <input type="submit" value="Feed fish ($1)">
         </form>
 
-        <span>Fish: </span>
+        <span><%=tank.name%> </span>
+        <span><%=tank.temperature%>°</span>
+        <span id="up-temperature" class="temperature-control">🡅</span>
+        <span id="down-temperature" class="temperature-control">🡇</span>
         <div class="fish-tank-view-container">
             <% for (let i = 0; i < fish.length ; i++){ %>
                 <div class="fish-block-tank-view">
@@ -70,6 +73,7 @@
         <% } %>
     </main>  
 
-    <script src="/js/dailyturnoverbutton.js"></script>
+    <script src="/js/daily-turnover-button.js"></script>
+    <script src="/js/temperature-controls.js"></script>
 </body>
 </html>
