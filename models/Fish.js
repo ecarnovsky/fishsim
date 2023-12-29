@@ -5,6 +5,7 @@ const FishSchema = new mongoose.Schema({
   species: {type: String, unique: false},
   isMale: { type: Boolean, unique: false },
   ownerId: {type: String, uniqie: false},
+  tankId: {type: String},
   age: {type: Number, unique: false}
 })
 

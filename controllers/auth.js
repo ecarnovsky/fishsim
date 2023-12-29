@@ -2,6 +2,7 @@ const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
 const Fish = require ('../models/Fish')
+const Tank = require('../models/Tank')
 
 //  exports.getLogin = (req, res) => {
 //     if (req.user) {
@@ -75,6 +76,12 @@ const Fish = require ('../models/Fish')
       money: 50.00,
       password: req.body.password
     })
+    const tank = new Tank({
+      name: 'First Tank',
+      gallons: 20,
+      ownerId: user._id,
+      temperature: 78.00
+    })
     const fish1 = new Fish({
       name: 'Starter Fish 1',
       species: 'Guppy',
@@ -105,10 +112,16 @@ const Fish = require ('../models/Fish')
           if (err) {
             return next(err)
           }
-          Fish.create(fish1, fish2)
+          Tank.create(tank).then(tankInfo => {
+            fish1.tankId = tankInfo._id
+            fish2.tankId = tankInfo._id
+            Fish.create(fish1, fish2)
+          })
+          
           res.redirect('/')
         })
       })
+
       
     })
   }

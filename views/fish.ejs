@@ -34,6 +34,15 @@
         </nav>
     </header>
     <main>
+
+        <form action="/dailyturnover" method="PUT">
+            <input type="submit" value="Day pass" >
+        </form>
+        <!-- give this a data- attribute for the tank id -->
+        <form action="/feedfish" method="PUT">
+            <input type="submit" value="Feed fish ($1)">
+        </form>
+
         <span>Fish: </span>
         <div class="fish-tank-view-container">
             <% for (let i = 0; i < usersFish.length ; i++){ %>
@@ -51,8 +60,8 @@
         <% } %>
 
         <% if (usersFish.length > 0){%>
-        <span>Selected fish action:</span>
-        <form action="/massaction">
+        <form action="/massaction" method="PUT">
+            <label for="mass-action">Selected fish action:</label>
             <select name="action" id="mass-action">
                 <option value="sell">Sell to petshop</option>
                 <option value="move">Move to other tank</option>
