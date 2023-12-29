@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FishSim</title>
+    <title>Fish</title>
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Pixelify+Sans&family=Roboto&display=swap" rel="stylesheet">
+
 
     <link rel="stylesheet" href="/css/style.css">
 
@@ -31,28 +33,24 @@
             <span class="logo">FishSim</span>
         </nav>
     </header>
-    <% if (locals.messages.errors) { %>
-        <% messages.errors.forEach( el => { %>
-            <div class="alert alert-danger"><%= el.msg %></div>
-        <% }) %>    
-    <% } %>
-    <% if (locals.messages.info) { %>
-        <% messages.info.forEach( el => { %>
-            <div class="alert alert-danger"><%= el.msg %></div>
-        <% }) %>    
-    <% } %>
-    <% if (!user){ %>
-    <form action="/login" method="POST">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" value="Log in">
-    </form>
-    <% } %>
+    <main>
 
-    <h1>What is FishSim?</h1>
-    <p>FishSim is an exciting aquarium simulator where you can care for and breed pet fish. Collect guppies, bettas, koi, or all three! 100% free to play, join today! </p>
-    <% if (!user){ %>
-    <a href="/signup">Make an account for free!</a>
-    <% } %>
+        <form action="/dailyturnover" method="PUT">
+            <input type="submit" value="Day pass" >
+        </form>
+
+        <span>Tanks: </span>
+        <div class="tank-view-container">
+            <% for (let i = 0; i < tanks.length ; i++){ %>
+                <div class="tank-block">
+                    <a href="/tank/<%=tanks[i]._id%>"><img class="tank-image" src="/images/tank.png" alt="tank image"></a>
+                    <span><%= tanks[i].name%></span>
+                    <span># fish</span>
+                    <span><%=tanks[i].gallons%> gallons</span>
+                    <input type="checkbox" value="<%=tanks[i]._id%>">
+                </div>
+            <% } %>
+        </div>
+    </main>  
 </body>
 </html>

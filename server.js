@@ -10,6 +10,7 @@ const connectDB = require('./config/database')
 
 const mainRoutes = require('./routes/main')
 const townRoutes = require('./routes/town')
+const tankRoute = require('./routes/tank')
 
 
 require('dotenv').config({path: './config/.env'})
@@ -40,6 +41,7 @@ app.use(flash())
   
 app.use('/', mainRoutes)
 app.use('/town', townRoutes)
+app.use('/tank', tankRoute)
 
 app.listen(process.env.PORT, ()=>{
     console.log('Server is running.')

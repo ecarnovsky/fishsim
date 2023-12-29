@@ -29,11 +29,11 @@ h1 {
     font-weight: 400;
 }
 
-.fish-tank-view-container{
+.fish-tank-view-container, .tank-view-container{
     display: flex;
 }
 
-.fish-block-tank-view{
+.fish-block-tank-view, .tank-block{
     max-width: 200px;
 
     *{
@@ -49,6 +49,6 @@ h1 {
 //     cursor: pointer;
 // }
 
-.fish-image-tank-view{
+.fish-image-tank-view, .tank-image{
     max-width: 200px;
 }

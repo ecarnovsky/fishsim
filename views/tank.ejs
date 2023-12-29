@@ -19,7 +19,7 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/fish">Fish</a></li>
+                <li><a href="/tanks">Fish</a></li>
                 <li><a href="/town">Town</a></li>
                 <li><a href="/search">Search</a></li>
                 <li><a href="/inventory">Inventory</a></li>
@@ -45,21 +45,21 @@
 
         <span>Fish: </span>
         <div class="fish-tank-view-container">
-            <% for (let i = 0; i < usersFish.length ; i++){ %>
+            <% for (let i = 0; i < fish.length ; i++){ %>
                 <div class="fish-block-tank-view">
-                    <a href="/fish/<%=usersFish[i]._id%>"><img class="fish-image-tank-view" src="/images/<%=usersFish[i].isMale? 'guppy-male.png':'guppy-female.png'%>" alt="fish image"></a>
-                    <span><%= usersFish[i].name%></span>
-                    <span><%=usersFish[i].isMale ?'Male':'Female'%></span>
-                    <span><%=usersFish[i].age%> months old</span>
-                    <input type="checkbox" value="<%=usersFish[i]._id%>">
+                    <a href="/fish/<%=fish[i]._id%>"><img class="fish-image-tank-view" src="/images/<%=fish[i].isMale? 'guppy-male.png':'guppy-female.png'%>" alt="fish image"></a>
+                    <span><%= fish[i].name%></span>
+                    <span><%=fish[i].isMale ?'Male':'Female'%></span>
+                    <span><%=fish[i].age%> months old</span>
+                    <input type="checkbox" value="<%=fish[i]._id%>">
                 </div>
             <% } %>
         </div>
-        <% if (usersFish.length == 0){%>
+        <% if (fish.length == 0){%>
             <span>It seems this tank is empty...</span>
         <% } %>
 
-        <% if (usersFish.length > 0){%>
+        <% if (fish.length > 0){%>
         <form action="/massaction" method="PUT">
             <label for="mass-action">Selected fish action:</label>
             <select name="action" id="mass-action">
