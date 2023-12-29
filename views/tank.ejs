@@ -35,9 +35,8 @@
     </header>
     <main>
 
-        <form action="/dailyturnover" method="PUT">
-            <input type="submit" value="Day pass" >
-        </form>
+        <button id="daily-turnover-button">Day pass</button>
+        
         <!-- give this a data- attribute for the tank id -->
         <form action="/feedfish" method="PUT">
             <input type="submit" value="Feed fish ($1)">
@@ -70,5 +69,7 @@
         </form>
         <% } %>
     </main>  
+
+    <script src="/js/dailyturnoverbutton.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
-const Fish = require('../models/Fish')
-const Tank = require('../models/Tank')
+const Fish = require('../models/fish')
+const Tank = require('../models/tank')
 
 module.exports = {
     getIndex: (req,res)=>{

@@ -1,8 +1,8 @@
 const passport = require('passport')
 const validator = require('validator')
-const User = require('../models/User')
-const Fish = require ('../models/Fish')
-const Tank = require('../models/Tank')
+const User = require('../models/user')
+const Fish = require ('../models/fish')
+const Tank = require('../models/tank')
 
 //  exports.getLogin = (req, res) => {
 //     if (req.user) {
