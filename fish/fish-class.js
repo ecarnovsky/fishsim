@@ -3,6 +3,7 @@ const Fish = require('../models/fish')
 
 class FishClass{
 
+    // All alleles are listed in order of dominance
     static GuppyFinAlleles = [
         [
             // suppresses longfin
@@ -76,6 +77,8 @@ class FishClass{
                 
     
                 let fryIsMale = Math.round(Math.random())? true : false
+
+                let fryFinGenome = this.combineGenomes(mother.finGenome, father.finGenome, this.GuppyFinAlleles)
     
                 const newFry = new Fish({
                     name: 'Unnamed Fish',
@@ -85,7 +88,8 @@ class FishClass{
                     tankId: mother.tankId,
                     age: 0,
                     health: 100, 
-                    hunger: 90
+                    hunger: 90,
+                    finGenome: fryFinGenome
                 })
     
                 Fish.create(newFry)
@@ -146,6 +150,38 @@ class FishClass{
             newGenome += newAllelePair + ' '
         }
 
+        return newGenome.trim()
+    }
+
+    static combineGenomes(genome1, genome2, allelesDominance){
+
+        let newGenome = ''
+
+        // splits the gemome into pairs of alleles
+        let allelePairsArray1 = genome1.split(' ')
+        let allelePairsArray2 = genome2.split(' ')
+
+        for (let i = 0; i < allelePairsArray1.length; i++){
+
+            // separates the alleles
+            let separatedAlleles1 = allelePairsArray1[i].split('-')
+            let separatedAlleles2 = allelePairsArray2[i].split('-')
+
+            // picks a random allele to be inherited 
+            let inheritedAllele1 = Math.random() < .5 ? separatedAlleles1[0] : separatedAlleles1[1]
+            let inheritedAllele2 = Math.random() < .5 ? separatedAlleles2[0] : separatedAlleles2[1]
+
+            
+            let indexOfAllele1 = allelesDominance[i].map(e => e.abbreviation).indexOf(inheritedAllele1);
+            let indexOfAllele2 = allelesDominance[i].map(e => e.abbreviation).indexOf(inheritedAllele2);
+
+            if (indexOfAllele1 < indexOfAllele2){
+                newGenome += inheritedAllele1 + '-' + inheritedAllele2 + " "
+            } else {
+                newGenome += inheritedAllele2 + '-' + inheritedAllele1 + " "
+            }
+
+        }
         return newGenome.trim()
     }
     
