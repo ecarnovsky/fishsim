@@ -3,6 +3,7 @@ const validator = require('validator')
 const User = require('../models/user')
 const Fish = require ('../models/fish')
 const Tank = require('../models/tank')
+const FishClass = require('../fish/fish-class')
 
 //  exports.getLogin = (req, res) => {
 //     if (req.user) {
@@ -87,14 +88,20 @@ const Tank = require('../models/tank')
       species: 'Guppy',
       isMale: false,
       ownerId: user._id,
-      age: 6
+      age: 6,
+      health: 90,
+      hunger: 90,
+      finGenome: FishClass.randomGuppyFinGenome()
     })
     const fish2 = new Fish({
       name: 'Starter Fish 2',
       species: 'Guppy',
       isMale: true,
       ownerId: user._id,
-      age: 6
+      age: 6,
+      health: 90,
+      hunger: 90,
+      finGenome: FishClass.randomGuppyFinGenome()
     })
   
     User.findOne({$or: [

@@ -31,6 +31,7 @@ h1 {
 
 .fish-tank-view-container, .tank-view-container{
     display: flex;
+    flex-wrap: wrap;
 }
 
 .fish-block-tank-view, .tank-block{

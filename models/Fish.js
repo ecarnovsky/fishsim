@@ -6,7 +6,10 @@ const FishSchema = new mongoose.Schema({
   isMale: { type: Boolean, unique: false },
   ownerId: {type: String, uniqie: false},
   tankId: {type: String},
-  age: {type: Number, unique: false}
+  age: {type: Number, unique: false},
+  health: {type: Number},
+  hunger: {type: Number },
+  finGenome: {type: String}
 })
 
 

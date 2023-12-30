@@ -3,7 +3,7 @@ document.querySelector('#daily-turnover-button').addEventListener('click', daily
 async function dailyTurnover() {
 
     try {
-        const response = await fetch('dailyturnover', {
+        const response = await fetch('/dailyturnover', {
             method: 'put'
         })
         const data = await response.json()
