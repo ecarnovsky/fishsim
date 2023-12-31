@@ -9,7 +9,8 @@ const FishSchema = new mongoose.Schema({
   age: {type: Number, unique: false},
   health: {type: Number},
   hunger: {type: Number },
-  finGenome: {type: String}
+  finGenome: {type: String}, 
+  finDescription: {type: String}
 })
 
 

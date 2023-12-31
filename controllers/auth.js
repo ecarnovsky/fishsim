@@ -83,6 +83,9 @@ const FishClass = require('../fish/fish-class')
       ownerId: user._id,
       temperature: 78
     })
+
+    let newFinGenome = FishClass.randomGuppyFinGenome()
+
     const fish1 = new Fish({
       name: 'Starter Fish 1',
       species: 'Guppy',
@@ -91,8 +94,12 @@ const FishClass = require('../fish/fish-class')
       age: 6,
       health: 90,
       hunger: 90,
-      finGenome: FishClass.randomGuppyFinGenome()
+      finGenome: newFinGenome,
+      finDescription: FishClass.generateFinDescriptionStr(newFinGenome)
     })
+    
+    newFinGenome = FishClass.randomGuppyFinGenome()
+
     const fish2 = new Fish({
       name: 'Starter Fish 2',
       species: 'Guppy',
@@ -101,7 +108,8 @@ const FishClass = require('../fish/fish-class')
       age: 6,
       health: 90,
       hunger: 90,
-      finGenome: FishClass.randomGuppyFinGenome()
+      finGenome: newFinGenome,
+      finDescription: FishClass.generateFinDescriptionStr(newFinGenome)
     })
   
     User.findOne({$or: [

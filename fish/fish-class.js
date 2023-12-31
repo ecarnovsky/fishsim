@@ -14,14 +14,179 @@ class FishClass{
         [
             // round tail
             {'abbreviation':'R', 'probability': 0.50},
-            // spade (aka coffer) tail
+            // spade/coffer tail
             {'abbreviation':'rc', 'probability': 0.35},
             // spear tail
             {'abbreviation':'rs', 'probability': 0.10},
             // pin tail
             {'abbreviation':'rp', 'probability': 0.05}
+        ],
+        [
+            // sword/lyre tail
+            {'abbreviation':'S', 'probability': 0.01},
+            // no sword/lyre tail
+            {'abbreviation':'s', 'probability': 0.99}
+        ], 
+        [
+            // no scarf/flag tail
+            {'abbreviation':'A', 'probability': 0.80},
+            // scarf/flag tail
+            {'abbreviation':'a', 'probability': 0.20}
+        ],
+        [
+            // no dumbo
+            {'abbreviation':'D', 'probability': 0.99},
+            // dumbo
+            {'abbreviation':'d', 'probability': 0.01}
+        ],
+        [
+            // crowntail 
+            {'abbreviation':'C', 'probability': 0.01},
+            // no crowntail
+            {'abbreviation':'c', 'probability': 0.99}
+        ],
+        [
+            // no swallow tail
+            {'abbreviation':'W', 'probability': 0.99},
+            // swallow tail
+            {'abbreviation':'w', 'probability': 0.01}
+        ],
+        [
+            // ribbon
+            {'abbreviation':'B', 'probability': 0.01},
+            // no ribbon
+            {'abbreviation':'b', 'probability': 0.99}
+        ],
+        [
+            // no rose
+            {'abbreviation':'O', 'probability': 0.99},
+            // rose
+            {'abbreviation':'o', 'probability': 0.01}
         ]
     ]
+
+    static GuppyTailSizeAlleles = [
+        // smaller tail
+        {'abbreviation':'H', 'probability': 0.40},
+        // bigger tail
+        {'abbreviation':'h', 'probability': 0.60}
+    ]
+
+    static GuppySwordTypeAlleles = [
+        // closer to bad lyre tail
+        {'abbreviation':'H', 'probability': 0.40},
+        // closer to perfect lyre tail
+        {'abbreviation':'h', 'probability': 0.60}
+    ]
+
+    static generateFinDescriptionStr(finGenome, tailSizeGenome, swordTypeGenome){
+
+        let allelesArray = finGenome.split(/\s|-/)
+
+        let descriptionStr = ''
+        let smallTail = true
+        let suppressLongfin 
+        let dumbo 
+        let rose 
+        let ribbon
+        let swallow
+        let round 
+        let spade
+        let spear
+        let pin
+        let sword
+        let scarf
+        let tailShape
+ 
+
+        if (allelesArray.filter(e => e === 'f').length === 2){
+            //count how many hh pairs are in the tailSizeGenome 
+            
+            // Set small tail to false if changed
+
+            suppressLongfin = false
+            // always allows dumbo to show when there is no longfin suppressant
+            if (allelesArray.filter(e => e === 'd').length === 2){
+                dumbo = true
+            }
+            if (allelesArray. includes('B')){
+                ribbon = true
+            }
+            if (allelesArray.filter(e => e === 'w').length === 2){
+                swallow = true
+            }
+        }
+
+        if (smallTail){
+
+            if (allelesArray.filter(e => e === 'R').length >= 1){
+                round = true
+            } else if (allelesArray.filter(e => e === 'rc').length >= 1){
+               spade = true
+            } else if (allelesArray.filter(e => e === 'rs').length >= 1){
+                spear = true 
+            } else {
+                pin = true
+            }
+        }
+
+        if (allelesArray.filter(e => e === 'o').length === 2){
+            rose = true 
+        }
+        if (allelesArray.filter(e => e === 's').length === 2){
+            scarf = true 
+        }
+        if (allelesArray.filter(e => e === 'S').length >= 1){
+            sword = true 
+        }
+
+
+
+
+        if (smallTail){
+            if (round){
+                tailShape = 'round'
+            } else if (spade){
+                tailShape = 'spade'
+            } else if (spear){
+                tailShape = 'spear'
+            } else {
+                tailShape = 'pin'
+            }   
+        }
+        if (!smallTail){
+            ////////////code once tail sizes added/////////////////
+        }
+        if (smallTail && sword){
+            tailShape = tailShape + 'sword'
+        } else if (sword){
+            tailShape = 'sword'
+        }
+        // add change to perfect lyre tail later
+        if (!smallTail && scarf){
+            tailShape = 'scarf'
+        }
+        if (!suppressLongfin && rose){
+            descriptionStr = "rose " + descriptionStr
+        }
+        if (!suppressLongfin && dumbo){
+            descriptionStr = "dumbo " + descriptionStr
+        }
+        if (!suppressLongfin && swallow){
+            if (!smallTail){
+                descriptionStr = "swallow " + descriptionStr
+            } else {
+                descriptionStr = "ribbon " + descriptionStr
+            } 
+        }
+        if (!suppressLongfin && ribbon && !swallow){
+            descriptionStr = "ribbon " + descriptionStr
+        }
+
+
+        return descriptionStr + " " + tailShape + " " + 'tail'
+
+    }
 
     static async ageFish(fish, tankMates){
 
@@ -89,7 +254,8 @@ class FishClass{
                     age: 0,
                     health: 100, 
                     hunger: 90,
-                    finGenome: fryFinGenome
+                    finGenome: fryFinGenome, 
+                    finDescription: this.generateFinDescriptionStr(fryFinGenome)
                 })
     
                 Fish.create(newFry)
@@ -112,6 +278,7 @@ class FishClass{
         // loops through each gene
         for (let i = 0; i < alleles.length; i++){
 
+
             let newAllelePair = ''
             let firstAlleleIndex
             let randNum = Math.random(); 
@@ -132,7 +299,7 @@ class FishClass{
             }
 
 
-            // second allele
+            // second alleles
 
             randNum = Math.random(); 
 
@@ -149,7 +316,7 @@ class FishClass{
 
             newGenome += newAllelePair + ' '
         }
-
+        console.log(newGenome)
         return newGenome.trim()
     }
 
