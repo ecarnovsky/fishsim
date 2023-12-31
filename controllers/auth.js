@@ -75,7 +75,9 @@ const FishClass = require('../fish/fish-class')
       userName: req.body.userName,
       email: req.body.email,
       money: 50.00,
-      password: req.body.password
+      password: req.body.password,
+      numberOfFish: 2,
+      fishLimit: 25
     })
     const tank = new Tank({
       name: 'First Tank',

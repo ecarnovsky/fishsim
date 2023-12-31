@@ -1,4 +1,5 @@
 const Fish = require('../models/fish')
+const User = require('../models/user')
 
 
 class FishClass{
@@ -188,10 +189,12 @@ class FishClass{
 
     }
 
-    static async ageFish(fish, tankMates){
+    static async ageFish(fish, tankMates, req){
 
+        // tests if fish died due to zero health
         if (fish.health <= 0){
             await Fish.findOneAndRemove({_id: fish._id})
+            await User.findOneAndUpdate({_id: req.user._id}, {numberOfFish: req.user.numberOfFish - 1})
             return 
         }
 
@@ -199,28 +202,30 @@ class FishClass{
         let newAge 
         let newHunger
 
+        // reduces health if hunger low
         if (fish.hunger <= 0){
+            newHealth = newHealth - 30
+        } else if (fish.hunger <= 25){
+            newHealth = newHealth - 20
+        } else if (fish.hunger <= 50){
             newHealth = newHealth - 10
         }
-
-        // test if hunger reduces health
-
-
-    
-        if (fish.species == 'Guppy' && !fish.isMale && fish.age > 4){
+ 
+        if (fish.species == 'Guppy' && !fish.isMale && fish.age > 4 && req.user.fishLimit > req.user.numberOfFish){
             
             // add restriction health over 20
             let maleGuppies = tankMates.filter( el => el.isMale && el.species === 'Guppy' )
     
             if (maleGuppies){
                 // 
-                FishClass.breedFish(fish, maleGuppies[0])
+                FishClass.breedFish(fish, maleGuppies[0], req)
     
                 newHealth = fish.health - 20
             }
             
         }
     
+
         newAge = fish.age + 1
         newHunger = fish.hunger - 15
         await Fish.findOneAndUpdate({_id: fish._id}, {age: newAge, hunger: newHunger, health: newHealth})
@@ -228,7 +233,7 @@ class FishClass{
     }
     
     
-    static async breedFish(mother, father){
+    static async breedFish(mother, father, req){
     
         let numberOfFry
     
@@ -261,6 +266,9 @@ class FishClass{
                 Fish.create(newFry)
     
             }
+
+            await User.findOneAndUpdate({_id:  req.user._id}, {numberOfFish: req.user.numberOfFish + numberOfFry})
+
         }
     
     }

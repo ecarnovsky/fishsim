@@ -1,5 +1,6 @@
 const Fish = require('../models/fish')
 const Tank = require('../models/tank')
+const User = require('../models/user')
 
 module.exports = {
     getTank: async (req, res) => {
@@ -26,5 +27,23 @@ module.exports = {
         }
 
         
+    }, 
+    feedFish: async (req,res)=>{
+        try{
+            await User.findByIdAndUpdate({_id: req.user._id}, {money: req.user.money - 1})
+
+            let fish = await Fish.find({tankId: req.body.tankId})
+
+            for (let i = 0; i < fish.length; i++){
+
+                let newHunger = fish[i].hunger + 15 > 100 ? 100 : fish[i].hunger + 15
+
+                await Fish.findOneAndUpdate({_id: fish[i]._id}, {hunger: newHunger})
+            }
+            res.json('Fish fed successfully.')
+        }
+        catch(err){
+            console.log(err)
+        }   
     }
 }

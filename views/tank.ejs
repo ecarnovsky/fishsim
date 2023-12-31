@@ -37,10 +37,7 @@
 
         <button id="daily-turnover-button">Day pass</button>
 
-        <!-- give this a data- attribute for the tank id -->
-        <form action="/feedfish" method="PUT">
-            <input type="submit" value="Feed fish ($1)">
-        </form>
+        <button id="feed-fish">Feed fish ($1)</button>
 
         <span><%=tank.name%> </span>
         <span><%=tank.temperature%>°</span>
@@ -53,6 +50,8 @@
                     <span><%= fish[i].name%></span>
                     <span><%=fish[i].isMale ?'Male':'Female'%></span>
                     <span><%=fish[i].age%> months old</span>
+                    <span><%=fish[i].health%>/100 health</span>
+                    <span><%=fish[i].hunger%>/100 hunger</span>
                     <span><%=fish[i].finDescription%></span>
                     <span><%=fish[i].finGenome%></span>
                     <input type="checkbox" value="<%=fish[i]._id%>">
@@ -76,6 +75,6 @@
     </main>  
 
     <script src="/js/daily-turnover-button.js"></script>
-    <script src="/js/temperature-controls.js"></script>
+    <script src="/js/tank-controls.js"></script>
 </body>
 </html>
