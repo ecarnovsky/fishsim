@@ -39,14 +39,28 @@
 
         <button id="feed-fish">Feed fish ($1)</button>
 
+        <label for="select-all">Select all:</label>
+        <input type="checkbox" id="select-all">
+        
+
         <span><%=tank.name%> </span>
         <span><%=tank.temperature%>°</span>
         <span id="up-temperature" class="temperature-control">🡅</span>
         <span id="down-temperature" class="temperature-control">🡇</span>
         <div class="fish-tank-view-container">
             <% for (let i = 0; i < fish.length ; i++){ %>
-                <div class="fish-block-tank-view">
-                    <a href="/fish/<%=fish[i]._id%>"><img class="fish-image-tank-view" src="/images/<%=fish[i].isMale? 'guppy-male.png':'guppy-female.png'%>" alt="fish image"></a>
+                <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>">
+                    <a href="/fish/<%=fish[i]._id%>">
+                        <img class="fish-image-tank-view"
+                            <%if(fish[i].age < 4){%>
+                                src="/images/guppy-fry3.png"
+                            <%}else if (fish[i].isMale){%>
+                                src="/images/guppy-male.png"
+                            <%}else {%>
+                                src="/images/guppy-female.png"
+                            <%}%>
+                             alt="fish image">   
+                    </a>
                     <span><%= fish[i].name%></span>
                     <span><%=fish[i].isMale ?'Male':'Female'%></span>
                     <span><%=fish[i].age%> months old</span>
@@ -54,7 +68,8 @@
                     <span><%=fish[i].hunger%>/100 hunger</span>
                     <span><%=fish[i].finDescription%></span>
                     <span><%=fish[i].finGenome%></span>
-                    <input type="checkbox" value="<%=fish[i]._id%>">
+                    <span><%=i+1%></span>
+                    <input type="checkbox" class="fish-checkbox" value="<%=fish[i]._id%>">
                 </div>
             <% } %>
         </div>
@@ -63,14 +78,14 @@
         <% } %>
 
         <% if (fish.length > 0){%>
-        <form action="/massaction" method="PUT">
-            <label for="mass-action">Selected fish action:</label>
-            <select name="action" id="mass-action">
-                <option value="sell">Sell to petshop</option>
-                <option value="move">Move to other tank</option>
-            </select>
-            <input type="submit" value="Confirm">
-        </form>
+
+        <label for="mass-action-menu">Selected fish action:</label>
+        <select name="action" id="mass-action-menu">
+            <option value="sell">Sell to petshop</option>
+            <option value="move">Move to other tank</option>
+        </select>
+        <button id="mass-action-button">Confirm</button>
+
         <% } %>
     </main>  
 

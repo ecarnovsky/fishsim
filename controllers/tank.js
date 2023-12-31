@@ -45,5 +45,22 @@ module.exports = {
         catch(err){
             console.log(err)
         }   
+    }, 
+    sellFish: async (req, res)=>{
+        try{
+
+            for(let i = 0; i < req.body.idsOfSelected.length; i++){
+                await Fish.remove({_id: req.body.idsOfSelected[i]})
+            }
+
+            await User.findOneAndUpdate({_id: req.user._id}, {money: parseInt(req.user.money) + req.body.valueOfFish})
+
+            res.json('Fish successfully sold.')
+
+        }
+        catch(err){
+            console.log(err)
+        }
     }
+
 }

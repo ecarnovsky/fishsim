@@ -194,7 +194,7 @@ class FishClass{
         // tests if fish died due to zero health
         if (fish.health <= 0){
             await Fish.findOneAndRemove({_id: fish._id})
-            await User.findOneAndUpdate({_id: req.user._id}, {numberOfFish: req.user.numberOfFish - 1})
+            //await User.findOneAndUpdate({_id: req.user._id}, {numberOfFish: req.user.numberOfFish - 1})
             return 
         }
 
@@ -267,7 +267,9 @@ class FishClass{
     
             }
 
-            await User.findOneAndUpdate({_id:  req.user._id}, {numberOfFish: req.user.numberOfFish + numberOfFry})
+            // let user = await User.findOne({_id:  req.user._id})
+            // console.log(user.numberOfFish)
+            // await User.findOneAndUpdate({_id:  req.user._id}, {numberOfFish: user.numberOfFish + numberOfFry})
 
         }
     
