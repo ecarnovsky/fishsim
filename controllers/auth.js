@@ -86,34 +86,6 @@ const FishClass = require('../fish/fish-class')
       temperature: 78
     })
 
-    let newFinGenome = FishClass.randomGuppyFinGenome()
-
-    const fish1 = new Fish({
-      name: 'Starter Fish 1',
-      species: 'Guppy',
-      isMale: false,
-      ownerId: user._id,
-      age: 6,
-      health: 90,
-      hunger: 90,
-      finGenome: newFinGenome,
-      finDescription: FishClass.generateFinDescriptionStr(newFinGenome)
-    })
-    
-    newFinGenome = FishClass.randomGuppyFinGenome()
-
-    const fish2 = new Fish({
-      name: 'Starter Fish 2',
-      species: 'Guppy',
-      isMale: true,
-      ownerId: user._id,
-      age: 6,
-      health: 90,
-      hunger: 90,
-      finGenome: newFinGenome,
-      finDescription: FishClass.generateFinDescriptionStr(newFinGenome)
-    })
-  
     User.findOne({$or: [
       {email: req.body.email},
       {userName: req.body.userName}
@@ -130,9 +102,11 @@ const FishClass = require('../fish/fish-class')
             return next(err)
           }
           Tank.create(tank).then(tankInfo => {
-            fish1.tankId = tankInfo._id
-            fish2.tankId = tankInfo._id
-            Fish.create(fish1, fish2)
+
+            const maleStarterGuppy = FishClass.generateRandomFish('starter', true, user._id, tankInfo._id)
+            const femaleStarterGuppy = FishClass.generateRandomFish('starter', false, user._id, tankInfo._id)
+        
+            Fish.create(femaleStarterGuppy, maleStarterGuppy)
           })
           
           res.redirect('/')

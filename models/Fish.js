@@ -10,7 +10,8 @@ const FishSchema = new mongoose.Schema({
   health: {type: Number},
   hunger: {type: Number },
   finGenome: {type: String}, 
-  finDescription: {type: String}
+  finDescription: {type: String}, 
+  petshopFish: {type: Boolean}
 })
 
 

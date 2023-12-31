@@ -260,7 +260,8 @@ class FishClass{
                     health: 100, 
                     hunger: 90,
                     finGenome: fryFinGenome, 
-                    finDescription: this.generateFinDescriptionStr(fryFinGenome)
+                    finDescription: this.generateFinDescriptionStr(fryFinGenome),
+                    petshopFish: false
                 })
     
                 Fish.create(newFry)
@@ -360,6 +361,72 @@ class FishClass{
 
         }
         return newGenome.trim()
+    }
+
+
+
+    static generateRandomFish(type , isMale, ownerId, tankId){
+
+        let age
+        let name 
+        let species
+        let health
+        let petshopFish
+        let hunger
+        let finGenome
+        let finDescription
+        let forSale
+        let salePrice
+        
+
+        if (type === 'starter'){
+
+            name = isMale ? 'Starter Fish 1' : 'Starter Fish 2'
+            species = 'Guppy'
+            health = 90
+            hunger = 85
+            age = 5
+            petshopFish = false
+            finGenome = this.randomGuppyFinGenome()
+            finDescription = this.generateFinDescriptionStr(finGenome)
+            forSale = false 
+            
+        }
+        if (type === 'petshop'){
+
+            name = "Petshop Fish"
+            health = Math.ceil(Math.random() * 60) + 40 
+            hunger = Math.ceil(Math.random() * 60) + 40 
+            petshopFish = true
+            ownerId = ''
+            tankId = ''
+            isMale = Math.random().round
+            forSale = true
+            
+
+            // for guppies
+            species = 'Guppy'
+            age = Math.ceil(Math.random() * 15)
+            finGenome = this.randomGuppyFinGenome()
+            finDescription = this.generateFinDescriptionStr(finGenome)
+            salePrice = 10
+        }
+
+        return new Fish({
+            name: name,
+            species: species,
+            isMale: isMale,
+            ownerId: ownerId,
+            age: age,
+            health: health,
+            hunger: hunger,
+            finGenome: finGenome,
+            finDescription: finDescription,
+            petshopFish: petshopFish,
+            tankId: tankId,
+            forSale: forSale,
+            salePrice: salePrice
+        })
     }
     
     

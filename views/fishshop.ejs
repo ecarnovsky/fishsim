@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishSim</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Pixelify+Sans&family=Roboto&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tanks">Fish</a></li>
+                <li><a href="/town">Town</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/inventory">Inventory</a></li>
+                <% if (user) { %>
+                <li><a href="/user/<%= user._id%>"><%= user.userName%></a></li>
+                <li>$<%= user.money%></li>
+                <li><a href="/logout">Logout</a></li>
+                <% } %>
+            </ul>
+            <img src="/images/seaweedandfish.png" class="logo-image" alt="">
+            <span class="logo">FishSim</span>
+        </nav>
+    </header>
+
+    <main>
+
+        <h1>Fish Shop</h1>
+
+        <img src="/images/fishshop-owner.png" alt="an old man who works at the fish shop">
+
+
+        <div class="fish-tank-view-container">
+            <% for (let i = 0; i < fish.length ; i++){ %>
+                <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>">
+                    <a href="/fish/<%=fish[i]._id%>">
+                        <img class="fish-image-tank-view"
+                            <%if(fish[i].age < 4){%>
+                                src="/images/guppy-fry3.png"
+                            <%}else if (fish[i].isMale){%>
+                                src="/images/guppy-male.png"
+                            <%}else {%>
+                                src="/images/guppy-female.png"
+                            <%}%>
+                             alt="fish image">   
+                    </a>
+                    <span><%= fish[i].name%></span>
+                    <span><%=fish[i].isMale ?'Male':'Female'%></span>
+                    <span><%=fish[i].age%> months old</span>
+                    <span><%=fish[i].health%>/100 health</span>
+                    <span><%=fish[i].hunger%>/100 hunger</span>
+                    <span><%=fish[i].finDescription%></span>
+                    <span><%=fish[i].finGenome%></span>
+                    <span><%=i+1%></span>
+                    <input type="checkbox" class="fish-checkbox" value="<%=fish[i]._id%>">
+                </div>
+            <% } %>
+        </div>
+
+        
+    </main>
+
+</body>
+</html>

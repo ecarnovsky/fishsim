@@ -4,6 +4,7 @@ const townController = require('../controllers/town')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 
-router.get('/', townController.getTown)
+router.get('/', ensureAuth, townController.getTown)
+router.get('/fishshop', ensureAuth, townController.getFishshop)
 
 module.exports = router
