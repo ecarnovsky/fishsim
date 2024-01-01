@@ -86,7 +86,7 @@ class FishClass{
 
         let descriptionStr = ''
         let smallTail = true
-        let suppressLongfin 
+        let suppressLongfin = true
         let dumbo 
         let rose 
         let ribbon
@@ -98,6 +98,7 @@ class FishClass{
         let sword
         let scarf
         let tailShape
+        let crown
  
 
         if (allelesArray.filter(e => e === 'f').length === 2){
@@ -140,52 +141,60 @@ class FishClass{
         if (allelesArray.filter(e => e === 'S').length >= 1){
             sword = true 
         }
+        if (allelesArray.filter(e => e === 'C').length >= 1){
+            crown = true 
+        }
 
 
 
 
+        //////// Main tail shape ////////
         if (smallTail){
             if (round){
-                tailShape = 'round'
+                tailShape = 'Round'
             } else if (spade){
-                tailShape = 'spade'
+                tailShape = 'Spade'
             } else if (spear){
-                tailShape = 'spear'
+                tailShape = 'Spear'
             } else {
-                tailShape = 'pin'
+                tailShape = 'Pin'
             }   
         }
         if (!smallTail){
             ////////////code once tail sizes added/////////////////
         }
         if (smallTail && sword){
-            tailShape = tailShape + 'sword'
+            tailShape = tailShape + ' Sword'
         } else if (sword){
-            tailShape = 'sword'
+            tailShape = 'Sword'
         }
         // add change to perfect lyre tail later
         if (!smallTail && scarf){
-            tailShape = 'scarf'
+            tailShape = 'Scarf'
         }
-        if (!suppressLongfin && rose){
-            descriptionStr = "rose " + descriptionStr
+        if (crown){
+            tailShape = tailShape + ' Crown'
+        }
+        //////// Description /////////
+        if (!suppressLongfin && rose && !crown){
+            descriptionStr = "Rose " + descriptionStr
         }
         if (!suppressLongfin && dumbo){
-            descriptionStr = "dumbo " + descriptionStr
+            descriptionStr = "Dumbo " + descriptionStr
         }
         if (!suppressLongfin && swallow){
-            if (!smallTail){
-                descriptionStr = "swallow " + descriptionStr
+            if (!smallTail && !crown){
+                descriptionStr = "Swallow " + descriptionStr
             } else {
-                descriptionStr = "ribbon " + descriptionStr
+                descriptionStr = "Ribbon " + descriptionStr
             } 
         }
         if (!suppressLongfin && ribbon && !swallow){
-            descriptionStr = "ribbon " + descriptionStr
+            descriptionStr = "Ribbon " + descriptionStr
         }
 
-
-        return descriptionStr + " " + tailShape + " " + 'tail'
+        // return 
+        return (descriptionStr + " " + tailShape + 'tail').trim()
 
     }
 
@@ -261,7 +270,9 @@ class FishClass{
                     hunger: 90,
                     finGenome: fryFinGenome, 
                     finDescription: this.generateFinDescriptionStr(fryFinGenome),
-                    petshopFish: false
+                    petshopFish: false,
+                    forSale: false,
+                    salePrice: -1
                 })
     
                 Fish.create(newFry)
@@ -327,7 +338,6 @@ class FishClass{
 
             newGenome += newAllelePair + ' '
         }
-        console.log(newGenome)
         return newGenome.trim()
     }
 
@@ -376,7 +386,7 @@ class FishClass{
         let finGenome
         let finDescription
         let forSale
-        let salePrice
+        let salePrice = -1
         
 
         if (type === 'starter'){
@@ -396,21 +406,22 @@ class FishClass{
 
             name = "Petshop Fish"
             health = Math.ceil(Math.random() * 60) + 40 
-            hunger = Math.ceil(Math.random() * 60) + 40 
+            hunger = Math.ceil(Math.random() * 15) + 85 
             petshopFish = true
             ownerId = ''
             tankId = ''
-            isMale = Math.random().round
+            isMale = Math.round(Math.random())
             forSale = true
             
 
             // for guppies
             species = 'Guppy'
-            age = Math.ceil(Math.random() * 15)
+            age = Math.ceil(Math.random() * 9) + 2
             finGenome = this.randomGuppyFinGenome()
             finDescription = this.generateFinDescriptionStr(finGenome)
             salePrice = 10
         }
+
 
         return new Fish({
             name: name,

@@ -53,7 +53,7 @@ module.exports = {
                 await Fish.remove({_id: req.body.idsOfSelected[i]})
             }
 
-            await User.findOneAndUpdate({_id: req.user._id}, {money: parseInt(req.user.money) + req.body.valueOfFish})
+            await User.findOneAndUpdate({_id: req.user._id}, {money: parseInt(req.user.money) + req.body.valueOfFish, numberOfFish: req.user.numberOfFish - req.body.idsOfSelected.length})
 
             res.json('Fish successfully sold.')
 

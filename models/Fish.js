@@ -11,7 +11,9 @@ const FishSchema = new mongoose.Schema({
   hunger: {type: Number },
   finGenome: {type: String}, 
   finDescription: {type: String}, 
-  petshopFish: {type: Boolean}
+  petshopFish: {type: Boolean},
+  forSale: {type: Boolean},
+  salePrice: {type: Number}
 })
 
 

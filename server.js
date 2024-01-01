@@ -11,6 +11,7 @@ const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const townRoutes = require('./routes/town')
 const tankRoute = require('./routes/tank')
+const forumsRoute = require('./routes/forums')
 
 
 require('dotenv').config({path: './config/.env'})
@@ -42,6 +43,7 @@ app.use(flash())
 app.use('/', mainRoutes)
 app.use('/town', townRoutes)
 app.use('/tank', tankRoute)
+app.use('/forums', forumsRoute)
 
 
 app.listen(process.env.PORT, ()=>{
