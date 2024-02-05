@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fish</title>
 
+    
+    <script src="https://kit.fontawesome.com/53b2c9873e.js" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,8 +48,12 @@
 
         <span><%=tank.name%> </span>
         <span><%=tank.temperature%>°</span>
-        <span id="up-temperature" class="temperature-control">🡅</span>
-        <span id="down-temperature" class="temperature-control">🡇</span>
+        <i id="up-temperature" class="fa-solid fa-arrow-up temperature-control clickable"></i>
+        <i id="down-temperature" class="fa-solid fa-arrow-down temperature-control clickable"></i>
+
+        <!-- <span id="up-temperature" class="temperature-control clickable">🡅</span>
+        <span id="down-temperature" class="temperature-control clickable">🡇</span> -->
+
         <div class="fish-tank-view-container">
             <% for (let i = 0; i < fish.length ; i++){ %>
                 <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>">

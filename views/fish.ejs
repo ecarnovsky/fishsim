@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fish</title>
 
+
     <script src="https://kit.fontawesome.com/53b2c9873e.js" crossorigin="anonymous"></script>
-
-
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Pixelify+Sans&family=Roboto&display=swap" rel="stylesheet">
@@ -38,10 +37,13 @@
         </nav>
     </header>
     <main>
-        <ul>
-            <li><a href="/town/fishshop">Fish Shop</a></li>
-            <li><a href="/town/suppliesshop">Supplies Shop</a></li>
-        </ul>
+        <i class="fa-solid fa-arrow-left fa-xl clickable return-to-tank-btn"></i>
+
+        <p><%=fish[0].name%></p>
+        
     </main>  
+
+    <script src="/js/fish-controls.js"></script>
+    <script src="/js/daily-turnover-button.js"></script>
 </body>
 </html>

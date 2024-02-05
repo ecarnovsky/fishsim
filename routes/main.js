@@ -16,6 +16,8 @@ router.post('/login', authController.postLogin)
 router.get('/logout', authController.logout)
 router.put('/dailyturnover', dailyTurnoverController.dayTurn)
 router.put('/buyFish', ensureAuth, purchaseController.buyFish)
+router.get('/fish/*', homeController.getFish)
+
 
 
 module.exports = router
