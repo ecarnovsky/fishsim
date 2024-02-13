@@ -38,6 +38,7 @@
     </header>
     <main>
 
+        <span><%=fish.length%> Fish</span>
         <button id="daily-turnover-button">Day pass</button>
 
         <button id="feed-fish">Feed fish ($1)</button>
@@ -75,7 +76,7 @@
                     <%}else{%>
                         <i aria-label="female" class="fa-solid fa-venus sex" style="color: #d52675;"></i>
                     <%}%>
-                    <span><%=fish[i].age%> months old</span>
+                    <span class="age"><%=fish[i].age%> months old</span>
                     <%if(fish[i].health > 90){%>
                         <span>excellent</span>
                     <%}else if (fish[i].health > 80){%>

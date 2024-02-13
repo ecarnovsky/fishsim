@@ -76,6 +76,12 @@ function selectAll(){
 async function massAction(){
 
     if (document.querySelector('#mass-action-menu').value === 'sell'){
+
+        const priceOf4MO = 3
+        const priceOf2MO = 1
+        const priceOf0MO = 0
+
+        let totalValue = 0
         
         let checkboxes = document.querySelectorAll('.fish-checkbox')
 
@@ -85,12 +91,22 @@ async function massAction(){
             if (checkboxes[i].checked){
                 let id = checkboxes[i].parentNode.dataset.fishid
                 idsOfSelected.push(id)
+                let age = checkboxes[i].parentNode.querySelector('.age').innerText.split(' ')[0]
+                if(age >= 4){
+                    totalValue += priceOf4MO
+                } else if (age >= 2){
+                    totalValue += priceOf2MO
+                } else {
+                    totalValue += priceOf0MO
+                }
             }
         }
 
-        let valueOfFish = idsOfSelected.length * 3   // $3 per fish
-
-        let wantsToContinue = confirm(`Are you sure you want to sell these fish for $${valueOfFish}?`)
+        let wantsToContinue = confirm(`Are you sure you want to sell these fish for a total of $${totalValue}?\n
+        Please know that our prices are: \n
+        0-1 month old guppies: $${priceOf0MO}\n
+        2-3 month old guppies: $${priceOf2MO}\n
+        4+  month old guppies: $${priceOf4MO}`)
 
         if (!wantsToContinue){
         return 
@@ -102,7 +118,7 @@ async function massAction(){
                 method: 'put',
                 headers: {'Content-type': 'application/json'},
                 body: JSON.stringify({
-                    valueOfFish: valueOfFish,
+                    valueOfFish: totalValue,
                     idsOfSelected: idsOfSelected
                 })
             })
