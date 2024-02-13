@@ -17,12 +17,11 @@ for (let i = 0; i < canvasArr.length; i++){
   let sex = canvasArr[i].parentNode.querySelector('.sex').getAttribute("aria-label")
   let finDescription = canvasArr[i].parentNode.querySelector('.fin-description').innerText
 
-  console.log(finDescription)
-
-
-
-
   let canvas = canvasArr[i];
+
+  canvas.width = 250;   
+  canvas.height = 250;
+
 
 
   let isMale = sex === "male" ? true : false
@@ -68,11 +67,7 @@ for (let i = 0; i < canvasArr.length; i++){
   // contains the actual canvas pattern
   let markingPattern
 
-  canvas.width = 250;   
-  canvas.height = 250;
 
-  let xOffset = 0 
-  let yOffset = 0
 
   let lengthOfTail = 50//80
   let lengthOfBody = 70
@@ -88,7 +83,7 @@ for (let i = 0; i < canvasArr.length; i++){
   let thicknessOfbody = 15
   let yMiddleOfBody = canvas.height/2
 
-  let scale = 1
+
 
   if(!pattern){
     drawGuppy(false)
@@ -235,21 +230,21 @@ for (let i = 0; i < canvasArr.length; i++){
             ctx.moveTo(xBaseOfRoundTail + 2, yMiddleOfTail + tailRadius ) ;
   
           } else {
-            ctx.moveTo((xOffset + xBaseOfTiangleTail) * scale, (yOffset + yMiddleOfTail) * scale); //middle
+            ctx.moveTo(xBaseOfTiangleTail, yMiddleOfTail); //middle
           }
-          ctx.lineTo((xOffset + (xBaseOfTiangleTail + lengthOfTail)) * scale, (yOffset + yMiddleOfTail+widthOfTail) * scale); //bottom
+          ctx.lineTo(xBaseOfTiangleTail + lengthOfTail , yMiddleOfTail+widthOfTail); //bottom
           if(swordTail){
-            ctx.lineTo((xOffset + xBaseOfTiangleTail + 30) * scale, (yOffset + yMiddleOfTail) * scale);
+            ctx.lineTo(xBaseOfTiangleTail + 30, yMiddleOfTail );
           } else if(lyreTail){
             let widthOfTip = 20
-            ctx.lineTo((xOffset + (xBaseOfTiangleTail + lengthOfTail)) * scale, (yOffset + yMiddleOfTail+widthOfTail - widthOfTip) * scale); 
-            ctx.lineTo((xOffset + xBaseOfTiangleTail + 30) * scale, (yOffset + yMiddleOfTail) * scale);
-            ctx.lineTo((xOffset + (xBaseOfTiangleTail + lengthOfTail)) * scale, (yOffset + yMiddleOfTail-widthOfTail  + widthOfTip) * scale); //top
+            ctx.lineTo( xBaseOfTiangleTail + lengthOfTail , yMiddleOfTail + widthOfTail - widthOfTip); 
+            ctx.lineTo( xBaseOfTiangleTail + 30, yMiddleOfTail );
+            ctx.lineTo( xBaseOfTiangleTail + lengthOfTail , yMiddleOfTail-widthOfTail  + widthOfTip); //top
     
           } else {
         // https://stackoverflow.com/questions/30624842/draw-arc-on-canvas-from-two-x-y-points-and-a-center-x-y-point
-        let startAngle = Math.atan2((yOffset + yMiddleOfTail-widthOfTail) - (yOffset + yMiddleOfTail), (xBaseOfTiangleTail + lengthOfTail) - xBaseOfTiangleTail)
-        let endAngle   = Math.atan2((yOffset + yMiddleOfTail+widthOfTail) - (yOffset + yMiddleOfTail), (xBaseOfTiangleTail + lengthOfTail) -  xBaseOfTiangleTail)
+        let startAngle = Math.atan2((yMiddleOfTail-widthOfTail) - (yMiddleOfTail), (xBaseOfTiangleTail + lengthOfTail) - xBaseOfTiangleTail)
+        let endAngle   = Math.atan2(( yMiddleOfTail+widthOfTail) - ( yMiddleOfTail), (xBaseOfTiangleTail + lengthOfTail) -  xBaseOfTiangleTail)
         let diffX = (xBaseOfTiangleTail + lengthOfTail)- xBaseOfTiangleTail
         let diffY = ( yMiddleOfTail-widthOfTail) - yMiddleOfTail
         let radius = Math.abs(Math.sqrt(diffX*diffX + diffY*diffY))
@@ -257,7 +252,7 @@ for (let i = 0; i < canvasArr.length; i++){
   
           } 
   
-          ctx.lineTo((xOffset + (xBaseOfTiangleTail + lengthOfTail)) * scale, (yOffset + yMiddleOfTail-widthOfTail) * scale); //top
+          ctx.lineTo(xBaseOfTiangleTail + lengthOfTail, yMiddleOfTail-widthOfTail); //top
           if(scarfTail){
             ctx.lineTo(xBaseOfRoundTail + 2, yMiddleOfTail - tailRadius ) ;
           }
@@ -301,10 +296,10 @@ for (let i = 0; i < canvasArr.length; i++){
 
         
         ctx.beginPath();
-        ctx.moveTo((xOffset + xbaseOfBody) * scale, (yOffset + yMiddleOfBody - thicknessOfbody + 2) * scale); //top right
-        ctx.lineTo((xOffset + xbaseOfBody) * scale, (yOffset + yMiddleOfBody + thicknessOfbody - 4) * scale); //bottom right
-        ctx.lineTo((xOffset + xbaseOfBody - lengthOfBody  + pushBottomX) * scale, (yOffset + yMiddleOfBody + thicknessOfbody ) * scale); // bottom left
-        ctx.lineTo((xOffset + xbaseOfBody - lengthOfBody - 20 + pushTopX) * scale, (yOffset + yMiddleOfBody - thicknessOfbody ) * scale); //top left
+        ctx.moveTo(xbaseOfBody , yMiddleOfBody - thicknessOfbody + 2); //top right
+        ctx.lineTo(xbaseOfBody, yMiddleOfBody + thicknessOfbody - 4); //bottom right
+        ctx.lineTo(xbaseOfBody - lengthOfBody  + pushBottomX, yMiddleOfBody + thicknessOfbody ); // bottom left
+        ctx.lineTo(xbaseOfBody - lengthOfBody - 20 + pushTopX, yMiddleOfBody - thicknessOfbody ); //top left
         ctx.closePath()
 
         if(stroke){
