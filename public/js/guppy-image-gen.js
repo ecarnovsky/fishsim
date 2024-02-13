@@ -3,8 +3,11 @@ const baseColors = {
 	Black: "#191919",
 	Albino: "#FDFCF7",
 	Tranparent: "#FAF7EC",
-  Yellow: "#E1F56F"
+  Yellow: "#E1F56F",
+  Brown: "#AA9989"
 }
+const regularEyeColor = "#4C4D4D"
+const albinoEyeColor = "#E1688D"
 
 
 let canvasArr = document.querySelectorAll('canvas')
@@ -37,12 +40,33 @@ for (let i = 0; i < canvasArr.length; i++){
 
   let baseColor = baseColors.Red
   let blackPigment = true
+  let finColor = baseColor
+  let bodyColor
+  if (isMale){
+    bodyColor = baseColor
+  } else {
+    if(blackPigment){
+      bodyColor = baseColors.Brown
+    } else {
+      bodyColor = baseColors.Tranparent
+    }
+  }
   let tux = true
+  let eyeColor = baseColor===baseColors.Albino? albinoEyeColor : regularEyeColor
+
 
   let leopard = false
   let mosaic = true
   let grass = false
   let lace = false 
+  let pattern 
+  if(leopard || mosaic || grass || lace){
+    pattern = true
+  } else {
+    pattern = false
+  }
+  // contains the actual canvas pattern
+  let markingPattern
 
   canvas.width = 250;   
   canvas.height = 250;
@@ -66,54 +90,102 @@ for (let i = 0; i < canvasArr.length; i++){
 
   let scale = 1
 
+  if(!pattern){
+    drawGuppy(false)
+  }else {
+    let imageName 
+    if(leopard){
+      imageName = '/images/patterns/leo1-best.png'
+    } else if (mosaic){
+      imageName = '/images/patterns/mosaic4-best.png'
+    } else if (grass){
+      imageName = '/images/patterns/grass1-best.png'
+    } else {
+      imageName = '/images/patterns/lace1-best.png'
+    }
+    let markingPatternImg = new Image;
+    markingPatternImg.src = imageName;
+    markingPatternImg.onload = function() {
+      
+      markingPattern = canvas.getContext("2d").createPattern(markingPatternImg, 'repeat');
 
-    drawTail(baseColor, true)
-    if(!isMale){
-      drawDorsalFin(baseColor)
-    }
-    drawBody(baseColor, true)
-    if(tux){
-      drawBody(baseColors.Black, false,  35, 20)
-    }
-    
-    if(isMale){
-      drawDorsalFin(baseColor)
-    }
-    
-    //draw the body again to make a shorter dorsalfin
-    if(dumbo){
-      let color = blackPigment ? baseColors.Black : baseColors.Tranparent
-      drawDumbo(color)
-    }
-    if(ribbon){
-      drawRinbbon(baseColor)
-    }
-  
-    const regularEyeColor = "#4C4D4D"
-    const albinoEyeColor = "#E1688D"
-    let eyeColor = baseColor===baseColors.Albino? albinoEyeColor : regularEyeColor
-    drawEye(eyeColor)
+      drawGuppy(true)
 
-    if(leopard || mosaic || grass || lace){
-      let imageName 
-      if(leopard){
-        imageName = '/images/patterns/leo1-best.png'
-      } else if (mosaic){
-        imageName = '/images/patterns/mosaic4-best.png'
-      } else if (grass){
-        imageName = '/images/patterns/grass1-best.png'
-      } else {
-        imageName = '/images/patterns/lace1-best.png'
+    }
+  }
+    
+
+
+    function drawGuppy(pattern){
+      
+      drawTail(finColor, true)
+
+      if(pattern) {
+        drawTail(markingPattern, false)
       }
-      let tailPatternImg = new Image;
-      tailPatternImg.src = imageName;
-      tailPatternImg.onload = function() {
+
+      if(!isMale){
+        drawDorsalFin(finColor)
+        if(pattern){
+          drawDorsalFin(markingPattern, false)
+        }
+      }
+
+      drawBody(bodyColor, true)
+
+      if(tux){
+        if(isMale){
+          drawBody(baseColors.Black, false,  35, 20)
+        } else {
+          drawBody(baseColors.Black, false,  70, 55)
+        }
+      }
+      
+      if(isMale){
+        drawDorsalFin(finColor)
+        if(pattern){
+          drawDorsalFin(markingPattern, false)
+        }
+      }
+      
+      if(dumbo){
+        let color = blackPigment ? baseColors.Black : baseColors.Tranparent
+        drawDumbo(color)
+      }
+
+      if(ribbon){
+        drawRinbbon(finColor)
+      }
+
+      drawEye(eyeColor)
+
+  }
+
+    // if(pattern){
+    //   let imageName 
+    //   if(leopard){
+    //     imageName = '/images/patterns/leo1-best.png'
+    //   } else if (mosaic){
+    //     imageName = '/images/patterns/mosaic4-best.png'
+    //   } else if (grass){
+    //     imageName = '/images/patterns/grass1-best.png'
+    //   } else {
+    //     imageName = '/images/patterns/lace1-best.png'
+    //   }
+    //   let tailPatternImg = new Image;
+    //   tailPatternImg.src = imageName;
+    //   tailPatternImg.onload = function() {
         
-        let tailPattern = canvas.getContext("2d").createPattern(tailPatternImg, 'repeat');
-        drawTail(tailPattern, false)
-        drawDorsalFin(tailPattern, false)
-      }
-    }
+    //     let tailPattern = canvas.getContext("2d").createPattern(tailPatternImg, 'repeat');
+    //     drawTail(tailPattern, false)
+    //     drawDorsalFin(tailPattern, false)
+      
+      
+      
+      
+      
+    //   }
+    // }
 
 
 
