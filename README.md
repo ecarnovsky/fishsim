@@ -1,7 +1,12 @@
 # Fish Sim
 
-Fish Sim is a small simulation website where a user can make an account and care for virtual fish. I made Fish Sim mainly to gain practice setting up and interacting with a database. Fish Sim uses Mongo Atlas to store the database, and Mongoose it used to help with retrieval. 
-At the moment, Fish Sim’s UI is not coded. My plans are to learn React before I start work on the UI. 
+Fish Sim is my first ever back-end project. In it users can manage their own virtual fish tank and raise unique fish. I made Fish Sim mainly to gain practice setting up and interacting with databases. Currently Fish Sim uses MongoDB Atlas to store data, but I plan on moving it to a relational database in the future for fast indexing.
+At the moment, Fish Sim’s UI has not been coded. My plans are to learn React before I start work on the UI. 
+
+The template I used to help me get started can be found [here](https://github.com/100devs/todo-mvc-auth-local).
+
+## 2/13/2024 Update 
+I went ahead and added a fish image generator to the client-side code. It draws a simple image on a canvas element using information from the DB about what the fish should look like. 
 
 ### Features I plan to add:
 - Ability to upload a profile picture
