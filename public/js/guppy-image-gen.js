@@ -14,28 +14,42 @@ let canvasArr = document.querySelectorAll('canvas')
 
 for (let i = 0; i < canvasArr.length; i++){
 
-  let sex = canvasArr[i].parentNode.querySelector('.sex').getAttribute("aria-label")
-  let finDescription = canvasArr[i].parentNode.querySelector('.fin-description').innerText
-
   let canvas = canvasArr[i];
 
   canvas.width = 250;   
   canvas.height = 250;
 
 
+  let sex = canvasArr[i].parentNode.querySelector('.sex').getAttribute("aria-label")
+  let finDescription = canvasArr[i].parentNode.querySelector('.fin-description').innerText
+
+
 
   let isMale = sex === "male" ? true : false
 
-  let swordTail = finDescription.includes("Swordtail") ? true : false
-  let lyreTail = finDescription.includes("Lyretail") ? true : false
-  let rose = finDescription.includes("Rose") ? true : false
-  let scarfTail = finDescription.includes("Scarftail") ? true : false
-  let roundTail = finDescription.includes("Roundtail") ? true : false
-  let spearTail = finDescription.includes("Speartail") ? true : false
-  let spadeTail = finDescription.includes("Spadetail") ? true : false
-  let pinTail = finDescription.includes("Pintail") ? true : false
-  let dumbo = finDescription.includes("Dumbo") ? true : false
-  let ribbon = finDescription.includes("Ribbon") ? true : false
+  let rose =      finDescription.includes("Rose") ? true : false
+  let dumbo =     finDescription.includes("Dumbo") ? true : false
+  let ribbon =    finDescription.includes("Ribbon") ? true : false
+  let swordTail
+  let roundSwordTail
+  let lyreTail
+  let pinTail
+  let scarfTail
+  let roundTail
+  let spearTail
+  let spadeTail
+
+  if (isMale){
+    swordTail = finDescription.includes("Swordtail") ? true : false
+    roundSwordTail = finDescription.includes("Round Swordtail") ? true : false
+    lyreTail =  finDescription.includes("Lyretail") ? true : false
+    pinTail =   finDescription.includes("Pintail") ? true : false
+    scarfTail = finDescription.includes("Scarftail") ? true : false
+    roundTail = finDescription.includes("Roundtail") ? true : false
+    spearTail = finDescription.includes("Speartail") ? true : false
+    spadeTail = finDescription.includes("Spadetail") ? true : false
+  }
+
 
   let baseColor = baseColors.Red
   let blackPigment = true
@@ -71,17 +85,30 @@ for (let i = 0; i < canvasArr.length; i++){
 
   let lengthOfTail = 50//80
   let lengthOfBody = 70
-  let widthOfTail = 40//70
+  let widthOfTail = 40 //70
 
+  if(!isMale){
+    lengthOfTail = 50
+    widthOfTail = 25
+  }
+  if(roundSwordTail){
+    lengthOfTail = 40
+    widthOfTail = 30
+  }
   if(scarfTail){
     widthOfTail = 30
     lengthOfTail = 90
   }
   let center = ((canvas.width ) - (lengthOfBody + lengthOfTail))
+  let xBaseOfTiangleTail = center -10
 
-  let xbaseOfBody = center + 5
+  if(!isMale){
+    xBaseOfTiangleTail = center - 25
+  }
+
+  let xbaseOfBody = center + 5 
   let thicknessOfbody = 15
-  let yMiddleOfBody = canvas.height/2
+  let yMiddleOfBody = canvas.height/2 
 
 
 
@@ -156,35 +183,6 @@ for (let i = 0; i < canvasArr.length; i++){
 
   }
 
-    // if(pattern){
-    //   let imageName 
-    //   if(leopard){
-    //     imageName = '/images/patterns/leo1-best.png'
-    //   } else if (mosaic){
-    //     imageName = '/images/patterns/mosaic4-best.png'
-    //   } else if (grass){
-    //     imageName = '/images/patterns/grass1-best.png'
-    //   } else {
-    //     imageName = '/images/patterns/lace1-best.png'
-    //   }
-    //   let tailPatternImg = new Image;
-    //   tailPatternImg.src = imageName;
-    //   tailPatternImg.onload = function() {
-        
-    //     let tailPattern = canvas.getContext("2d").createPattern(tailPatternImg, 'repeat');
-    //     drawTail(tailPattern, false)
-    //     drawDorsalFin(tailPattern, false)
-      
-      
-      
-      
-      
-    //   }
-    // }
-
-
-
-
 
 
   function drawTail(fillStyle, stroke = true) {
@@ -193,7 +191,7 @@ for (let i = 0; i < canvasArr.length; i++){
 
         let yMiddleOfTail = canvas.height/2
         // widthOfTail
-        let xBaseOfTiangleTail = center -10
+        //xBaseOfTiangleTail
         let xBaseOfRoundTail = xBaseOfTiangleTail + 38
         let tailRadius = 25
         //lengthOfTail 
