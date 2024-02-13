@@ -57,8 +57,9 @@
         <div class="fish-tank-view-container">
             <% for (let i = 0; i < fish.length ; i++){ %>
                 <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>">
-                    <a href="/fish/<%=fish[i]._id%>">
-                        <img class="fish-image-tank-view"
+                    <canvas></canvas>
+                    <!-- <a href="/fish/<%=fish[i]._id%>">
+                         <img class="fish-image-tank-view"
                             <%if(fish[i].age < 4){%>
                                 src="/images/guppy-fry3.png"
                             <%}else if (fish[i].isMale){%>
@@ -67,7 +68,7 @@
                                 src="/images/guppy-female.png"
                             <%}%>
                              alt="fish image">   
-                    </a>
+                    </a> --> 
                     <span><%= fish[i].name%></span>
                     <%if(fish[i].isMale){%>
                         <i aria-label="male" class="fa-solid fa-mars" style="color: #1717e1;"></i>
@@ -94,7 +95,6 @@
                     <span><%=fish[i].hunger%>/100 hunger</span>
                     <span><%=fish[i].finDescription%></span>
                     <span><%=fish[i].finGenome%></span>
-                    <span><%=i+1%></span>
                     <input type="checkbox" class="fish-checkbox" value="<%=fish[i]._id%>">
                 </div>
             <% } %>
@@ -115,6 +115,7 @@
         <% } %>
     </main>  
 
+    <script src="/js/guppy-image-gen.js"></script>
     <script src="/js/daily-turnover-button.js"></script>
     <script src="/js/tank-controls.js"></script>
 </body>
