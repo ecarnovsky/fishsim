@@ -11,20 +11,29 @@ let canvasArr = document.querySelectorAll('canvas')
 
 for (let i = 0; i < canvasArr.length; i++){
 
+  let sex = canvasArr[i].parentNode.querySelector('.sex').getAttribute("aria-label")
+  let finDescription = canvasArr[i].parentNode.querySelector('.fin-description').innerText
+
+  console.log(finDescription)
+
+
+
+
   let canvas = canvasArr[i];
 
 
-  let isMale = true
+  let isMale = sex === "male" ? true : false
 
-  let swordTail = false
-  let lyreTail = false
-  let rose = false
-  let scarfTail = false
-  let roundTail = false
-  let spearTail = false
-  let pinTail = true
-  let dumbo = true
-  let ribbon = true
+  let swordTail = finDescription.includes("Swordtail") ? true : false
+  let lyreTail = finDescription.includes("Lyretail") ? true : false
+  let rose = finDescription.includes("Rose") ? true : false
+  let scarfTail = finDescription.includes("Scarftail") ? true : false
+  let roundTail = finDescription.includes("Roundtail") ? true : false
+  let spearTail = finDescription.includes("Speartail") ? true : false
+  let spadeTail = finDescription.includes("Spadetail") ? true : false
+  let pinTail = finDescription.includes("Pintail") ? true : false
+  let dumbo = finDescription.includes("Dumbo") ? true : false
+  let ribbon = finDescription.includes("Ribbon") ? true : false
 
   let baseColor = baseColors.Red
   let blackPigment = true
@@ -129,6 +138,13 @@ for (let i = 0; i < canvasArr.length; i++){
           ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius,Math.PI / 2, (3 * Math.PI) / 2);
           ctx.moveTo(xBaseOfRoundTail, yMiddleOfTail + tailRadius ) ;
           ctx.lineTo(xBaseOfRoundTail + 40, canvas.height/2);
+          ctx.lineTo(xBaseOfRoundTail, yMiddleOfTail - tailRadius ) ;
+        } else if (spadeTail){
+          ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius,Math.PI / 2, (3 * Math.PI) / 2);
+          ctx.moveTo(xBaseOfRoundTail, yMiddleOfTail + tailRadius ) ;
+          ctx.lineTo(xBaseOfRoundTail + 12, yMiddleOfTail + tailRadius);
+          ctx.lineTo(xBaseOfRoundTail + 35, canvas.height/2);
+          ctx.lineTo(xBaseOfRoundTail + 12, yMiddleOfTail - tailRadius);
           ctx.lineTo(xBaseOfRoundTail, yMiddleOfTail - tailRadius ) ;
         } else if (pinTail){
           

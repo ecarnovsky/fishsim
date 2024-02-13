@@ -332,8 +332,8 @@ class FishClass{
             // add restriction health over 20
             let maleGuppies = tankMates.filter( el => el.isMale && el.species === 'Guppy' )
     
-            if (maleGuppies){
-                // 
+            if (maleGuppies.length != 0){
+                
                 FishClass.breedFish(fish, maleGuppies[0], req)
     
                 newHealth = fish.health - 20

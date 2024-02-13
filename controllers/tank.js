@@ -36,7 +36,7 @@ module.exports = {
 
             for (let i = 0; i < fish.length; i++){
 
-                let newHunger = fish[i].hunger + 15 > 100 ? 100 : fish[i].hunger + 15
+                let newHunger = 100
 
                 await Fish.findOneAndUpdate({_id: fish[i]._id}, {hunger: newHunger})
             }

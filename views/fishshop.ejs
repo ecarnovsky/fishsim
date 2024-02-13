@@ -46,7 +46,8 @@
         <div class="fish-tank-view-container">
             <% for (let i = 0; i < fish.length ; i++){ %>
                 <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>">
-                    <a href="/fish/<%=fish[i]._id%>">
+                    <canvas></canvas>
+                    <!-- <a href="/fish/<%=fish[i]._id%>">
                         <img class="fish-image-tank-view"
                             <%if(fish[i].age < 4){%>
                                 src="/images/guppy-fry3.png"
@@ -56,15 +57,18 @@
                                 src="/images/guppy-female.png"
                             <%}%>
                              alt="fish image">   
-                    </a>
+                    </a> -->
                     <span><%= fish[i].name%></span>
-                    <span><%=fish[i].isMale ?'Male':'Female'%></span>
+                    <%if(fish[i].isMale){%>
+                        <i aria-label="male" class="fa-solid fa-mars sex" style="color: #1717e1;"></i>
+                    <%}else{%>
+                        <i aria-label="female" class="fa-solid fa-venus sex" style="color: #d52675;"></i>
+                    <%}%>
                     <span><%=fish[i].age%> months old</span>
                     <span><%=fish[i].health%>/100 health</span>
                     <span><%=fish[i].hunger%>/100 hunger</span>
-                    <span><%=fish[i].finDescription%></span>
+                    <span class="fin-description"><%=fish[i].finDescription%></span>
                     <span><%=fish[i].finGenome%></span>
-                    <span><%=i+1%></span>
                     <label for="tank-selection">Move into:</label>
                     <select name="tank" class="tank-selection">
                         <% for (let i = 0; i < tanks.length; i++){ %>
@@ -79,6 +83,8 @@
 
 
     </main>
+
+    <script src="/js/guppy-image-gen.js"></script>
 
     <script src="/js/buy-fish.js"></script>
 

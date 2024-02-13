@@ -71,9 +71,9 @@
                     </a> --> 
                     <span><%= fish[i].name%></span>
                     <%if(fish[i].isMale){%>
-                        <i aria-label="male" class="fa-solid fa-mars" style="color: #1717e1;"></i>
+                        <i aria-label="male" class="fa-solid fa-mars sex" style="color: #1717e1;"></i>
                     <%}else{%>
-                        <i aria-label="female" class="fa-solid fa-venus" style="color: #d52675;"></i>
+                        <i aria-label="female" class="fa-solid fa-venus sex" style="color: #d52675;"></i>
                     <%}%>
                     <span><%=fish[i].age%> months old</span>
                     <%if(fish[i].health > 90){%>
@@ -93,7 +93,7 @@
                     <%}%>
                     <span><%=fish[i].health%>/100 health</span>
                     <span><%=fish[i].hunger%>/100 hunger</span>
-                    <span><%=fish[i].finDescription%></span>
+                    <span class="fin-description"><%=fish[i].finDescription%></span>
                     <span><%=fish[i].finGenome%></span>
                     <input type="checkbox" class="fish-checkbox" value="<%=fish[i]._id%>">
                 </div>
