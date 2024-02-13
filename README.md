@@ -10,7 +10,7 @@ I went ahead and added a fish image generator to the client-side code. It draws 
 
 ### Features I plan to add:
 - Ability to upload a profile picture
-- Cron jobs to interact with the database
+- Cron jobs that interact with the database
 - Discussion forums
 - Koi and Bettas
 - More realistic guppy color genetics
