@@ -7,7 +7,7 @@ module.exports = {
     dayTurn: async (req, res) => {
 
         //////////// Aging the fish ///////////////
-        const tanks = await Tank.find({ownerId: req.user._id})
+        const tanks = await Tank.find()
 
         for(let i = 0; i < tanks.length; i++){
 
