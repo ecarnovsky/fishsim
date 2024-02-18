@@ -1,4 +1,4 @@
-const baseColors = {
+const BASE_COLORS = {
 	Red: "#E91C29",
 	Black: "#191919",
 	Albino: "#FDFCF7",
@@ -6,8 +6,8 @@ const baseColors = {
   Yellow: "#E1F56F",
   Brown: "#AA9989"
 }
-const regularEyeColor = "#4C4D4D"
-const albinoEyeColor = "#E1688D"
+const REGULAR_EYE_COLOR = "#4C4D4D"
+const ALBINO_EYE_COLOR = "#E1688D"
 
 
 let canvasArr = document.querySelectorAll('canvas')
@@ -51,7 +51,7 @@ for (let i = 0; i < canvasArr.length; i++){
   }
 
 
-  let baseColor = baseColors.Red
+  let baseColor = BASE_COLORS.Red
   let blackPigment = true
   let finColor = baseColor
   let bodyColor
@@ -59,13 +59,13 @@ for (let i = 0; i < canvasArr.length; i++){
     bodyColor = baseColor
   } else {
     if(blackPigment){
-      bodyColor = baseColors.Brown
+      bodyColor = BASE_COLORS.Brown
     } else {
-      bodyColor = baseColors.Tranparent
+      bodyColor = BASE_COLORS.Tranparent
     }
   }
   let tux = true
-  let eyeColor = baseColor===baseColors.Albino? albinoEyeColor : regularEyeColor
+  let eyeColor = baseColor===BASE_COLORS.Albino? ALBINO_EYE_COLOR : REGULAR_EYE_COLOR
 
 
   let leopard = false
@@ -114,7 +114,7 @@ for (let i = 0; i < canvasArr.length; i++){
 
   if(!pattern){
     drawGuppy(false)
-  }else {
+  } else {
     let imageName 
     if(leopard){
       imageName = '/images/patterns/leo1-best.png'
@@ -157,9 +157,9 @@ for (let i = 0; i < canvasArr.length; i++){
 
       if(tux){
         if(isMale){
-          drawBody(baseColors.Black, false,  35, 20)
+          drawBody(BASE_COLORS.Black, false,  35, 20)
         } else {
-          drawBody(baseColors.Black, false,  70, 55)
+          drawBody(BASE_COLORS.Black, false,  70, 55)
         }
       }
       
@@ -171,7 +171,7 @@ for (let i = 0; i < canvasArr.length; i++){
       }
       
       if(dumbo){
-        let color = blackPigment ? baseColors.Black : baseColors.Tranparent
+        let color = blackPigment ? BASE_COLORS.Black : BASE_COLORS.Tranparent
         drawDumbo(color)
       }
 
@@ -195,6 +195,16 @@ for (let i = 0; i < canvasArr.length; i++){
         let xBaseOfRoundTail = xBaseOfTiangleTail + 38
         let tailRadius = 25
         //lengthOfTail 
+
+        // coordinates for the 3 points in triangular tails: 
+        // (point 2 is the base)
+        let triPoint1x = xBaseOfTiangleTail + lengthOfTail
+        let triPoint1y = yMiddleOfTail-widthOfTail
+        let triPoint2x = xBaseOfTiangleTail
+        let triPoint2y = yMiddleOfTail
+        let triPoint3x = xBaseOfTiangleTail + lengthOfTail
+        let triPoint3y = yMiddleOfTail + widthOfTail
+
 
         ctx.beginPath();
         if(roundTail){
@@ -228,9 +238,9 @@ for (let i = 0; i < canvasArr.length; i++){
             ctx.moveTo(xBaseOfRoundTail + 2, yMiddleOfTail + tailRadius ) ;
   
           } else {
-            ctx.moveTo(xBaseOfTiangleTail, yMiddleOfTail); //middle
+            ctx.moveTo(triPoint2x, triPoint2y); //middle
           }
-          ctx.lineTo(xBaseOfTiangleTail + lengthOfTail , yMiddleOfTail+widthOfTail); //bottom
+          ctx.lineTo(triPoint3x , triPoint3y); //bottom
           if(swordTail){
             ctx.lineTo(xBaseOfTiangleTail + 30, yMiddleOfTail );
           } else if(lyreTail){
@@ -240,17 +250,10 @@ for (let i = 0; i < canvasArr.length; i++){
             ctx.lineTo( xBaseOfTiangleTail + lengthOfTail , yMiddleOfTail-widthOfTail  + widthOfTip); //top
     
           } else {
-        // https://stackoverflow.com/questions/30624842/draw-arc-on-canvas-from-two-x-y-points-and-a-center-x-y-point
-        let startAngle = Math.atan2((yMiddleOfTail-widthOfTail) - (yMiddleOfTail), (xBaseOfTiangleTail + lengthOfTail) - xBaseOfTiangleTail)
-        let endAngle   = Math.atan2(( yMiddleOfTail+widthOfTail) - ( yMiddleOfTail), (xBaseOfTiangleTail + lengthOfTail) -  xBaseOfTiangleTail)
-        let diffX = (xBaseOfTiangleTail + lengthOfTail)- xBaseOfTiangleTail
-        let diffY = ( yMiddleOfTail-widthOfTail) - yMiddleOfTail
-        let radius = Math.abs(Math.sqrt(diffX*diffX + diffY*diffY))
-        ctx.arc(xBaseOfTiangleTail, yMiddleOfTail, radius, startAngle, endAngle);
-  
+             makeArchBetweenPoints(triPoint1x,triPoint1y,triPoint2x,triPoint2y,triPoint3x,triPoint3y, ctx)
           } 
   
-          ctx.lineTo(xBaseOfTiangleTail + lengthOfTail, yMiddleOfTail-widthOfTail); //top
+          ctx.lineTo(triPoint1x, triPoint1y); //top
           if(scarfTail){
             ctx.lineTo(xBaseOfRoundTail + 2, yMiddleOfTail - tailRadius ) ;
           }
@@ -271,6 +274,22 @@ for (let i = 0; i < canvasArr.length; i++){
       }
     }
 
+    // points 1 and 3 are the end points. point 2 is the base
+    // please refer to the link below:
+    // https://stackoverflow.com/questions/30624842/draw-arc-on-canvas-from-two-x-y-points-and-a-center-x-y-point
+    function makeArchBetweenPoints(p1x, p1y, p2x, p2y, p3x, p3y, ctx){
+
+      let startAngle = Math.atan2(p1y - p2y, p1x - p2x)
+      let endAngle   = Math.atan2(p3y - p2y, p3x - p2x)
+
+      let diffX = p1x - p2x
+      let diffY = p1y - p2y
+      let radius = Math.abs(Math.sqrt(diffX * diffX + diffY * diffY));
+
+      ctx.arc(p2x, p2y, radius, startAngle, endAngle);
+    }
+
+
     function defaultStroke(ctx, rose = false){
       if(rose){
         ctx.lineWidth = 7;
@@ -286,11 +305,6 @@ for (let i = 0; i < canvasArr.length; i++){
     function drawBody(color, stroke = true, pushTopX = 0, pushBottomX = 0) {
       if (canvas.getContext) {
         const ctx = canvas.getContext("2d");
-    
-        //lengthOfBody
-        //thicknessOfbody 
-        //xbaseOfBody 
-        //yMiddleOfBody
 
         
         ctx.beginPath();
@@ -382,25 +396,10 @@ for (let i = 0; i < canvasArr.length; i++){
           ctx.beginPath();    
           ctx.arc(xTop + 59, yTop, 49, 1.6, .9 * Math.PI);
     
-          // ctx.closePath()
-          // ctx.moveTo(xTop+20, yTop)
-          // ctx.beginPath()
-          // ctx.arc(xTop+20, yTop, 40, 1.6, .8 * Math.PI);
-    
-      //   ctx.beginPath();
-      //   ctx.moveTo(xTop, yTop); 
-      //   ctx.lineTo(xTop, yTop + 20);
-      //   ctx.lineTo(xTop +2, yTop + 20);
-      //   ctx.lineTo(xTop +2, yTop);
-
-      //   ctx.lineTo(xTop, yTop); 
-
       ctx.lineWidth = 3;
       ctx.strokeStyle = color
       ctx.stroke()
 
-      //   ctx.fillStyle = baseColors.Yellow
-      //   ctx.fill();
     }
   }
 }
