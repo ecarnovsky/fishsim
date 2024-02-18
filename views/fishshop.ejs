@@ -47,17 +47,6 @@
             <% for (let i = 0; i < fish.length ; i++){ %>
                 <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>">
                     <canvas></canvas>
-                    <!-- <a href="/fish/<%=fish[i]._id%>">
-                        <img class="fish-image-tank-view"
-                            <%if(fish[i].age < 4){%>
-                                src="/images/guppy-fry3.png"
-                            <%}else if (fish[i].isMale){%>
-                                src="/images/guppy-male.png"
-                            <%}else {%>
-                                src="/images/guppy-female.png"
-                            <%}%>
-                             alt="fish image">   
-                    </a> -->
                     <span><%= fish[i].name%></span>
                     <%if(fish[i].isMale){%>
                         <i aria-label="male" class="fa-solid fa-mars sex" style="color: #1717e1;"></i>
@@ -76,7 +65,6 @@
                         <%}%>
                     </select>
                     <button class="buy-fish-button">Buy Fish ($<%=fish[i].salePrice%>)</button>
-                    <!-- <input type="checkbox" class="fish-checkbox" value="<%=fish[i]._id%>"> -->
                 </div>
             <% } %>
         </div>

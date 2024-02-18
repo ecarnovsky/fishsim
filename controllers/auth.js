@@ -5,15 +5,6 @@ const Fish = require ('../models/fish')
 const Tank = require('../models/tank')
 const FishClass = require('../fish/fish-class')
 
-//  exports.getLogin = (req, res) => {
-//     if (req.user) {
-//       return res.redirect('/todos')
-//     }
-//     res.render('login', {
-//       title: 'Login'
-//     })
-//   }
-  
   exports.postLogin = (req, res, next) => {
     const validationErrors = []
     if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })

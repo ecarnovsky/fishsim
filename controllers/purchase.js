@@ -17,8 +17,7 @@ module.exports = {
 
 
         if (req.body.seller === "user"){
-            // give money to the seller and lower their number
-            // of fish by one. 
+            // give money to the seller and lower their number of fish by one. 
         }
 
 
