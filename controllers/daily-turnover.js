@@ -16,11 +16,10 @@ module.exports = {
             for (let j = 0; j < fishInTank.length; j++){
                 await FishClass.ageFish(fishInTank[j], fishInTank, req)
             }
+
+            let numberOfFishOwmed = (await Fish.find({ownerId: tanks[i].ownerId})).length
+            await User.findOneAndUpdate({_id: tanks[i].ownerId}, {numberOfFish: numberOfFishOwmed})
         }
-
-        let numberOfFishOwmed = (await Fish.find({ownerId: req.user._id})).length
-        await User.findOneAndUpdate({_id: req.user._id}, {numberOfFish: numberOfFishOwmed})
-
 
 
         ////////// Pet shop ///////////////
