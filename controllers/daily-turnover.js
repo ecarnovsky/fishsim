@@ -6,6 +6,8 @@ const FishClass = require('../fish/fish-class')
 module.exports = {
     dayTurn: async (req, res) => {
 
+        console.log("Daily turnover started at " + new Date())
+
         //////////// Aging the fish ///////////////
         const tanks = await Tank.find()
 
@@ -35,6 +37,7 @@ module.exports = {
 
 
 
+        console.log("Daily turnover complete at " + new Date())
         res.json("Successful day change.")
     }
 }
