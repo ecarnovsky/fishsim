@@ -17,3 +17,9 @@ Fish now age in real time. Everyday at 2am EST all the fish in the database have
 - Discussion forums
 - Koi and Bettas
 - More realistic guppy color genetics
+
+## To build:
+- Do npm install
+- Create /config/.env
+- Inside define a PORT and DB_STRING environment variable. Use your unique MongoDB database to generate the string.
+- The DB_STRING needs to also be defined as a secret in your environment on GitHub. This allows the cron jobs to run. 
