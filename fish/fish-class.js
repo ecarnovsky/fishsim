@@ -143,7 +143,8 @@ class FishClass{
             newHealth = newHealth - 10
         }
  
-        if (fish.species == 'Guppy' && !fish.isMale && fish.age > 4 && req.user.fishLimit > req.user.numberOfFish){
+        // removed && req.user.fishLimit > req.user.numberOfFish
+        if (fish.species == 'Guppy' && !fish.isMale && fish.age > 4 ){
             
             
             // add && el.health => 20 once done testing
@@ -152,7 +153,7 @@ class FishClass{
     
             if (maleGuppies.length != 0){
                 
-                FishClass.breedFish(fish, maleGuppies[0], req)
+                FishClass.breedFish(fish, maleGuppies[0])
     
                 newHealth = fish.health - 20
             }
@@ -167,7 +168,7 @@ class FishClass{
     }
     
     
-    static async breedFish(mother, father, req){
+    static async breedFish(mother, father){
     
         let numberOfFry
     
