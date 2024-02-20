@@ -34,4 +34,4 @@ jobs:
     - run: npm run build --if-present
     - run: node ./daily-turnover/daily-turnover.js 
       env: 
-          DB_STRING: ${{ secrets.DB_STRING }}
+          super_secret: ${{ secrets.DB_STRING }}
