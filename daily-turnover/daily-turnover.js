@@ -9,8 +9,6 @@ require('dotenv').config({path: './config/.env'})
 connectDB()
 
 
-dayTurn()
-
 
 
 async function  dayTurn () {
