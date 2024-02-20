@@ -8,6 +8,9 @@ The template I used to help me get started can be found [here](https://github.co
 ## 2/13/2024 Update 
 I went ahead and added a fish image generator to the client-side code. It draws a simple image on a canvas element using information from the DB about what the fish should look like. 
 
+## 2/20/2024 Update 
+Fish now age in real time. Everyday at 2am EST all the fish in the database have their age increased by one.
+
 ## Features I plan to add:
 - Ability to upload a profile picture
 - ~~Cron jobs that interact with the database~~
