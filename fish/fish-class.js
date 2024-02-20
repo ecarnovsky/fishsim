@@ -122,11 +122,12 @@ class FishClass{
 
     }
 
-    static async ageFish(fish, tankMates, req){
+    static async ageFish(fish, tankMates, owner){
 
         // tests if a fish has died due to zero health
         if (fish.health <= 0){
             await Fish.findOneAndRemove({_id: fish._id})
+            owner.numberOfFish--
             return 
         }
 
@@ -143,8 +144,8 @@ class FishClass{
             newHealth = newHealth - 10
         }
  
-        // removed && req.user.fishLimit > req.user.numberOfFish
-        if (fish.species == 'Guppy' && !fish.isMale && fish.age > 4 ){
+
+        if (fish.species == 'Guppy' && !fish.isMale && fish.age > 4 && owner.numberOfFish < owner.fishLimit){
             
             
             // add && el.health => 20 once done testing
@@ -153,7 +154,7 @@ class FishClass{
     
             if (maleGuppies.length != 0){
                 
-                FishClass.breedFish(fish, maleGuppies[0])
+                FishClass.breedFish(fish, maleGuppies[0], owner)
     
                 newHealth = fish.health - 20
             }
@@ -168,12 +169,13 @@ class FishClass{
     }
     
     
-    static async breedFish(mother, father){
+    static async breedFish(mother, father, owner){
     
         let numberOfFry
     
         if (mother.species === 'Guppy'){
             numberOfFry = 3 + (Math.floor((Math.random() * 5)) - 2) // 3 plus or minus 2
+            owner.numberOfFish += numberOfFry
     
             for(let i = 0; i < numberOfFry; i++){
 
