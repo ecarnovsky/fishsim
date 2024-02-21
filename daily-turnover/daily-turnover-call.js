@@ -1,6 +1,6 @@
-const DailyTurnover = require("./daily-turnover")
+// const DailyTurnover = require("./daily-turnover")
 
-require('dotenv').config({path: './config/.env'})
+// require('dotenv').config({path: './config/.env'})
 
 
-DailyTurnover.dayTurn()
+// DailyTurnover.dayTurn()

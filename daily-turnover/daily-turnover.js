@@ -6,7 +6,7 @@ const FishClass = require('../fish/fish-class')
 
 const connectDB = require('../config/database')
 
-require('dotenv').config({path: './config/.env'})
+require('dotenv').config({path: 'config/.env'})
 
 
 connectDB()
