@@ -8,7 +8,10 @@ require('dotenv').config({path: './config/.env'})
 const connectDB = require('../config/database')
 connectDB()
 
-dayTurn()
+if (process.env.CRON_JOB === true){
+    dayTurn()
+}
+
 
 
 async function  dayTurn () {

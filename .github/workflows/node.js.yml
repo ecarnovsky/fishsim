@@ -35,3 +35,4 @@ jobs:
     - run: node ./daily-turnover/daily-turnover.js
       env: 
           super_secret: ${{ secrets.DB_STRING }}
+          CRON_JOB: true
