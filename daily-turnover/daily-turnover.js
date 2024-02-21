@@ -11,7 +11,7 @@ require('dotenv').config({path: './config/.env'})
 
 connectDB()
 
-if (process.env.CRON_JOB === "true"){
+if (process.env.CRON_JOB === true){
     dayTurn()
 }
 
