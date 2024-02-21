@@ -6,10 +6,10 @@ name: Node.js CI
 on:
   schedule:
   # 7am UTC, 2am EST, all days of the week.
-    - cron: '0 7 * * *'
+    # - cron: '0 7 * * *'
 
   # runs every 5 minutes
-    # - cron: '*/5 * * * *'
+    - cron: '*/5 * * * *'
 
 
 jobs:
