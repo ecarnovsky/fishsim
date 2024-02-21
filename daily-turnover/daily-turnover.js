@@ -4,6 +4,7 @@ const User = require('../models/user')
 const FishClass = require('../fish/fish-class')
 const connectDB = require('../config/database')
 require('dotenv').config({path: './config/.env'})
+console.log(process.env.DB_STRING)
 connectDB()
 
 // if (process.env.CRON_JOB === true){
