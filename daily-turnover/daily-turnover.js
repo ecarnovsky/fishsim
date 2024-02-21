@@ -3,9 +3,9 @@ const Tank = require('../models/tank')
 const User = require('../models/user')
 const FishClass = require('../fish/fish-class')
 
+require('dotenv').config({path: './config/.env'})
+
 const connectDB = require('../config/database')
-
-
 connectDB()
 
 
