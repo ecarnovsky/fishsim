@@ -3,9 +3,12 @@ const Tank = require('../models/tank')
 const User = require('../models/user')
 const FishClass = require('../fish/fish-class')
 
-require('dotenv').config({path: './config/.env'})
 
 const connectDB = require('../config/database')
+
+require('dotenv').config({path: './config/.env'})
+
+
 connectDB()
 
 if (process.env.CRON_JOB === "true"){
