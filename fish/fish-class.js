@@ -207,13 +207,21 @@ class FishClass{
     
     }
 
-    static randomGuppyFinGenome(){
 
-        return FishClass.createRandomGenome(GuppyAlleles.GUPPY_FIN_ALLELES)
+    static createRandomGenome(species, type, source){
 
-    }
+        let alleles
+        let probabilityType
 
-    static createRandomGenome(alleles){
+        if(species === "guppy"){
+            if(type === "fin"){
+                alleles = GuppyAlleles.GUPPY_FIN_ALLELES
+            }
+        }
+        if(source === "petshop"){
+            probabilityType = "petshopProbability"
+        }
+
 
         let newGenome = ''
         
@@ -231,12 +239,12 @@ class FishClass{
 
             for (let j = 0; j < alleles[i].length; j++){
 
-                if (alleles[i][j].probability >= randNum){
+                if (alleles[i][j][probabilityType] >= randNum){
                     newAllelePair += alleles[i][j].abbreviation
                     firstAlleleIndex = j
                     break
                 } else {
-                    randNum = randNum - alleles[i][j].probability 
+                    randNum = randNum - alleles[i][j][probabilityType]
                 }
             }
 
@@ -247,12 +255,12 @@ class FishClass{
 
             for (let j = 0; j < alleles[i].length; j++){
 
-                if (alleles[i][j].probability >= randNum){
+                if (alleles[i][j][probabilityType] >= randNum){
                     // Move the dominant allele to the front
                     newAllelePair = j < firstAlleleIndex ? alleles[i][j].abbreviation + '-' + newAllelePair : newAllelePair + '-' + alleles[i][j].abbreviation
                     break
                 } else {
-                    randNum = randNum - alleles[i][j].probability 
+                    randNum = randNum - alleles[i][j][probabilityType]
                 }
             }
 
@@ -317,7 +325,7 @@ class FishClass{
             hunger = 85
             age = 5
             petshopFish = false
-            finGenome = this.randomGuppyFinGenome()
+            finGenome = this.createRandomGenome("guppy", "fin", "petshop")
             finDescription = this.generateFinDescriptionStr(finGenome)
             forSale = false 
             
@@ -337,7 +345,7 @@ class FishClass{
             // for guppies
             species = 'Guppy'
             age = Math.ceil(Math.random() * 9) + 2
-            finGenome = this.randomGuppyFinGenome()
+            finGenome = this.createRandomGenome("guppy", "fin", "petshop")
             finDescription = this.generateFinDescriptionStr(finGenome)
             salePrice = 10
         }
