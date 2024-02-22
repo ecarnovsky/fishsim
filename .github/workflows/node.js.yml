@@ -6,10 +6,10 @@ name: Node.js CI
 on:
   schedule:
   # 7am UTC, 2am EST, all days of the week.
-    # - cron: '0 7 * * *'
+    - cron: '0 7 * * *'
 
   # runs every 5 minutes
-    - cron: '*/5 * * * *'
+    # - cron: '*/5 * * * *'
 
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-    - run: node ./daily-turnover/day-turnover-fetch.js
+    - run: node ./daily-turnover/daily-turnover-fetch.js
       # env: 
       #     super_secret: ${{ secrets.DB_STRING }}
       #     CRON_JOB: true
