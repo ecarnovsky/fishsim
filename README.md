@@ -21,5 +21,6 @@ Fish now age in real time. Everyday at 2am EST all the fish in the database have
 ## To build:
 - Do npm install
 - Create /config/.env
-- Inside define a PORT and DB_STRING environment variable. Use your unique MongoDB database to generate the string.
-- The DB_STRING needs to also be defined as a secret in your environment on GitHub. This allows the cron jobs to run. 
+- Inside define a PORT, DB_STRING, and CRON_JOB_SERVER_KEY environment variable.
+- Use MongoDB to generate your own unique databse connection string.
+- CRON_JOB_SERVER_KEY needs to match CRON_JOB_GITHUB_KEY, which you can create and store as an environment variable on GitHub.
