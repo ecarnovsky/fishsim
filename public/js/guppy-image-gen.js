@@ -1,13 +1,13 @@
 const BASE_COLORS = {
-	Red: "#E91C29",
-	Black: "#191919",
-	Albino: "#FDFCF7",
-	Tranparent: "#FAF7EC",
-  Yellow: "#E1F56F",
-  Brown: "#AA9989"
+	Red: "rgb(233,28,41)",
+	Black: "rgb(25,25,25)",
+	Albino: "rgb(253,252,247)",
+	Tranparent: "rgb(250,247,236)",
+  Yellow: "rgb(225,245,111)",
+  Brown: "rgb(170,153,137)"
 }
-const REGULAR_EYE_COLOR = "#4C4D4D"
-const ALBINO_EYE_COLOR = "#E1688D"
+const REGULAR_EYE_COLOR = "rgb(76,77,77)"
+const ALBINO_EYE_COLOR = "rgb(225,104,141)"
 
 
 let canvasArr = document.querySelectorAll('canvas')
