@@ -13,7 +13,7 @@ Fish now age in real time. Everyday at 2am EST all the fish in the database have
 
 ## Features I plan to add:
 - Ability to upload a profile picture
-- ~~Cron jobs that interact with the database~~ added!
+- ~~Cron jobs that interact with the database~~ Added!
 - Discussion forums
 - Koi and Bettas
 - More realistic guppy color genetics
