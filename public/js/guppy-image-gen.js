@@ -4,7 +4,8 @@ const BASE_COLORS = {
 	Albino: "rgb(253,252,247)",
 	Tranparent: "rgb(250,247,236)",
   Yellow: "rgb(225,245,111)",
-  Brown: "rgb(170,153,137)"
+  Brown: "rgb(170,153,137)",
+  Blue: "#3399FF"
 }
 const REGULAR_EYE_COLOR = "rgb(76,77,77)"
 const ALBINO_EYE_COLOR = "rgb(225,104,141)"
@@ -64,7 +65,7 @@ for (let i = 0; i < canvasArr.length; i++){
       bodyColor = BASE_COLORS.Tranparent
     }
   }
-  let tux = true
+  let tux = false
   let eyeColor = baseColor===BASE_COLORS.Albino? ALBINO_EYE_COLOR : REGULAR_EYE_COLOR
 
 
@@ -140,20 +141,20 @@ for (let i = 0; i < canvasArr.length; i++){
 
     function drawGuppy(pattern){
       
-      drawTail(finColor, true)
+      drawTail(createTailGradient(), true)
 
       if(pattern) {
         drawTail(markingPattern, false)
       }
 
       if(!isMale){
-        drawDorsalFin(finColor)
+        drawDorsalFin(createTailGradient())
         if(pattern){
           drawDorsalFin(markingPattern, false)
         }
       }
 
-      drawBody(bodyColor, true)
+      drawBody(createTailGradient(), true)
 
       if(tux){
         if(isMale){
@@ -164,7 +165,7 @@ for (let i = 0; i < canvasArr.length; i++){
       }
       
       if(isMale){
-        drawDorsalFin(finColor)
+        drawDorsalFin(createTailGradient())
         if(pattern){
           drawDorsalFin(markingPattern, false)
         }
@@ -184,6 +185,32 @@ for (let i = 0; i < canvasArr.length; i++){
   }
 
 
+  function createTailGradient(){
+
+    let bluePigmentPresent = true
+    let blackPigmentPresent = true
+    let redPigmentPresent = true
+    let yellowPigmentPresent = true
+    let bluePigmentColor = BASE_COLORS.Blue
+    let blackPigmentColor = BASE_COLORS.Black
+    let redPigmentColor = BASE_COLORS.Red
+    let yellowPigmentColor = BASE_COLORS.Yellow
+
+    const ctx = canvas.getContext("2d"); 
+
+    // Create a radial gradient
+    // The inner circle is at x=110, y=90, with radius=30
+    // The outer circle is at x=100, y=100, with radius=70
+    const gradient = ctx.createRadialGradient(0, 105, 75, 70, 62, 160);
+
+
+    gradient.addColorStop(.1, redPigmentColor);
+    gradient.addColorStop(.4, yellowPigmentColor);
+    gradient.addColorStop(.5, yellowPigmentColor);
+    gradient.addColorStop(.8, redPigmentColor);
+
+    return gradient;
+  }
 
   function drawTail(fillStyle, stroke = true) {
       if (canvas.getContext) {
@@ -270,7 +297,7 @@ for (let i = 0; i < canvasArr.length; i++){
         
 
         ctx.fillStyle = fillStyle
-        ctx.fill();
+        ctx.fill();        
       }
     }
 
