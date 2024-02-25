@@ -88,6 +88,15 @@ for (let i = 0; i < canvasArr.length; i++){
   let lengthOfBody = 70
   let widthOfTail = 40 //70
 
+  let bluePigmentPresent = true
+  let blackPigmentPresent = true
+  let redPigmentPresent = true
+  let yellowPigmentPresent = true
+  let bluePigmentColor = BASE_COLORS.Blue
+  let blackPigmentColor = BASE_COLORS.Black
+  let redPigmentColor = BASE_COLORS.Red
+  let yellowPigmentColor = BASE_COLORS.Yellow
+
   if(!isMale){
     lengthOfTail = 50
     widthOfTail = 25
@@ -141,20 +150,26 @@ for (let i = 0; i < canvasArr.length; i++){
 
     function drawGuppy(pattern){
       
-      drawTail(createTailGradient(), true)
+      drawTail(createFinGradient(), true)
 
       if(pattern) {
         drawTail(markingPattern, false)
       }
 
       if(!isMale){
-        drawDorsalFin(createTailGradient())
+        drawDorsalFin(createFinGradient())
         if(pattern){
           drawDorsalFin(markingPattern, false)
         }
       }
 
-      drawBody(createTailGradient(), true)
+      let bodyColor
+      if (isMale){
+        bodyColor = createBodyGradient()
+      } else {
+        bodyColor = BASE_COLORS.Brown
+      }
+      drawBody(bodyColor, true)
 
       if(tux){
         if(isMale){
@@ -165,7 +180,7 @@ for (let i = 0; i < canvasArr.length; i++){
       }
       
       if(isMale){
-        drawDorsalFin(createTailGradient())
+        drawDorsalFin(createFinGradient())
         if(pattern){
           drawDorsalFin(markingPattern, false)
         }
@@ -185,16 +200,7 @@ for (let i = 0; i < canvasArr.length; i++){
   }
 
 
-  function createTailGradient(){
-
-    let bluePigmentPresent = true
-    let blackPigmentPresent = true
-    let redPigmentPresent = true
-    let yellowPigmentPresent = true
-    let bluePigmentColor = BASE_COLORS.Blue
-    let blackPigmentColor = BASE_COLORS.Black
-    let redPigmentColor = BASE_COLORS.Red
-    let yellowPigmentColor = BASE_COLORS.Yellow
+  function createFinGradient(){
 
     const ctx = canvas.getContext("2d"); 
 
@@ -208,6 +214,25 @@ for (let i = 0; i < canvasArr.length; i++){
     gradient.addColorStop(.4, yellowPigmentColor);
     gradient.addColorStop(.5, yellowPigmentColor);
     gradient.addColorStop(.8, redPigmentColor);
+
+    return gradient;
+  }
+  function createBodyGradient(){
+
+    const ctx = canvas.getContext("2d"); 
+
+    // Create a radial gradient
+    // The inner circle is at x=110, y=90, with radius=30
+    // The outer circle is at x=100, y=100, with radius=70
+    const gradient = ctx.createLinearGradient(20, 0, 220, 0);
+
+    // Add three color stops
+    
+    gradient.addColorStop(.13, BASE_COLORS.Brown);
+    gradient.addColorStop(.35, yellowPigmentColor);
+    gradient.addColorStop(.7, redPigmentColor);
+    gradient.addColorStop(.8, yellowPigmentColor);
+    gradient.addColorStop(.9, blackPigmentColor);
 
     return gradient;
   }
