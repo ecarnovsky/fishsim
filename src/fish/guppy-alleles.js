@@ -1,5 +1,90 @@
+
   class GuppyAlleles{
 
+
+    // static GENES_AND_ALLELES_LIST = [
+    //     {
+    //         geneName: "longfin suppressor",
+    //         type: "autosomal",
+    //         alleles: [
+    //             {
+    //                 // suppresses longfin
+    //                 abbreviation: 'Sup',
+    //                 dominance: 100,
+    //                 petshopProbability: 0.60,
+    //                 pondProbability: 1
+    //             },
+    //             {
+    //                 // no suppressant
+    //                 abbreviation: 'sup',
+    //                 dominance: 0,
+    //                 petshopProbability: 0.40,
+    //                 pondProbability: 0
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         geneName: "black pigment",
+    //         type: "autosomal",
+    //         alleles: [
+    //             {
+    //                 // allows black pigment
+    //                 abbreviation: 'M',
+    //                 dominance: 100,
+    //                 petshopProbability: 0.70,
+    //                 pondProbability: 0.90
+    //             },
+    //             {
+    //                 // doesn't allow black pigment
+    //                 abbreviation: 'm',
+    //                 dominance: 0,
+    //                 petshopProbability: 0.30,
+    //                 pondProbability: 0.10
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         geneName: "red pigment",
+    //         type: "autosomal",
+    //         alleles: [
+    //             {
+    //                 // allows red pigment
+    //                 abbreviation: 'E',
+    //                 dominance: 100,
+    //                 petshopProbability: 0.70,
+    //                 pondProbability: 0.90
+    //             },
+    //             {
+    //                 // doesn't allow red pigment
+    //                 abbreviation: 'e',
+    //                 dominance: 0,
+    //                 petshopProbability: 0.30,
+    //                 pondProbability: 0.10
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         geneName: "yellow pigment",
+    //         type: "autosomal",
+    //         alleles: [
+    //             {
+
+    //                 // allows yellow pigment
+    //                 abbreviation: 'X',
+    //                 dominance: 100,
+    //                 petshopProbability: 0.70,
+    //                 pondProbability: 0.30
+    //             },
+    //             {
+    //                 // doesn't allow yellow pigment
+    //                 abbreviation: 'x',
+    //                 dominance: 0,
+    //                 petshopProbability: 0.30,
+    //                 pondProbability: 0.70
+    //             }
+    //         ]
+    //     }
+    // ]
 
    // All alleles are listed in order of dominance
     static GUPPY_FIN_ALLELES = [
