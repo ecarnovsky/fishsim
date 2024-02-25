@@ -17,6 +17,7 @@ Fish now age in real time. Everyday at 2am EST all the fish in the database have
 - Discussion forums
 - Koi and Bettas
 - More realistic guppy color genetics
+- Convert all server-side JavaScript code to TypeScript
 
 ## To build:
 - Do npm install
