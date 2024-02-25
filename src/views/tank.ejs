@@ -58,7 +58,7 @@
         <div class="fish-tank-view-container">
             <% for (let i = 0; i < fish.length ; i++){ %>
                 <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>">
-                    <canvas></canvas>
+                    <a href="../fish/<%=fish[i]._id%>"><canvas></canvas></a>
                     <span><%= fish[i].name%></span>
                     <%if(fish[i].isMale){%>
                         <i aria-label="male" class="fa-solid fa-mars sex" style="color: #1717e1;"></i>
@@ -78,7 +78,7 @@
                         <span>bad</span>
                     <%}else if (fish[i].health > 30){%>
                         <span>horrible</span>
-                    <%}else {%>
+                    <%}else{%>
                         <span>dying</span>
                     <%}%>
                     <span><%=fish[i].health%>/100 health</span>

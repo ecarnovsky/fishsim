@@ -21,8 +21,8 @@ for (let i = 0; i < canvasArr.length; i++){
   canvas.height = 250;
 
 
-  let sex = canvasArr[i].parentNode.querySelector('.sex').getAttribute("aria-label")
-  let finDescription = canvasArr[i].parentNode.querySelector('.fin-description').innerText
+  let sex = canvasArr[i].parentNode.parentNode.querySelector('.sex').getAttribute("aria-label")
+  let finDescription = canvasArr[i].parentNode.parentNode.querySelector('.fin-description').innerText
 
 
 
