@@ -1,13 +1,9 @@
-const GeneExports = require('./gene.js')
-const Gene = GeneExports.Gene
-const GeneTypes = GeneExports.GeneTypes
-const Allele = require('./allele.js')
-const MutatableTraitExports = require('./mutatable-trait.js')
-const MutatableTrait = MutatableTraitExports.MutatableTrait
-const TraitTypes = MutatableTraitExports.TraitTypes
-const MutationRates = MutatableTraitExports.MutationRates
-
-
+import {Gene} from './gene.js'
+import {GeneTypes} from './gene.js'
+import {Allele} from './allele.js'
+import {MutatableTrait} from './mutatable-trait.js'
+import {TraitTypes} from './mutatable-trait.js'
+import {MutationRates} from './mutatable-trait.js'
 
 
 const GUPPY_GENE_LIST = [

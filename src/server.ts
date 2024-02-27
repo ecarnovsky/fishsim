@@ -49,6 +49,8 @@ app.use('/town', townRoutes)
 app.use('/tank', tankRoute)
 app.use('/forums', forumsRoute)
 
+const d =require("./genetics/guppy-gene-list.js")
+console.log(d)
 
 app.listen(process.env.PORT, ()=>{
     console.log('Server is running.')

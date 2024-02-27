@@ -1,4 +1,4 @@
-class MutatableTrait {
+export class MutatableTrait {
 
     name: string
     type: TraitTypes
@@ -12,19 +12,16 @@ class MutatableTrait {
         this.mutationRate = mutationRate
         this.value = value
     }
+
 }
 
-
-enum TraitTypes {
+export enum TraitTypes {
     BodyValue,
     ColorChange
 }
 
-enum MutationRates {
+export enum MutationRates {
     Low,
     Middle,
     High
 }
-
-
-module.exports = {MutatableTrait, TraitTypes, MutationRates}

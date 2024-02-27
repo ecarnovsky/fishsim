@@ -1,21 +1,20 @@
-const Allele = require('./allele.js')
-class Gene {
+import {Allele} from './allele.js'
+
+export class Gene {
 
     name: string 
-    type: GeneType
+    type: GeneTypes
     alleles: InstanceType<typeof Allele>[]
     
-    constructor(name: string, type: GeneType, alleles: InstanceType<typeof Allele>[]){
+    constructor(name: string, type: GeneTypes, alleles: InstanceType<typeof Allele>[]){
         this.name = name
         this.type = type
         this.alleles = alleles
     }
 }
 
-enum GeneType {
+export enum GeneTypes {
     Autosomal, 
     XLinked,
     YLinked
 }
-
-module.exports =  {Gene, GeneType}
