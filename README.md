@@ -22,6 +22,7 @@ Fish now age in real time. Everyday at 2am EST all the fish in the database have
 ## To build:
 - Do npm install
 - Create /config/.env
-- Inside define a PORT, DB_STRING, and CRON_JOB_SERVER_KEY environment variable.
-- Use MongoDB to generate your own unique databse connection string.
-- CRON_JOB_SERVER_KEY needs to match CRON_JOB_GITHUB_KEY, which you can create and store as an environment variable on GitHub.
+- Inside define PORT, DB_STRING, CRON_JOB_SERVER_KEY, and CRON_JOB_GITHUB_KEY environment variables.
+  - PORT: Set to whatever port you would like to use.
+  - DB_STRING: Use MongoDB to generate a unique string that can connect you to your database.
+  - CRON_JOB_SERVER_KEY & CRON_JOB_GITHUB_KEY: I use these to make sure that aging up fish can only be done through nightly cron jobs or through testing. Set CRON_JOB_SERVER_KEY to a hard to guess passphrase in /config/.env, then set up CRON_JOB_GITHUB_KEY as a secret on GitHub that's equal to the same passphrase. Locally, you can set CRON_JOB_GITHUB_KEY to equal the passphrase for testing, but be sure to set it as undefined on the live server. 
