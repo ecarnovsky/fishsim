@@ -1,9 +1,9 @@
 class MutatableTrait {
 
-    private name: string
-    private type: TraitTypes
-    private mutationRate: MutationRates
-    private value: number
+    name: string
+    type: TraitTypes
+    mutationRate: MutationRates
+    value: number
 
 
     constructor(name: string, type: TraitTypes, mutationRate: MutationRates, value: number){
