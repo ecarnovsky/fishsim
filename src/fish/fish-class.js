@@ -1,126 +1,129 @@
 const Fish = require('../models/fish')
 const User = require('../models/user')
 const GuppyAlleles = require('./guppy-alleles')
+const GuppyGeneList = require('../genetics/guppy-gene-list')
+const { Gene, GeneTypes } = require('../genetics/gene')
+const { Allele } = require('../genetics/allele')
 
 
 class FishClass{
 
-    static generateFinDescriptionStr(finGenome, tailSizeGenome, swordTypeGenome){
+    // static generateFinDescriptionStr(finGenome, tailSizeGenome, swordTypeGenome){
 
-        let allelesArray = finGenome.split(/\s|-/)
+    //     let allelesArray = finGenome.split(/\s|-/)
 
-        let descriptionStr = ''
-        let smallTail = true
-        let suppressLongfin = true
-        let dumbo 
-        let rose 
-        let ribbon
-        let swallow
-        let round 
-        let spade
-        let spear
-        let pin
-        let sword
-        let scarf
-        let tailShape
-        let crown
+    //     let descriptionStr = ''
+    //     let smallTail = true
+    //     let suppressLongfin = true
+    //     let dumbo 
+    //     let rose 
+    //     let ribbon
+    //     let swallow
+    //     let round 
+    //     let spade
+    //     let spear
+    //     let pin
+    //     let sword
+    //     let scarf
+    //     let tailShape
+    //     let crown
  
 
-        if (allelesArray.filter(e => e === 'f').length === 2){
-            //count how many hh pairs are in the tailSizeGenome 
+    //     if (allelesArray.filter(e => e === 'f').length === 2){
+    //         //count how many hh pairs are in the tailSizeGenome 
             
-            // Set small tail to false if changed
+    //         // Set small tail to false if changed
 
-            suppressLongfin = false
-            // always allows dumbo to show when there is no longfin suppressant
-            if (allelesArray.filter(e => e === 'd').length === 2){
-                dumbo = true
-            }
-            if (allelesArray. includes('B')){
-                ribbon = true
-            }
-            if (allelesArray.filter(e => e === 'w').length === 2){
-                swallow = true
-            }
-        }
+    //         suppressLongfin = false
+    //         // always allows dumbo to show when there is no longfin suppressant
+    //         if (allelesArray.filter(e => e === 'd').length === 2){
+    //             dumbo = true
+    //         }
+    //         if (allelesArray. includes('B')){
+    //             ribbon = true
+    //         }
+    //         if (allelesArray.filter(e => e === 'w').length === 2){
+    //             swallow = true
+    //         }
+    //     }
 
-        if (smallTail){
+    //     if (smallTail){
 
-            if (allelesArray.filter(e => e === 'R').length >= 1){
-                round = true
-            } else if (allelesArray.filter(e => e === 'rc').length >= 1){
-               spade = true
-            } else if (allelesArray.filter(e => e === 'rs').length >= 1){
-                spear = true 
-            } else {
-                pin = true
-            }
-        }
+    //         if (allelesArray.filter(e => e === 'R').length >= 1){
+    //             round = true
+    //         } else if (allelesArray.filter(e => e === 'rc').length >= 1){
+    //            spade = true
+    //         } else if (allelesArray.filter(e => e === 'rs').length >= 1){
+    //             spear = true 
+    //         } else {
+    //             pin = true
+    //         }
+    //     }
 
-        if (allelesArray.filter(e => e === 'o').length === 2){
-            rose = true 
-        }
-        if (allelesArray.filter(e => e === 's').length === 2){
-            scarf = true 
-        }
-        if (allelesArray.filter(e => e === 'S').length >= 1){
-            sword = true 
-        }
-        if (allelesArray.filter(e => e === 'C').length >= 1){
-            crown = true 
-        }
-
-
+    //     if (allelesArray.filter(e => e === 'o').length === 2){
+    //         rose = true 
+    //     }
+    //     if (allelesArray.filter(e => e === 's').length === 2){
+    //         scarf = true 
+    //     }
+    //     if (allelesArray.filter(e => e === 'S').length >= 1){
+    //         sword = true 
+    //     }
+    //     if (allelesArray.filter(e => e === 'C').length >= 1){
+    //         crown = true 
+    //     }
 
 
-        //////// Main tail shape ////////
-        if (smallTail){
-            if (round){
-                tailShape = 'Round'
-            } else if (spade){
-                tailShape = 'Spade'
-            } else if (spear){
-                tailShape = 'Spear'
-            } else {
-                tailShape = 'Pin'
-            }   
-        }
-        if (!smallTail){
-            ////////////code once tail sizes added/////////////////
-        }
-        if (smallTail && sword){
-            tailShape = tailShape + ' Sword'
-        } else if (sword){
-            tailShape = 'Sword'
-        }
-        // add change to perfect lyre tail later
-        if (!smallTail && scarf){
-            tailShape = 'Scarf'
-        }
-        if (crown){
-            tailShape = tailShape + ' Crown'
-        }
-        //////// Description /////////
-        if (!suppressLongfin && rose && !crown){
-            descriptionStr = "Rose " + descriptionStr
-        }
-        if (!suppressLongfin && dumbo){
-            descriptionStr = "Dumbo " + descriptionStr
-        }
-        if (!suppressLongfin && swallow){
-            if (!smallTail && !crown){
-                descriptionStr = "Swallow " + descriptionStr
-            } else {
-                descriptionStr = "Ribbon " + descriptionStr
-            } 
-        }
-        if (!suppressLongfin && ribbon && !swallow){
-            descriptionStr = "Ribbon " + descriptionStr
-        }
 
-        return (descriptionStr + " " + tailShape + 'tail').trim()
 
-    }
+    //     //////// Main tail shape ////////
+    //     if (smallTail){
+    //         if (round){
+    //             tailShape = 'Round'
+    //         } else if (spade){
+    //             tailShape = 'Spade'
+    //         } else if (spear){
+    //             tailShape = 'Spear'
+    //         } else {
+    //             tailShape = 'Pin'
+    //         }   
+    //     }
+    //     if (!smallTail){
+    //         ////////////code once tail sizes added/////////////////
+    //     }
+    //     if (smallTail && sword){
+    //         tailShape = tailShape + ' Sword'
+    //     } else if (sword){
+    //         tailShape = 'Sword'
+    //     }
+    //     // add change to perfect lyre tail later
+    //     if (!smallTail && scarf){
+    //         tailShape = 'Scarf'
+    //     }
+    //     if (crown){
+    //         tailShape = tailShape + ' Crown'
+    //     }
+    //     //////// Description /////////
+    //     if (!suppressLongfin && rose && !crown){
+    //         descriptionStr = "Rose " + descriptionStr
+    //     }
+    //     if (!suppressLongfin && dumbo){
+    //         descriptionStr = "Dumbo " + descriptionStr
+    //     }
+    //     if (!suppressLongfin && swallow){
+    //         if (!smallTail && !crown){
+    //             descriptionStr = "Swallow " + descriptionStr
+    //         } else {
+    //             descriptionStr = "Ribbon " + descriptionStr
+    //         } 
+    //     }
+    //     if (!suppressLongfin && ribbon && !swallow){
+    //         descriptionStr = "Ribbon " + descriptionStr
+    //     }
+
+    //     return (descriptionStr + " " + tailShape + 'tail').trim()
+
+    // }
 
     static async ageFish(fish, tankMates, owner){
 
@@ -181,7 +184,7 @@ class FishClass{
 
                 let fryIsMale = Math.round(Math.random())? true : false
 
-                let fryFinGenome = this.combineGenomes(mother.finGenome, father.finGenome, GuppyAlleles.GUPPY_FIN_ALLELES)
+                let fryFinGenome = this.combineMainGenomes(fryIsMale, mother.mainGenome, father.mainGenome)
     
                 const newFry = new Fish({
                     name: 'Unnamed Fish',
@@ -192,8 +195,7 @@ class FishClass{
                     age: 0,
                     health: 100, 
                     hunger: 90,
-                    finGenome: fryFinGenome, 
-                    finDescription: this.generateFinDescriptionStr(fryFinGenome),
+                    mainGenome: fryFinGenome,
                     petshopFish: false,
                     forSale: false,
                     salePrice: -1
@@ -207,99 +209,178 @@ class FishClass{
     
     }
 
+    static combineMainGenomes(isMale, mothersGenome, fathersGenome){
 
-    static createRandomGenome(species, type, source){
+    }
 
-        let alleles
+    static createRandomMainGenome(isMale, species, source){
+
         let probabilityType
+        let listOfPremadeGenes
 
-        if(species === "guppy"){
-            if(type === "fin"){
-                alleles = GuppyAlleles.GUPPY_FIN_ALLELES
-            }
+        if (species === "guppy"){
+            listOfPremadeGenes = GuppyGeneList
         }
         if(source === "petshop"){
             probabilityType = "petshopProbability"
         }
 
+        let newGenome = []
+        let newGene
+        let pickedPremadeAllele
+        let newAllele
+        let numOfAlleles
 
-        let newGenome = ''
-        
-        // loops through each gene
-        for (let i = 0; i < alleles.length; i++){
+        for(let i = 0; i < listOfPremadeGenes.length; i++){
 
+            newGene = new Gene(listOfPremadeGenes[i].name, listOfPremadeGenes[i].type, [])
 
-            let newAllelePair = ''
-            let firstAlleleIndex
-            let randNum = Math.random(); 
-
-            // first allele
-
-            // loops through all possible alleles for each gene
-
-            for (let j = 0; j < alleles[i].length; j++){
-
-                if (alleles[i][j][probabilityType] >= randNum){
-                    newAllelePair += alleles[i][j].abbreviation
-                    firstAlleleIndex = j
-                    break
+            if(listOfPremadeGenes[i].type === GeneTypes.Autosomal){
+                numOfAlleles = 2
+            } else if (listOfPremadeGenes[i].type === GeneTypes.XLinked){
+                if(isMale){
+                    numOfAlleles = 1
                 } else {
-                    randNum = randNum - alleles[i][j][probabilityType]
+                    numOfAlleles = 2
+                }
+            } else {
+                if(isMale){
+                    numOfAlleles = 1
+                } else {
+                    numOfAlleles = 0
                 }
             }
 
-
-            // second allele
-
-            randNum = Math.random(); 
-
-            for (let j = 0; j < alleles[i].length; j++){
-
-                if (alleles[i][j][probabilityType] >= randNum){
-                    // Move the dominant allele to the front
-                    newAllelePair = j < firstAlleleIndex ? alleles[i][j].abbreviation + '-' + newAllelePair : newAllelePair + '-' + alleles[i][j].abbreviation
-                    break
-                } else {
-                    randNum = randNum - alleles[i][j][probabilityType]
-                }
+            for (let i = 0; i < numOfAlleles; i++){
+                pickedPremadeAllele = this.pickRandomAllele(listOfPremadeGenes[i], probabilityType)
+                // This removes the probability fields
+                newAllele = new Allele(pickedPremadeAllele.abbreviation, pickedPremadeAllele.domanance, pickedPremadeAllele.mutatableTraits)
+                newGene.alleles.push(newAllele)
             }
 
-            newGenome += newAllelePair + ' '
+
+
+            newGenome.push(newGene)
+
         }
-        return newGenome.trim()
+
+        return JSON.stringify(newGenome)
+
+
     }
 
-    static combineGenomes(genome1, genome2, allelesDominance){
+    static pickRandomAllele(Gene, probabilityType){
 
-        let newGenome = ''
+        let randNum
+        let allele
 
-        // splits the gemome into pairs of alleles
-        let allelePairsArray1 = genome1.split(' ')
-        let allelePairsArray2 = genome2.split(' ')
+        randNum = Math.random()
 
-        for (let i = 0; i < allelePairsArray1.length; i++){
+        for(let j = 0; j < Gene.alleles.length; j++){
 
-            // separates the alleles
-            let separatedAlleles1 = allelePairsArray1[i].split('-')
-            let separatedAlleles2 = allelePairsArray2[i].split('-')
+            allele = Gene.alleles[j]
 
-            // picks a random allele to be inherited 
-            let inheritedAllele1 = Math.random() < .5 ? separatedAlleles1[0] : separatedAlleles1[1]
-            let inheritedAllele2 = Math.random() < .5 ? separatedAlleles2[0] : separatedAlleles2[1]
+            if(randNum <= allele[probabilityType]){
+                return allele
+            } else {
+                randNum -= allele[probabilityType]
+            }
+        }
+    }
+
+
+    // static createRandomGenome(species, type, source){
+
+    //     let alleles
+    //     let probabilityType
+
+    //     if(species === "guppy"){
+    //         if(type === "fin"){
+    //             alleles = GuppyAlleles.GUPPY_FIN_ALLELES
+    //         }
+    //     }
+    //     if(source === "petshop"){
+    //         probabilityType = "petshopProbability"
+    //     }
+
+
+    //     let newGenome = ''
+        
+    //     // loops through each gene
+    //     for (let i = 0; i < alleles.length; i++){
+
+
+    //         let newAllelePair = ''
+    //         let firstAlleleIndex
+    //         let randNum = Math.random(); 
+
+    //         // first allele
+
+    //         // loops through all possible alleles for each gene
+
+    //         for (let j = 0; j < alleles[i].length; j++){
+
+    //             if (alleles[i][j][probabilityType] >= randNum){
+    //                 newAllelePair += alleles[i][j].abbreviation
+    //                 firstAlleleIndex = j
+    //                 break
+    //             } else {
+    //                 randNum = randNum - alleles[i][j][probabilityType]
+    //             }
+    //         }
+
+
+    //         // second allele
+
+    //         randNum = Math.random(); 
+
+    //         for (let j = 0; j < alleles[i].length; j++){
+
+    //             if (alleles[i][j][probabilityType] >= randNum){
+    //                 // Move the dominant allele to the front
+    //                 newAllelePair = j < firstAlleleIndex ? alleles[i][j].abbreviation + '-' + newAllelePair : newAllelePair + '-' + alleles[i][j].abbreviation
+    //                 break
+    //             } else {
+    //                 randNum = randNum - alleles[i][j][probabilityType]
+    //             }
+    //         }
+
+    //         newGenome += newAllelePair + ' '
+    //     }
+    //     return newGenome.trim()
+    // }
+
+    // static combineGenomes(genome1, genome2, allelesDominance){
+
+    //     let newGenome = ''
+
+    //     // splits the gemome into pairs of alleles
+    //     let allelePairsArray1 = genome1.split(' ')
+    //     let allelePairsArray2 = genome2.split(' ')
+
+    //     for (let i = 0; i < allelePairsArray1.length; i++){
+
+    //         // separates the alleles
+    //         let separatedAlleles1 = allelePairsArray1[i].split('-')
+    //         let separatedAlleles2 = allelePairsArray2[i].split('-')
+
+    //         // picks a random allele to be inherited 
+    //         let inheritedAllele1 = Math.random() < .5 ? separatedAlleles1[0] : separatedAlleles1[1]
+    //         let inheritedAllele2 = Math.random() < .5 ? separatedAlleles2[0] : separatedAlleles2[1]
 
             
-            let indexOfAllele1 = allelesDominance[i].map(e => e.abbreviation).indexOf(inheritedAllele1);
-            let indexOfAllele2 = allelesDominance[i].map(e => e.abbreviation).indexOf(inheritedAllele2);
+    //         let indexOfAllele1 = allelesDominance[i].map(e => e.abbreviation).indexOf(inheritedAllele1);
+    //         let indexOfAllele2 = allelesDominance[i].map(e => e.abbreviation).indexOf(inheritedAllele2);
 
-            if (indexOfAllele1 < indexOfAllele2){
-                newGenome += inheritedAllele1 + '-' + inheritedAllele2 + " "
-            } else {
-                newGenome += inheritedAllele2 + '-' + inheritedAllele1 + " "
-            }
+    //         if (indexOfAllele1 < indexOfAllele2){
+    //             newGenome += inheritedAllele1 + '-' + inheritedAllele2 + " "
+    //         } else {
+    //             newGenome += inheritedAllele2 + '-' + inheritedAllele1 + " "
+    //         }
 
-        }
-        return newGenome.trim()
-    }
+    //     }
+    //     return newGenome.trim()
+    // }
 
 
 
@@ -311,8 +392,7 @@ class FishClass{
         let health
         let petshopFish
         let hunger
-        let finGenome
-        let finDescription
+        let mainGenome
         let forSale
         let salePrice = -1
         
@@ -325,8 +405,7 @@ class FishClass{
             hunger = 85
             age = 5
             petshopFish = false
-            finGenome = this.createRandomGenome("guppy", "fin", "petshop")
-            finDescription = this.generateFinDescriptionStr(finGenome)
+            mainGenome = this.createRandomMainGenome(isMale, "guppy", "petshop")
             forSale = false 
             
         }
@@ -345,8 +424,7 @@ class FishClass{
             // for guppies
             species = 'Guppy'
             age = Math.ceil(Math.random() * 9) + 2
-            finGenome = this.createRandomGenome("guppy", "fin", "petshop")
-            finDescription = this.generateFinDescriptionStr(finGenome)
+            mainGenome = this.createRandomMainGenome(isMale, "guppy", "petshop")
             salePrice = 10
         }
 
@@ -359,8 +437,7 @@ class FishClass{
             age: age,
             health: health,
             hunger: hunger,
-            finGenome: finGenome,
-            finDescription: finDescription,
+            mainGenome: mainGenome,
             petshopFish: petshopFish,
             tankId: tankId,
             forSale: forSale,

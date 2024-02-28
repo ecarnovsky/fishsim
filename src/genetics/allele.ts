@@ -4,17 +4,13 @@ export class Allele {
 
     abbreviation: string
     dominance: number 
-    petshopProbability: number
-    pondProbability: number
     mutatableTraits: InstanceType<typeof MutatableTrait>[]
 
 
     
-    constructor(abbreviation, dominance, petshopProbability, pondProbability, mutatableTraits){
+    constructor(abbreviation, dominance, mutatableTraits){
         this.abbreviation = abbreviation
         this.dominance = dominance
-        this.petshopProbability = petshopProbability
-        this.pondProbability = pondProbability 
         this.mutatableTraits = mutatableTraits
     }
 }
