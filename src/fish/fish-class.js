@@ -7,7 +7,7 @@ const { Allele } = require('../genetics/allele')
 const { PremadeAllele } = require('../genetics/premade-allele')
 
 /**
- * Class providing fish methods
+ * A class providing fish methods
  */
 class FishClass{
 

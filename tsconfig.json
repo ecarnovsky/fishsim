@@ -7,7 +7,7 @@
     },
     "include": ["src/**/*"],
     "typedocOptions": {
-      "entryPoints": ["src/server.ts", "src/daily-turnover/daily-turnover.js"],
+      "entryPoints": ["src/server.ts"],
       "out": "docs"
   }
   }
