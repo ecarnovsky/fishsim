@@ -5,7 +5,10 @@ import {MutatableTrait} from './mutatable-trait.js'
 import {TraitTypes} from './mutatable-trait.js'
 import {MutationRates} from './mutatable-trait.js'
 
-
+/**
+ * An array of all guppy genes.
+ * Each gene hold a array of all unmutated alleles.
+ */
 const GUPPY_GENE_LIST = [
 
 

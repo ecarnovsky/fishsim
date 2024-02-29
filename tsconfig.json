@@ -4,7 +4,10 @@
       "allowJs": true,
       "target": "es5",
       "skipLibCheck": true
-
     },
-    "include": ["./src/**/*"]
+    "include": ["src/**/*"],
+    "typedocOptions": {
+      "entryPoints": ["src/server.ts", "src/daily-turnover/daily-turnover.js"],
+      "out": "docs"
+  }
   }

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && nodemon built/server.js",
-    "dev:server": "nodemon --watch './**/*.ts' --exec ts-node src/server.ts"
+    "dev:server": "nodemon --watch './**/*.ts' --exec ts-node src/server.ts",
+    "doc": "typedoc --entryPointStrategy expand ./src"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
+    "typedoc": "^0.25.9",
     "typescript": "^5.3.3"
   }
 }

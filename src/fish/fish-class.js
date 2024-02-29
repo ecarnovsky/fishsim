@@ -4,8 +4,11 @@ const GuppyAlleles = require('./guppy-alleles')
 const GuppyGeneList = require('../genetics/guppy-gene-list')
 const { Gene, GeneTypes } = require('../genetics/gene')
 const { Allele } = require('../genetics/allele')
+const { PremadeAllele } = require('../genetics/premade-allele')
 
-
+/**
+ * Class providing fish methods
+ */
 class FishClass{
 
     // static generateFinDescriptionStr(finGenome, tailSizeGenome, swordTypeGenome){
@@ -213,6 +216,13 @@ class FishClass{
 
     }
 
+    /**
+     * Creates a random genome for a game-generated fish.
+     * @param {boolean} isMale - Helps determine how to handle sex-linked genes.
+     * @param {string} species - The type of fish: "guppy", "koi", or "betta".
+     * @param {string} source - Where the game is generating the fish: "petshop" or "pond".
+     * @returns {string} The fish's newly created genome.
+     */
     static createRandomMainGenome(isMale, species, source){
 
         let probabilityType
@@ -254,7 +264,7 @@ class FishClass{
             for (let i = 0; i < numOfAlleles; i++){
                 pickedPremadeAllele = this.pickRandomAllele(listOfPremadeGenes[i], probabilityType)
                 // This removes the probability fields
-                newAllele = new Allele(pickedPremadeAllele.abbreviation, pickedPremadeAllele.domanance, pickedPremadeAllele.mutatableTraits)
+                newAllele = new Allele(pickedPremadeAllele.abbreviation, pickedPremadeAllele.dominance, pickedPremadeAllele.mutatableTraits)
                 newGene.alleles.push(newAllele)
             }
 
@@ -269,6 +279,12 @@ class FishClass{
 
     }
 
+    /**
+     * Given a gene, picks a random allele from its array of alleles based on the probability type.
+     * @param {Gene} Gene - The gene that contains the array of alleles.
+     * @param {string} probabilityType - Determines which probabilty type to use to determine the chance of each allele being picked. Example: "petshopProbabilty" or "pondProbability".
+     * @returns {Allele} - The allele that was picked.
+     */
     static pickRandomAllele(Gene, probabilityType){
 
         let randNum
@@ -286,6 +302,10 @@ class FishClass{
                 randNum -= allele[probabilityType]
             }
         }
+    }
+
+    static orderAllelesByDominance(alleles){
+
     }
 
 
