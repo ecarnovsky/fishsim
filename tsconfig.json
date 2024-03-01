@@ -3,11 +3,12 @@
       "outDir": "./built",
       "allowJs": true,
       "target": "es5",
-      "skipLibCheck": true
+      "skipLibCheck": true,
+      "types": ["babel__core"]
     },
     "include": ["src/**/*"],
     "typedocOptions": {
-      "entryPoints": ["src/server.ts"],
+      "entryPoints": ["src/server.ts" ],
       "out": "docs"
   }
-  }
+}
