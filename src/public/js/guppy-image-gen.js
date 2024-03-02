@@ -21,16 +21,19 @@ for (let i = 0; i < canvasArr.length; i++){
   canvas.height = 250;
 
 
-  let sex = canvasArr[i].parentNode.parentNode.querySelector('.sex').getAttribute("aria-label")
-  let finDescription = canvasArr[i].parentNode.parentNode.querySelector('.fin-description').innerText
+  let fishDiv = canvasArr[i].parentNode.parentNode
+  let sex = fishDiv.querySelector('.sex').getAttribute("aria-label")
+  let mainGenome =  JSON.parse(fishDiv.dataset.fishmaingenome)
+  console.log(mainGenome)
+  //let finDescription = canvasArr[i].parentNode.parentNode.querySelector('.fin-description').innerText
 
 
 
   let isMale = sex === "male" ? true : false
 
-  let rose =      finDescription.includes("Rose") ? true : false
-  let dumbo =     finDescription.includes("Dumbo") ? true : false
-  let ribbon =    finDescription.includes("Ribbon") ? true : false
+  let rose = false  //    finDescription.includes("Rose") ? true : false
+  let dumbo =     false  //  finDescription.includes("Dumbo") ? true : false
+  let ribbon =   false  //   finDescription.includes("Ribbon") ? true : false
   let swordTail
   let roundSwordTail
   let lyreTail
@@ -41,14 +44,14 @@ for (let i = 0; i < canvasArr.length; i++){
   let spadeTail
 
   if (isMale){
-    swordTail = finDescription.includes("Swordtail") ? true : false
-    roundSwordTail = finDescription.includes("Round Swordtail") ? true : false
-    lyreTail =  finDescription.includes("Lyretail") ? true : false
-    pinTail =   finDescription.includes("Pintail") ? true : false
-    scarfTail = finDescription.includes("Scarftail") ? true : false
-    roundTail = finDescription.includes("Roundtail") ? true : false
-    spearTail = finDescription.includes("Speartail") ? true : false
-    spadeTail = finDescription.includes("Spadetail") ? true : false
+    swordTail =  false  // finDescription.includes("Swordtail") ? true : false
+    roundSwordTail =  false  // finDescription.includes("Round Swordtail") ? true : false
+    lyreTail =   false  // finDescription.includes("Lyretail") ? true : false
+    pinTail =   false  //  finDescription.includes("Pintail") ? true : false
+    scarfTail = false  //  finDescription.includes("Scarftail") ? true : false
+    roundTail =  false  // finDescription.includes("Roundtail") ? true : false
+    spearTail =  false  // finDescription.includes("Speartail") ? true : false
+    spadeTail =  false  // finDescription.includes("Spadetail") ? true : false
   }
 
 
