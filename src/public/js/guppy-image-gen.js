@@ -155,24 +155,26 @@ for (let i = 0; i < canvasArr.length; i++){
   function drawSideOfTail(ctx, topOfTail, centerPointOfTail){
 
     let counterClockwise
-    let quarterAngleBaseChange
+    let fullQuarterEndingAngle
+    let endAngleOfTailBase
     let posOrNegOne;
+    
 
     if (topOfTail){
       counterClockwise = false
-      quarterAngleBaseChange = ((3 * Math.PI) / 2)
+      fullQuarterEndingAngle = ((3 * Math.PI) / 2)
+      endAngleOfTailBase =  Math.PI + ( (Math.PI / 2) * (tailAngle * 0.01)) //fullQuarterEndingAngle * (tailAngle * 0.01 ) 
        posOrNegOne = 1
     } else {
       counterClockwise = true
-      quarterAngleBaseChange = ((Math.PI) / 2)
+      fullQuarterEndingAngle = ((Math.PI) / 2)
+      endAngleOfTailBase = fullQuarterEndingAngle - ((fullQuarterEndingAngle * (tailAngle * 0.01)) - fullQuarterEndingAngle)
       posOrNegOne = -1
     } 
 
 
 
-    ctx.moveTo(centerPointOfTail.x, centerPointOfTail.y)
-
-      let endAngleOfTailBase = quarterAngleBaseChange * (tailAngle * 0.01)
+      ctx.moveTo(centerPointOfTail.x, centerPointOfTail.y)
 
       ctx.arc(centerPointOfTail.x, centerPointOfTail.y, tailRadius, Math.PI, endAngleOfTailBase, counterClockwise);
 
