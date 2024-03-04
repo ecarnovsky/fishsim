@@ -10,26 +10,210 @@ const BASE_COLORS = {
 const REGULAR_EYE_COLOR = "rgb(76,77,77)"
 const ALBINO_EYE_COLOR = "rgb(225,104,141)"
 
+////////////////////////////////////////////////
+
+class Point {
+  constructor(x, y){
+    this.x = x
+    this.y = y
+  }
+}
 
 let canvasArr = document.querySelectorAll('canvas')
 
 for (let i = 0; i < canvasArr.length; i++){
 
-  let canvas = canvasArr[i];
+  const canvas = canvasArr[i];
 
   canvas.width = 250;   
   canvas.height = 250;
+ 
 
+  // Border is for testing
+  canvas.style.border = "black solid 4px"
 
-  let fishDiv = canvasArr[i].parentNode.parentNode
-  let sex = fishDiv.querySelector('.sex').getAttribute("aria-label")
-  let mainGenome =  JSON.parse(fishDiv.dataset.fishmaingenome)
+  // Gets the sex and the mainGenome from the DOM.
+  const fishDiv = canvasArr[i].parentNode.parentNode
+  const sex = fishDiv.querySelector('.sex').getAttribute("aria-label")
+  const mainGenome =  JSON.parse(fishDiv.dataset.fishmaingenome)
+  // Log for testing
   console.log(mainGenome)
-  //let finDescription = canvasArr[i].parentNode.parentNode.querySelector('.fin-description').innerText
 
 
 
-  let isMale = sex === "male" ? true : false
+  const isMale = (sex === "male") ? true : false
+
+  const varInBodyLength = 0
+  const varInBodyThickness = 0
+  const varInTailLength = 20
+  const varInTailRadius = 0
+  const varInTailAngle = -10
+
+
+  // DEFAULT_ variables need to be moved to the top of the file
+  const DEFAULT_GUPPY_BODY_LENGTH = 90
+  const DEFAULT_GUPPY_BODY_THICKNESS = 25
+  const DEFAULT_GUPPY_TAIL_LENGTH = 0
+  const DEFAULT_GUPPY_TAIL_RADIUS = 25
+  // 100% of pi
+  const DEFAULT_GUPPY_TAIL_ANGLE = 100
+
+  let bodyLength = DEFAULT_GUPPY_BODY_LENGTH + varInBodyLength
+  let bodyThickness = DEFAULT_GUPPY_BODY_THICKNESS + varInBodyThickness
+  let tailLength = isMale? DEFAULT_GUPPY_TAIL_LENGTH + varInTailLength : 0
+  let tailRadius = DEFAULT_GUPPY_TAIL_RADIUS + varInTailRadius
+  let tailAngle = DEFAULT_GUPPY_TAIL_ANGLE + varInTailAngle
+
+  if(!isMale){
+    bodyLength += 10
+    bodyThickness += 2
+  }
+
+  const totalFishLength = bodyLength + tailRadius + tailLength
+
+  let headPoint = new Point((canvas.width/2) - (totalFishLength/2), (canvas.height/2) - (bodyThickness/2))
+  let tailBaseBottomPoint = new Point(headPoint.x + bodyLength, headPoint.y + bodyThickness)
+  let tailBaseTopPoint = new Point(headPoint.x + bodyLength, headPoint.y)
+  let stomachPoint1 = new Point(headPoint.x + (bodyLength / 5), tailBaseBottomPoint.y + 6)
+  let stomachPoint2
+  let stomachPoint3
+  if (!isMale){
+    stomachPoint1.y += 3 
+    stomachPoint2 = new Point(stomachPoint1.x + (bodyLength / 3.7), stomachPoint1.y)
+    stomachPoint3 = new Point(stomachPoint2.x + (bodyLength / 8), headPoint.y + bodyThickness)
+  }
+  let eyePoint = new Point(headPoint.x + 14, headPoint.y + 6)
+
+  function drawBody(color, stroke = true) {
+    if (canvas.getContext) {
+      const ctx = canvas.getContext("2d");
+
+      ctx.beginPath();
+      ctx.moveTo(headPoint.x, headPoint.y);
+      ctx.lineTo(stomachPoint1.x, stomachPoint1.y); 
+      if (!isMale){
+        ctx.lineTo(stomachPoint2.x, stomachPoint2.y); 
+        ctx.lineTo(stomachPoint3.x, stomachPoint3.y); 
+      }
+      ctx.lineTo(tailBaseBottomPoint.x, tailBaseBottomPoint.y);
+      makeArchBetweenPoints(tailBaseTopPoint.x, tailBaseTopPoint.y, (tailBaseBottomPoint.x - 7), ((tailBaseTopPoint.y + tailBaseBottomPoint.y) / 2) , tailBaseBottomPoint.x, tailBaseBottomPoint.y, ctx)
+      ctx.lineTo(tailBaseTopPoint.x, tailBaseTopPoint.y); 
+      ctx.closePath()
+
+      if(stroke){
+        defaultStroke(ctx)
+      }
+      ctx.fillStyle = color
+      ctx.fill();
+    }
+  }
+
+  function drawTail(fillStyle, stroke = true) {
+    if (canvas.getContext) {
+      const ctx = canvas.getContext("2d");
+
+
+      let centerPointOfTail = new Point(
+        (tailBaseTopPoint.x - 10) + tailRadius,
+        (tailBaseBottomPoint.y + tailBaseTopPoint.y) / 2
+      )
+
+      drawSideOfTail(ctx, true, centerPointOfTail)
+      drawSideOfTail(ctx, false, centerPointOfTail)
+
+
+
+      // ctx.arc(centerPointOfTail.x, centerPointOfTail.y, tailRadius, Math.PI, endAngleOfTailBase, false);
+
+  
+
+      // ctx.arc(endOfTailPoint.x, endOfTailPoint.y, centerPointOfTail.x, centerPointOfTail.y, ?, ?, false);
+
+ 
+      ctx.closePath()
+
+      if (stroke){
+        if(rose){
+          defaultStroke(ctx, true)
+        } else {
+          defaultStroke(ctx)
+        }
+      }
+      
+
+      ctx.fillStyle = fillStyle
+      ctx.fill();        
+    }
+  }
+
+  /**
+   * Draws either the upper or lower portion of the tail fin.
+   * @param ctx
+   * @param {boolean} topOfTail - True if drawing upper portion, false if drawing lower portion.
+   * @param {Point} centerPointOfTail - The point that is the center of the circle that forms the partial arch around the base of the tail.
+   */
+  function drawSideOfTail(ctx, topOfTail, centerPointOfTail){
+
+    let counterClockwise
+    let quarterAngleBaseChange
+    let posOrNegOne;
+
+    if (topOfTail){
+      counterClockwise = false
+      quarterAngleBaseChange = ((3 * Math.PI) / 2)
+       posOrNegOne = 1
+    } else {
+      counterClockwise = true
+      quarterAngleBaseChange = ((Math.PI) / 2)
+      posOrNegOne = -1
+    } 
+
+
+
+    ctx.moveTo(centerPointOfTail.x, centerPointOfTail.y)
+
+      let endAngleOfTailBase = quarterAngleBaseChange * (tailAngle * 0.01)
+
+      ctx.arc(centerPointOfTail.x, centerPointOfTail.y, tailRadius, Math.PI, endAngleOfTailBase, counterClockwise);
+
+      let endTailAnglePoint = new Point(
+        centerPointOfTail.x + tailRadius * Math.cos( endAngleOfTailBase), centerPointOfTail.y + tailRadius * Math.sin( endAngleOfTailBase)
+      )
+      ctx.moveTo(endTailAnglePoint.x, endTailAnglePoint.y)
+
+      // This is a point right next to endTailAnglePoint used just for calculating the slope.
+      let justBeforeEndPoint =  new Point (
+        centerPointOfTail.x + tailRadius * Math.cos( endAngleOfTailBase - 0.01), centerPointOfTail.y + tailRadius * Math.sin( endAngleOfTailBase - 0.01)
+      )
+
+      let slope  = (endTailAnglePoint.y - justBeforeEndPoint.y) / (endTailAnglePoint.x - justBeforeEndPoint.x)
+      let changeInX = (tailLength) / Math.sqrt( (Math.pow(slope, 2) + 1) )
+      let changeInY = Math.sqrt(Math.pow(tailLength, 2) - Math.pow(changeInX, 2))
+
+      let endOfTailPoint = new Point(
+        endTailAnglePoint.x + changeInX, endTailAnglePoint.y - changeInY * posOrNegOne
+      )
+
+      ctx.lineTo(endOfTailPoint.x, endOfTailPoint.y)
+
+  }
+
+  function drawEye(color) {
+    if (canvas.getContext) {
+      const ctx = canvas.getContext("2d");
+  
+      ctx.beginPath();
+      ctx.arc(eyePoint.x, eyePoint.y, 2.3, 0, 2 * Math.PI);
+      
+      defaultStroke(ctx)
+      ctx.fillStyle = color
+      ctx.fill();
+    }
+  }
+
+
+
+  /////////////////////////////////////////////
 
   let rose = false  //    finDescription.includes("Rose") ? true : false
   let dumbo =     false  //  finDescription.includes("Dumbo") ? true : false
@@ -176,9 +360,9 @@ for (let i = 0; i < canvasArr.length; i++){
 
       if(tux){
         if(isMale){
-          drawBody(BASE_COLORS.Black, false,  35, 20)
+          drawBody(BASE_COLORS.Black, false )
         } else {
-          drawBody(BASE_COLORS.Black, false,  70, 55)
+          drawBody(BASE_COLORS.Black, false)
         }
       }
       
@@ -240,94 +424,94 @@ for (let i = 0; i < canvasArr.length; i++){
     return gradient;
   }
 
-  function drawTail(fillStyle, stroke = true) {
-      if (canvas.getContext) {
-        const ctx = canvas.getContext("2d");
+  // function drawTail(fillStyle, stroke = true) {
+  //     if (canvas.getContext) {
+  //       const ctx = canvas.getContext("2d");
 
-        let yMiddleOfTail = canvas.height/2
-        // widthOfTail
-        //xBaseOfTiangleTail
-        let xBaseOfRoundTail = xBaseOfTiangleTail + 38
-        let tailRadius = 25
-        //lengthOfTail 
+  //       let yMiddleOfTail = canvas.height/2
+  //       // widthOfTail
+  //       //xBaseOfTiangleTail
+  //       let xBaseOfRoundTail = xBaseOfTiangleTail + 38
+  //       let tailRadius = 25
+  //       //lengthOfTail 
 
-        // coordinates for the 3 points in triangular tails: 
-        // (point 2 is the base)
-        let triPoint1x = xBaseOfTiangleTail + lengthOfTail
-        let triPoint1y = yMiddleOfTail-widthOfTail
-        let triPoint2x = xBaseOfTiangleTail
-        let triPoint2y = yMiddleOfTail
-        let triPoint3x = xBaseOfTiangleTail + lengthOfTail
-        let triPoint3y = yMiddleOfTail + widthOfTail
+  //       // coordinates for the 3 points in triangular tails: 
+  //       // (point 2 is the base)
+  //       let triPoint1x = xBaseOfTiangleTail + lengthOfTail
+  //       let triPoint1y = yMiddleOfTail-widthOfTail
+  //       let triPoint2x = xBaseOfTiangleTail
+  //       let triPoint2y = yMiddleOfTail
+  //       let triPoint3x = xBaseOfTiangleTail + lengthOfTail
+  //       let triPoint3y = yMiddleOfTail + widthOfTail
 
 
-        ctx.beginPath();
-        if(roundTail){
-          ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius, 0, 2 * Math.PI);
-        } else if (spearTail) {
-          ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius,Math.PI / 2, (3 * Math.PI) / 2);
-          ctx.moveTo(xBaseOfRoundTail, yMiddleOfTail + tailRadius ) ;
-          ctx.lineTo(xBaseOfRoundTail + 40, canvas.height/2);
-          ctx.lineTo(xBaseOfRoundTail, yMiddleOfTail - tailRadius ) ;
-        } else if (spadeTail){
-          ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius,Math.PI / 2, (3 * Math.PI) / 2);
-          ctx.moveTo(xBaseOfRoundTail, yMiddleOfTail + tailRadius ) ;
-          ctx.lineTo(xBaseOfRoundTail + 12, yMiddleOfTail + tailRadius);
-          ctx.lineTo(xBaseOfRoundTail + 35, canvas.height/2);
-          ctx.lineTo(xBaseOfRoundTail + 12, yMiddleOfTail - tailRadius);
-          ctx.lineTo(xBaseOfRoundTail, yMiddleOfTail - tailRadius ) ;
-        } else if (pinTail){
+  //       ctx.beginPath();
+  //       if(roundTail){
+  //         ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius, 0, 2 * Math.PI);
+  //       } else if (spearTail) {
+  //         ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius,Math.PI / 2, (3 * Math.PI) / 2);
+  //         ctx.moveTo(xBaseOfRoundTail, yMiddleOfTail + tailRadius ) ;
+  //         ctx.lineTo(xBaseOfRoundTail + 40, canvas.height/2);
+  //         ctx.lineTo(xBaseOfRoundTail, yMiddleOfTail - tailRadius ) ;
+  //       } else if (spadeTail){
+  //         ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius,Math.PI / 2, (3 * Math.PI) / 2);
+  //         ctx.moveTo(xBaseOfRoundTail, yMiddleOfTail + tailRadius ) ;
+  //         ctx.lineTo(xBaseOfRoundTail + 12, yMiddleOfTail + tailRadius);
+  //         ctx.lineTo(xBaseOfRoundTail + 35, canvas.height/2);
+  //         ctx.lineTo(xBaseOfRoundTail + 12, yMiddleOfTail - tailRadius);
+  //         ctx.lineTo(xBaseOfRoundTail, yMiddleOfTail - tailRadius ) ;
+  //       } else if (pinTail){
           
-          ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius,Math.PI / 2, (3 * Math.PI) / 2);
-          ctx.moveTo(xBaseOfRoundTail, yMiddleOfTail + tailRadius ) ;
-          ctx.lineTo(xBaseOfRoundTail + 18, canvas.height/2 + 5);
-          ctx.lineTo(xBaseOfRoundTail + 47, canvas.height/2);
-          ctx.lineTo(xBaseOfRoundTail + 18, canvas.height/2 - 5);
-          ctx.lineTo(xBaseOfRoundTail, yMiddleOfTail - tailRadius ) ;
-        }        
-        // tails that have a curve a the end
-        else {
-          if(scarfTail){
-            tailRadius = 30
-            ctx.arc(xBaseOfRoundTail + 2, yMiddleOfTail, tailRadius, Math.PI / 2, (3 * Math.PI) / 2);
-            ctx.moveTo(xBaseOfRoundTail + 2, yMiddleOfTail + tailRadius ) ;
+  //         ctx.arc(xBaseOfRoundTail, yMiddleOfTail, tailRadius,Math.PI / 2, (3 * Math.PI) / 2);
+  //         ctx.moveTo(xBaseOfRoundTail, yMiddleOfTail + tailRadius ) ;
+  //         ctx.lineTo(xBaseOfRoundTail + 18, canvas.height/2 + 5);
+  //         ctx.lineTo(xBaseOfRoundTail + 47, canvas.height/2);
+  //         ctx.lineTo(xBaseOfRoundTail + 18, canvas.height/2 - 5);
+  //         ctx.lineTo(xBaseOfRoundTail, yMiddleOfTail - tailRadius ) ;
+  //       }        
+  //       // tails that have a curve a the end
+  //       else {
+  //         if(scarfTail){
+  //           tailRadius = 30
+  //           ctx.arc(xBaseOfRoundTail + 2, yMiddleOfTail, tailRadius, Math.PI / 2, (3 * Math.PI) / 2);
+  //           ctx.moveTo(xBaseOfRoundTail + 2, yMiddleOfTail + tailRadius ) ;
   
-          } else {
-            ctx.moveTo(triPoint2x, triPoint2y); //middle
-          }
-          ctx.lineTo(triPoint3x , triPoint3y); //bottom
-          if(swordTail){
-            ctx.lineTo(xBaseOfTiangleTail + 30, yMiddleOfTail );
-          } else if(lyreTail){
-            let widthOfTip = 20
-            ctx.lineTo( xBaseOfTiangleTail + lengthOfTail , yMiddleOfTail + widthOfTail - widthOfTip); 
-            ctx.lineTo( xBaseOfTiangleTail + 30, yMiddleOfTail );
-            ctx.lineTo( xBaseOfTiangleTail + lengthOfTail , yMiddleOfTail-widthOfTail  + widthOfTip); //top
+  //         } else {
+  //           ctx.moveTo(triPoint2x, triPoint2y); //middle
+  //         }
+  //         ctx.lineTo(triPoint3x , triPoint3y); //bottom
+  //         if(swordTail){
+  //           ctx.lineTo(xBaseOfTiangleTail + 30, yMiddleOfTail );
+  //         } else if(lyreTail){
+  //           let widthOfTip = 20
+  //           ctx.lineTo( xBaseOfTiangleTail + lengthOfTail , yMiddleOfTail + widthOfTail - widthOfTip); 
+  //           ctx.lineTo( xBaseOfTiangleTail + 30, yMiddleOfTail );
+  //           ctx.lineTo( xBaseOfTiangleTail + lengthOfTail , yMiddleOfTail-widthOfTail  + widthOfTip); //top
     
-          } else {
-             makeArchBetweenPoints(triPoint1x,triPoint1y,triPoint2x,triPoint2y,triPoint3x,triPoint3y, ctx)
-          } 
+  //         } else {
+  //            makeArchBetweenPoints(triPoint1x,triPoint1y,triPoint2x,triPoint2y,triPoint3x,triPoint3y, ctx)
+  //         } 
   
-          ctx.lineTo(triPoint1x, triPoint1y); //top
-          if(scarfTail){
-            ctx.lineTo(xBaseOfRoundTail + 2, yMiddleOfTail - tailRadius ) ;
-          }
-        } 
-        ctx.closePath()
+  //         ctx.lineTo(triPoint1x, triPoint1y); //top
+  //         if(scarfTail){
+  //           ctx.lineTo(xBaseOfRoundTail + 2, yMiddleOfTail - tailRadius ) ;
+  //         }
+  //       } 
+  //       ctx.closePath()
 
-        if (stroke){
-          if(rose){
-            defaultStroke(ctx, true)
-          } else {
-            defaultStroke(ctx)
-          }
-        }
+  //       if (stroke){
+  //         if(rose){
+  //           defaultStroke(ctx, true)
+  //         } else {
+  //           defaultStroke(ctx)
+  //         }
+  //       }
         
 
-        ctx.fillStyle = fillStyle
-        ctx.fill();        
-      }
-    }
+  //       ctx.fillStyle = fillStyle
+  //       ctx.fill();        
+  //     }
+  //   }
 
     // points 1 and 3 are the end points. point 2 is the base
     // please refer to the link below:
@@ -357,26 +541,26 @@ for (let i = 0; i < canvasArr.length; i++){
     }
     
 
-    function drawBody(color, stroke = true, pushTopX = 0, pushBottomX = 0) {
-      if (canvas.getContext) {
-        const ctx = canvas.getContext("2d");
+    // function drawBody(color, stroke = true, pushTopX = 0, pushBottomX = 0) {
+    //   if (canvas.getContext) {
+    //     const ctx = canvas.getContext("2d");
 
         
-        ctx.beginPath();
-        ctx.moveTo(xbaseOfBody , yMiddleOfBody - thicknessOfbody + 2); //top right
-        ctx.lineTo(xbaseOfBody, yMiddleOfBody + thicknessOfbody - 4); //bottom right
-        ctx.lineTo(xbaseOfBody - lengthOfBody  + pushBottomX, yMiddleOfBody + thicknessOfbody ); // bottom left
-        ctx.lineTo(xbaseOfBody - lengthOfBody - 20 + pushTopX, yMiddleOfBody - thicknessOfbody ); //top left
-        ctx.closePath()
+    //     ctx.beginPath();
+    //     ctx.moveTo(xbaseOfBody , yMiddleOfBody - thicknessOfbody + 2); //top right
+    //     ctx.lineTo(xbaseOfBody, yMiddleOfBody + thicknessOfbody - 4); //bottom right
+    //     ctx.lineTo(xbaseOfBody - lengthOfBody  + pushBottomX, yMiddleOfBody + thicknessOfbody ); // bottom left
+    //     ctx.lineTo(xbaseOfBody - lengthOfBody - 20 + pushTopX, yMiddleOfBody - thicknessOfbody ); //top left
+    //     ctx.closePath()
 
-        if(stroke){
-          defaultStroke(ctx)
-        }
+    //     if(stroke){
+    //       defaultStroke(ctx)
+    //     }
         
-        ctx.fillStyle = color
-        ctx.fill();
-      }
-    }
+    //     ctx.fillStyle = color
+    //     ctx.fill();
+    //   }
+    // }
 
 
     function drawDorsalFin(color, stroke = true) {
@@ -405,19 +589,19 @@ for (let i = 0; i < canvasArr.length; i++){
       }
     }
 
-    function drawEye(color) {
-      if (canvas.getContext) {
-        const ctx = canvas.getContext("2d");
+    // function drawEye(color) {
+    //   if (canvas.getContext) {
+    //     const ctx = canvas.getContext("2d");
     
-        ctx.beginPath();
-        ctx.arc(xbaseOfBody - 70, canvas.height/2 - 8, 2.3, 0, 2 * Math.PI);
+    //     ctx.beginPath();
+    //     ctx.arc(xbaseOfBody - 70, canvas.height/2 - 8, 2.3, 0, 2 * Math.PI);
         
-          defaultStroke(ctx)
+    //       defaultStroke(ctx)
 
-        ctx.fillStyle = color
-        ctx.fill();
-      }
-    }
+    //     ctx.fillStyle = color
+    //     ctx.fill();
+    //   }
+    // }
 
 
   function drawDumbo(color) {
