@@ -5,12 +5,6 @@ Fish Sim is still very much so a work in progress. Currently I’m focusing on d
 
 The template I used to help me get started can be found [here](https://github.com/100devs/todo-mvc-auth-local).
 
-## 2/13/2024 Update 
-I went ahead and added a fish image generator to the client-side code. It draws a simple image on a canvas element using information from the DB about what the fish should look like. 
-
-## 2/20/2024 Update 
-Fish now age in real time. Everyday at 2am EST all the fish in the database have their age increased by one.
-
 ## Features I plan to add:
 - Ability to upload a profile picture
 - ~~Cron jobs that interact with the database~~ Added!
@@ -20,9 +14,9 @@ Fish now age in real time. Everyday at 2am EST all the fish in the database have
 - Convert all server-side JavaScript code to TypeScript
 
 ## To build:
-- Do npm install
-- Create /config/.env
-- Inside define PORT, DB_STRING, CRON_JOB_SERVER_KEY, and CRON_JOB_GITHUB_KEY environment variables.
-  - PORT: Set to whatever port you would like to use.
-  - DB_STRING: Use MongoDB to generate a unique string that can connect you to your database.
-  - CRON_JOB_SERVER_KEY & CRON_JOB_GITHUB_KEY: I use these to make sure that aging up fish can only be done through nightly cron jobs or through testing. Set CRON_JOB_SERVER_KEY to a hard to guess passphrase in /config/.env, then set up CRON_JOB_GITHUB_KEY as a secret on GitHub that's equal to the same passphrase. Locally, you can set CRON_JOB_GITHUB_KEY to equal the passphrase for testing, but be sure to set it as undefined on the live server. 
+- Do `npm install`
+- Create `/config/.env`
+- Inside define `PORT, DB_STRING`, `CRON_JOB_SERVER_KEY`, and `CRON_JOB_GITHUB_KEY` environment variables.
+  - `PORT`: Set to whatever port you would like to use.
+  - `DB_STRING`: Use MongoDB to generate a unique string that can connect you to your database.
+  - `CRON_JOB_SERVER_KEY` & `CRON_JOB_GITHUB_KEY`: I use these to make sure that aging up fish can only be done through nightly cron jobs or through testing. Set `CRON_JOB_SERVER_KEY` to a hard to guess passphrase in `/config/.env`, then set up `CRON_JOB_GITHUB_KEY` as a secret on GitHub that's equal to the same passphrase. Locally, you can set `CRON_JOB_GITHUB_KEY` to equal the passphrase for testing, but be sure to set it as undefined on the live server. 
