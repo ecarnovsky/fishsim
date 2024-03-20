@@ -9,7 +9,7 @@ const FishSchema = new mongoose.Schema({
   age: {type: Number, unique: false},
   health: {type: Number},
   hunger: {type: Number },
-  mainGenome: {type: String},
+  mainGenome: {type: Object},
   petshopFish: {type: Boolean},
   forSale: {type: Boolean},
   salePrice: {type: Number}

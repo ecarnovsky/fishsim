@@ -29,13 +29,11 @@ for (let i = 0; i < canvasArr.length; i++){
   canvas.height = 250;
  
 
-  // Border is for testing
-  canvas.style.border = "black solid 4px"
 
   // Gets the sex and the mainGenome from the DOM.
   const fishDiv = canvasArr[i].parentNode.parentNode
   const sex = fishDiv.querySelector('.sex').getAttribute("aria-label")
-  const mainGenome =  JSON.parse(fishDiv.dataset.fishmaingenome)
+  const mainGenome =  fishDiv.dataset.fishmaingenome
   // Log for testing
   console.log(mainGenome)
 
@@ -118,8 +116,11 @@ for (let i = 0; i < canvasArr.length; i++){
         (tailBaseBottomPoint.y + tailBaseTopPoint.y) / 2
       )
 
-      drawSideOfTail(ctx, true, centerPointOfTail)
-      drawSideOfTail(ctx, false, centerPointOfTail)
+      let topCornerOfTail = drawSideOfTail(ctx, true, centerPointOfTail)
+      let bottomCornerOfTail = drawSideOfTail(ctx, false, centerPointOfTail)
+
+      makeArchBetweenPoints(topCornerOfTail.x, topCornerOfTail.y, centerPointOfTail.x, centerPointOfTail.y, bottomCornerOfTail.x, bottomCornerOfTail.y, ctx)
+
 
 
 
@@ -197,6 +198,8 @@ for (let i = 0; i < canvasArr.length; i++){
       )
 
       ctx.lineTo(endOfTailPoint.x, endOfTailPoint.y)
+
+      return new Point(endOfTailPoint.x, endOfTailPoint.y)
 
   }
 

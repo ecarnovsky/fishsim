@@ -202,7 +202,8 @@ class FishClass{
 
                 let fryIsMale = Math.round(Math.random())? true : false
 
-                let fryFinGenome = this.combineMainGenomes(fryIsMale, mother.mainGenome, father.mainGenome)
+
+                let fryFinGenome = this.combineMainGenomes(fryIsMale, JSON.parse(mother.mainGenome), JSON.parse(father.mainGenome))
     
                 const newFry = new Fish({
                     name: 'Unnamed Fish',
@@ -227,8 +228,47 @@ class FishClass{
     
     }
 
+    /**
+     * Combines the genomes of two fish into the genomes of their offspring.
+     * @param {Boolean} isMale - True if the offspring is male.
+     * @param {Object} mothersGenome - The mother's genome.
+     * @param {Object} fathersGenome - The father's genome.
+     * @returns {Objcect} The new;y formed genome of the offspring.
+     */
     static combineMainGenomes(isMale, mothersGenome, fathersGenome){
 
+        let newGenome = []
+
+        for(let i = 0; i < mothersGenome.length; i++){
+
+            let newGene = new Gene(mothersGenome[i].name, mothersGenome[i].type, [])
+
+            let allelesInNewGene = []
+
+
+            if( !(newGene.type === GeneTypes.YLinked) ){
+                if(Math.random() < .5){
+                    allelesInNewGene.push(mothersGenome[i].alleles[0])
+                } else {
+                    allelesInNewGene.push(mothersGenome[i].alleles[mothersGenome[i].alleles.length - 1])
+                }
+            }
+
+            if( !(newGene.type === GeneTypes.XLinked && isMale) || !(newGene.type === GeneTypes.YLinked && !(isMale))){
+                if(Math.random() < .5){
+                    allelesInNewGene.push(fathersGenome[i].alleles[0])
+                } else {
+                    allelesInNewGene.push(fathersGenome[i].alleles[fathersGenome[i].alleles.length - 1])
+                }
+            }
+
+            newGene.alleles = allelesInNewGene
+
+            newGenome.push(newGene)
+
+        }
+
+        return newGenome
     }
 
     /**
@@ -289,7 +329,7 @@ class FishClass{
 
         }
 
-        return JSON.stringify(newGenome)
+        return newGenome
 
 
     }
