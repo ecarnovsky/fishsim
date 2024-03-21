@@ -84,7 +84,7 @@ class FishClass{
                 let fryIsMale = Math.round(Math.random())? true : false
 
 
-                let fryFinGenome = this.combineMainGenomes(fryIsMale, JSON.parse(mother.mainGenome), JSON.parse(father.mainGenome))
+                let fryFinGenome = this.combineMainGenomes(fryIsMale, mother.mainGenome, father.mainGenome)
     
                 const newFry = new Fish({
                     name: 'Unnamed Fish',
@@ -143,7 +143,7 @@ class FishClass{
                 }
             }
 
-            newGene.alleles = allelesInNewGene
+            newGene.alleles = this.orderAllelesByDominance(allelesInNewGene)
 
             newGenome.push(newGene)
 
@@ -176,10 +176,12 @@ class FishClass{
         let pickedPremadeAllele
         let newAllele
         let numOfAlleles
+        let allelesInNewGene
 
         for(let i = 0; i < listOfPremadeGenes.length; i++){
 
             newGene = new Gene(listOfPremadeGenes[i].name, listOfPremadeGenes[i].type, [])
+            allelesInNewGene = []
 
             if(listOfPremadeGenes[i].type === GeneTypes.Autosomal){
                 numOfAlleles = 2
@@ -201,10 +203,11 @@ class FishClass{
                 pickedPremadeAllele = this.pickRandomAllele(listOfPremadeGenes[i], probabilityType)
                 // This removes the probability fields
                 newAllele = new Allele(pickedPremadeAllele.abbreviation, pickedPremadeAllele.dominance, pickedPremadeAllele.mutatableTraits)
-                newGene.alleles.push(newAllele)
-            }
+                allelesInNewGene.push(newAllele)
+                
+            }   
 
-
+            newGene.alleles = this.orderAllelesByDominance(allelesInNewGene)
 
             newGenome.push(newGene)
 
@@ -240,8 +243,17 @@ class FishClass{
         }
     }
 
+    /**
+     * Sorts an array of alleles so the more dominant one is in the front.
+     * @param {Allele[]} alleles - An array of 0, 1, or 2 alleles.
+     * @returns {Allele[]} alleles - An array of the same alleles but sorted by most dominant.
+     */
     static orderAllelesByDominance(alleles){
-
+        if(alleles.length <= 1 || alleles[0].dominance > alleles[1].dominance){
+            return alleles
+        } else {
+            return alleles.reverse()
+        }
     }
 
 
