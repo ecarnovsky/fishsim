@@ -49,7 +49,7 @@
 
         <div class="fish-tank-view-container">
             <% for (let i = 0; i < fish.length ; i++){ %>
-                <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>">
+                <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>" data-fishmaingenome="<%=JSON.stringify(fish[i].mainGenome)%>">
                     <canvas></canvas>
                     <span><%= fish[i].name%></span>
                     <%if(fish[i].isMale){%>

@@ -33,11 +33,12 @@ for (let i = 0; i < canvasArr.length; i++){
   // Gets the sex and the mainGenome from the DOM.
   const fishDiv = canvasArr[i].parentNode.parentNode
   const sex = fishDiv.querySelector('.sex').getAttribute("aria-label")
-  const mainGenome =  fishDiv.dataset.fishmaingenome
+  const mainGenome =  JSON.parse(fishDiv.dataset.fishmaingenome)
   // Log for testing
   console.log(mainGenome)
 
 
+  let tempGeneHolder
 
   const isMale = (sex === "male") ? true : false
 
@@ -46,6 +47,13 @@ for (let i = 0; i < canvasArr.length; i++){
   const varInTailLength = 20
   const varInTailRadius = 0
   const varInTailAngle = -10
+
+  tempGeneHolder =  mainGenome.filter(el => el.name === "longfin suppressor")[0]
+  const longfinSuppressant = tempGeneHolder.alleles.length >= 1 && tempGeneHolder.alleles[0].abbreviation === "Sup" ? true : false
+
+
+  tempGeneHolder = mainGenome.filter(el => el.name === "tuxedo")[0]
+  const tuxedo = tempGeneHolder.alleles.length >= 1 && tempGeneHolder.alleles[0].abbreviation === "Ni2" ? true : false
 
 
   // DEFAULT_ variables need to be moved to the top of the file
@@ -363,7 +371,7 @@ for (let i = 0; i < canvasArr.length; i++){
       }
       drawBody(bodyColor, true)
 
-      if(tux){
+      if(tuxedo){
         if(isMale){
           drawBody(BASE_COLORS.Black, false )
         } else {

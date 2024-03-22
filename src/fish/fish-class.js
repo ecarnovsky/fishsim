@@ -199,7 +199,8 @@ class FishClass{
                 }
             }
 
-            for (let i = 0; i < numOfAlleles; i++){
+            for (let j = 0; j < numOfAlleles; j++){
+
                 pickedPremadeAllele = this.pickRandomAllele(listOfPremadeGenes[i], probabilityType)
                 // This removes the probability fields
                 newAllele = new Allele(pickedPremadeAllele.abbreviation, pickedPremadeAllele.dominance, pickedPremadeAllele.mutatableTraits)
