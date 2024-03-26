@@ -26,4 +26,4 @@ The template I used to help me get started can be found [here](https://github.co
 
 fishsim-3-26-dark.drawio.png
 
-![A screenshot of my blog](../ecarnovsky/main/images/fishsim-3-26-dark.drawio.png)
+![A screenshot of my blog](/../ecarnovsky/main/images/fishsim-3-26-dark.drawio.png)
