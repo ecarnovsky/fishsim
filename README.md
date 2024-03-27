@@ -26,4 +26,4 @@ The template I used to help me get started can be found [here](https://github.co
  
 ## Logical Data Model:
 
-![ERM for FishSim](https://github.com/ecarnovsky/ecarnovsky/blob/main/images/fishsim-3-26-dark.drawio.png)
+![ERD for FishSim](https://github.com/ecarnovsky/ecarnovsky/blob/main/images/fishsim-erd.drawio.png)
