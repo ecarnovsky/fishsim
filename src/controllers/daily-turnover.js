@@ -1,8 +1,6 @@
-// const Fish = require('../models/fish')
-// const Tank = require('../models/tank')
-// const User = require('../models/user')
-// const FishClass = require('../fish/fish-class')
-const DailyTurnover = require('../daily-turnover/daily-turnover')
+
+import * as DailyTurnover from '../daily-turnover/daily-turnover.js'
+
 
 module.exports = {
     dayTurn: async (req, res) => {

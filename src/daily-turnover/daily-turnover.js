@@ -3,7 +3,7 @@ const Tank = require('../models/tank')
 const User = require('../models/user')
 const FishClass = require('../fish/fish-class')
 
-async function  dayTurn () {
+export async function dayTurn() {
 
 
     console.log("Daily turnover started at " + new Date())
@@ -40,6 +40,3 @@ async function  dayTurn () {
 
     console.log("Daily turnover complete at " + new Date())
 }
-
-
-module.exports = {dayTurn}
