@@ -1,5 +1,6 @@
+require('dotenv').config({path: './src/config/.env'})
 
-fetch('https://fishsim.onrender.com/dailyturnover', {
+dfetch('https://fishsim.onrender.com/dailyturnover', {
     method: 'PUT',
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify({
