@@ -1,3 +1,4 @@
+
 fetch('https://fishsim.onrender.com/dailyturnover', {
     method: 'PUT',
     headers: {'Content-type': 'application/json'},
@@ -7,6 +8,5 @@ fetch('https://fishsim.onrender.com/dailyturnover', {
 })
     .then(json => {
         console.log("Fetch request done.")
-        console.log(stringify.JSON(json))
     })
     .catch (err => console.log(err))
