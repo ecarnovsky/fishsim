@@ -1,3 +1,7 @@
+/**
+ * @deprecated
+ */
+
 const BASE_COLORS = {
 	Red: "rgb(233,28,41)",
 	Black: "rgb(25,25,25)",

@@ -19,7 +19,7 @@ class Point {
   }
 }
 
-let canvasArr = document.querySelectorAll('canvas')
+const canvasArr = document.querySelectorAll('canvas')
 
 for (let i = 0; i < canvasArr.length; i++){
 
@@ -48,15 +48,17 @@ for (let i = 0; i < canvasArr.length; i++){
   const varInTailRadius = 0
   const varInTailAngle = -10
 
+  // The below code sets variables to true
+  // or false depending of if the fish has
+  // the genetics for the trait.
   tempGeneHolder =  mainGenome.filter(el => el.name === "longfin suppressor")[0]
   const longfinSuppressant = tempGeneHolder.alleles.length >= 1 && tempGeneHolder.alleles[0].abbreviation === "Sup" ? true : false
-
 
   tempGeneHolder = mainGenome.filter(el => el.name === "tuxedo")[0]
   const tuxedo = tempGeneHolder.alleles.length >= 1 && tempGeneHolder.alleles[0].abbreviation === "Ni2" ? true : false
 
 
-  // DEFAULT_ variables need to be moved to the top of the file
+  //NOTE TO SELF: DEFAULT_ variables need to be moved to the top of the file
   const DEFAULT_GUPPY_BODY_LENGTH = 90
   const DEFAULT_GUPPY_BODY_THICKNESS = 25
   const DEFAULT_GUPPY_TAIL_LENGTH = 0
@@ -72,7 +74,6 @@ for (let i = 0; i < canvasArr.length; i++){
 
   if(!isMale){
     bodyLength += 10
-    bodyThickness += 2
   }
 
   const totalFishLength = bodyLength + tailRadius + tailLength
@@ -84,8 +85,8 @@ for (let i = 0; i < canvasArr.length; i++){
   let stomachPoint2
   let stomachPoint3
   if (!isMale){
-    stomachPoint1.y += 3 
-    stomachPoint2 = new Point(stomachPoint1.x + (bodyLength / 3.7), stomachPoint1.y)
+    stomachPoint1.y += 4
+    stomachPoint2 = new Point(stomachPoint1.x + (bodyLength / 3), stomachPoint1.y)
     stomachPoint3 = new Point(stomachPoint2.x + (bodyLength / 8), headPoint.y + bodyThickness)
   }
   let eyePoint = new Point(headPoint.x + 14, headPoint.y + 6)
