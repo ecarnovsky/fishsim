@@ -120,24 +120,32 @@ for (let i = 0; i < canvasArr.length; i++){
       const ctx = canvas.getContext("2d");
 
 
+      // Picks the point at the ends of the fish's body
+      // that the tail radiates out from.
       let centerPointOfTail = new Point(
         (tailBaseTopPoint.x - 10) + tailRadius,
         (tailBaseBottomPoint.y + tailBaseTopPoint.y) / 2
       )
 
-      let topCornerOfTail = drawSideOfTail(ctx, true, centerPointOfTail)
-      let bottomCornerOfTail = drawSideOfTail(ctx, false, centerPointOfTail)
+      // Draws the the arch that the tails forms as it very
+      // first leaves the body. The point where the arch
+      // stops is also returned.
+      let topEndOfTailBaseCurve = drawAndGetTailBaseCurve(ctx, true, centerPointOfTail)
+      let bottomEndOfTailBaseCurve = drawAndGetTailBaseCurve(ctx, false, centerPointOfTail)
 
-      makeArchBetweenPoints(topCornerOfTail.x, topCornerOfTail.y, centerPointOfTail.x, centerPointOfTail.y, bottomCornerOfTail.x, bottomCornerOfTail.y, ctx)
+      // Gets the points of the outer top and bottom edge 
+      // of the tail.
+      let topFarEndOfTail = getFarEndOfTail(ctx, true, topEndOfTailBaseCurve, centerPointOfTail)
+      let bottomFarEndOfTail = getFarEndOfTail(ctx, false, bottomEndOfTailBaseCurve, centerPointOfTail)
 
-
-
-
-      // ctx.arc(centerPointOfTail.x, centerPointOfTail.y, tailRadius, Math.PI, endAngleOfTailBase, false);
-
-  
-
-      // ctx.arc(endOfTailPoint.x, endOfTailPoint.y, centerPointOfTail.x, centerPointOfTail.y, ?, ?, false);
+      // Starting from the end of the top arch, the tail is drawn top to
+      // bottom.
+      ctx.moveTo(topEndOfTailBaseCurve.x, topEndOfTailBaseCurve.y)
+      ctx.lineTo(topFarEndOfTail.x, topFarEndOfTail.y)
+      makeArchBetweenPoints(topFarEndOfTail.x, topFarEndOfTail.y, centerPointOfTail.x, centerPointOfTail.y, bottomFarEndOfTail.x, bottomFarEndOfTail.y, ctx)
+      ctx.lineTo(bottomFarEndOfTail.x, bottomFarEndOfTail.y)
+      ctx.lineTo(bottomEndOfTailBaseCurve.x, bottomEndOfTailBaseCurve.y)
+      ctx.lineTo(centerPointOfTail.x, centerPointOfTail.y)
 
  
       ctx.closePath()
@@ -149,48 +157,32 @@ for (let i = 0; i < canvasArr.length; i++){
           defaultStroke(ctx)
         }
       }
-      
 
       ctx.fillStyle = fillStyle
-      ctx.fill();        
+      ctx.fill()       
     }
   }
 
   /**
-   * Draws either the upper or lower portion of the tail fin.
-   * @param ctx
-   * @param {boolean} topOfTail - True if drawing upper portion, false if drawing lower portion.
-   * @param {Point} centerPointOfTail - The point that is the center of the circle that forms the partial arch around the base of the tail.
+   * Finds out what outermost points of the tail are. Works
+   * for both top and bottom points.
+   * @param ctx 
+   * @param {boolean} topOfTail - True if top of tail, false if bottom.
+   * @param {Point} endTailAnglePoint - This is where the tail arch going out from the body ends. 
+   * @param {Point} centerPointOfTail - The point on the fish's body where the tail radiates out from.
+   * @returns {Point} - The outermost point.
    */
-  function drawSideOfTail(ctx, topOfTail, centerPointOfTail){
+  function getFarEndOfTail(ctx, topOfTail, endTailAnglePoint, centerPointOfTail){
 
-    let counterClockwise
-    let fullQuarterEndingAngle
     let endAngleOfTailBase
-    let posOrNegOne;
-    
 
-    if (topOfTail){
-      counterClockwise = false
-      fullQuarterEndingAngle = ((3 * Math.PI) / 2)
-      endAngleOfTailBase =  Math.PI + ( (Math.PI / 2) * (tailAngle * 0.01)) //fullQuarterEndingAngle * (tailAngle * 0.01 ) 
-       posOrNegOne = 1
+    if(topOfTail){
+      endAngleOfTailBase =  Math.PI + ( (Math.PI / 2) * (tailAngle * 0.01))  
     } else {
-      counterClockwise = true
-      fullQuarterEndingAngle = ((Math.PI) / 2)
+      let fullQuarterEndingAngle = ((Math.PI) / 2)
       endAngleOfTailBase = fullQuarterEndingAngle - ((fullQuarterEndingAngle * (tailAngle * 0.01)) - fullQuarterEndingAngle)
-      posOrNegOne = -1
-    } 
+    }
 
-
-
-      ctx.moveTo(centerPointOfTail.x, centerPointOfTail.y)
-
-      ctx.arc(centerPointOfTail.x, centerPointOfTail.y, tailRadius, Math.PI, endAngleOfTailBase, counterClockwise);
-
-      let endTailAnglePoint = new Point(
-        centerPointOfTail.x + tailRadius * Math.cos( endAngleOfTailBase), centerPointOfTail.y + tailRadius * Math.sin( endAngleOfTailBase)
-      )
       ctx.moveTo(endTailAnglePoint.x, endTailAnglePoint.y)
 
       // This is a point right next to endTailAnglePoint used just for calculating the slope.
@@ -201,14 +193,44 @@ for (let i = 0; i < canvasArr.length; i++){
       let slope  = (endTailAnglePoint.y - justBeforeEndPoint.y) / (endTailAnglePoint.x - justBeforeEndPoint.x)
       let changeInX = (tailLength) / Math.sqrt( (Math.pow(slope, 2) + 1) )
       let changeInY = Math.sqrt(Math.pow(tailLength, 2) - Math.pow(changeInX, 2))
-
+      
       let endOfTailPoint = new Point(
-        endTailAnglePoint.x + changeInX, endTailAnglePoint.y - changeInY * posOrNegOne
+        endTailAnglePoint.x + changeInX, endTailAnglePoint.y - changeInY * (topOfTail? 1 : -1)
       )
 
-      ctx.lineTo(endOfTailPoint.x, endOfTailPoint.y)
+      return endOfTailPoint
+  }
 
-      return new Point(endOfTailPoint.x, endOfTailPoint.y)
+  /**
+   * Draws either the upper or lower portion of the tail fin.
+   * @param ctx
+   * @param {boolean} topOfTail - True if drawing upper portion, false if drawing lower portion.
+   * @param {Point} centerPointOfTail - The point that is the center of the circle that forms the partial arch around the base of the tail.
+   */
+  function drawAndGetTailBaseCurve(ctx, topOfTail, centerPointOfTail){
+
+    let counterClockwise
+    let endAngleOfTailBase
+    
+    if (topOfTail){
+      counterClockwise = false
+      fullQuarterEndingAngle = ((3 * Math.PI) / 2)
+      endAngleOfTailBase =  Math.PI + ( (Math.PI / 2) * (tailAngle * 0.01)) //fullQuarterEndingAngle * (tailAngle * 0.01 ) 
+    } else {
+      counterClockwise = true
+      let fullQuarterEndingAngle = ((Math.PI) / 2)
+      endAngleOfTailBase = fullQuarterEndingAngle - ((fullQuarterEndingAngle * (tailAngle * 0.01)) - fullQuarterEndingAngle)
+    } 
+
+      ctx.moveTo(centerPointOfTail.x, centerPointOfTail.y)
+
+      ctx.arc(centerPointOfTail.x, centerPointOfTail.y, tailRadius, Math.PI, endAngleOfTailBase, counterClockwise);
+
+      let endTailAnglePoint = new Point(
+        centerPointOfTail.x + tailRadius * Math.cos( endAngleOfTailBase), centerPointOfTail.y + tailRadius * Math.sin( endAngleOfTailBase)
+      )
+
+      return endTailAnglePoint
 
   }
 
