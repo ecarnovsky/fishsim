@@ -3,6 +3,7 @@ const Tank = require('../models/tank')
 const User = require('../models/user')
 const FishClass = require('../fish/fish-class')
 
+
 export async function dayTurn() {
 
 
@@ -12,7 +13,7 @@ export async function dayTurn() {
     const tanks = await Tank.find()
 
     for(let i = 0; i < tanks.length; i++){
-
+ 
         let fishInTank = await Fish.find({tankId: tanks[i]._id})
         let owner = await User.findOne({_id: tanks[i].ownerId})
 
@@ -30,7 +31,7 @@ export async function dayTurn() {
     ////////// Pet shop ///////////////
     await Fish.deleteMany({petshopFish: true})
 
-    let numberOfNewPetshopFish = Math.floor(Math.random() * 3) + 2
+    let numberOfNewPetshopFish: number = Math.floor(Math.random() * 3) + 2
 
     for (let i = 0; i < numberOfNewPetshopFish; i++){
         const newFish = FishClass.generateRandomFish('petshop')

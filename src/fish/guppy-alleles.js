@@ -1,4 +1,6 @@
-
+/**
+ * @deprecated
+ */
   class GuppyAlleles{
 
 

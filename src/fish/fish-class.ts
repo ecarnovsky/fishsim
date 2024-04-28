@@ -1,10 +1,10 @@
+import { Allele } from "../genetics/allele"
+import { Gene } from "../genetics/gene"
+
 const Fish = require('../models/fish')
-const User = require('../models/user')
-const GuppyAlleles = require('./guppy-alleles')
 const GuppyGeneList = require('../genetics/guppy-gene-list')
-const { Gene, GeneTypes } = require('../genetics/gene')
-const { Allele } = require('../genetics/allele')
-const { PremadeAllele } = require('../genetics/premade-allele')
+const { GeneTypes } = require('../genetics/gene')
+
 
 /**
  * A class providing fish methods
@@ -27,9 +27,9 @@ class FishClass{
             return 
         }
 
-        let newHealth = fish.health
-        let newAge 
-        let newHunger
+        let newHealth: number = fish.health
+        let newAge: number
+        let newHunger: number
 
         // reduces health if hunger is too low
         if (fish.hunger <= 0){
@@ -73,7 +73,7 @@ class FishClass{
     
     static async breedFish(mother, father, owner){
     
-        let numberOfFry
+        let numberOfFry: number
     
         if (mother.species === 'Guppy'){
             numberOfFry = 3 + (Math.floor((Math.random() * 5)) - 2) // 3 plus or minus 2
@@ -81,7 +81,7 @@ class FishClass{
     
             for(let i = 0; i < numberOfFry; i++){
 
-                let fryIsMale = Math.round(Math.random())? true : false
+                const fryIsMale: boolean = Math.round(Math.random())? true : false
 
 
                 let fryFinGenome = this.combineMainGenomes(fryIsMale, mother.mainGenome, father.mainGenome)
@@ -114,17 +114,17 @@ class FishClass{
      * @param {Boolean} isMale - True if the offspring is male.
      * @param {Object} mothersGenome - The mother's genome.
      * @param {Object} fathersGenome - The father's genome.
-     * @returns {Objcect} The new;y formed genome of the offspring.
+     * @returns {Object} The newly formed genome of the offspring.
      */
-    static combineMainGenomes(isMale, mothersGenome, fathersGenome){
+    static combineMainGenomes(isMale: boolean, mothersGenome, fathersGenome){
 
         let newGenome = []
 
         for(let i = 0; i < mothersGenome.length; i++){
 
-            let newGene = new Gene(mothersGenome[i].name, mothersGenome[i].type, [])
+            let newGene: Gene = new Gene(mothersGenome[i].name, mothersGenome[i].type, [])
 
-            let allelesInNewGene = []
+            let allelesInNewGene: Allele[] = []
 
 
             if( !(newGene.type === GeneTypes.YLinked) ){
@@ -159,10 +159,10 @@ class FishClass{
      * @param {string} source - Where the game is generating the fish: "petshop" or "pond".
      * @returns {string} The fish's newly created genome.
      */
-    static createRandomMainGenome(isMale, species, source){
+    static createRandomMainGenome(isMale: boolean, species: string, source: string){
 
-        let probabilityType
-        let listOfPremadeGenes
+        let probabilityType: string
+        let listOfPremadeGenes: Gene[]
 
         if (species === "guppy"){
             listOfPremadeGenes = GuppyGeneList
@@ -171,12 +171,12 @@ class FishClass{
             probabilityType = "petshopProbability"
         }
 
-        let newGenome = []
-        let newGene
-        let pickedPremadeAllele
-        let newAllele
-        let numOfAlleles
-        let allelesInNewGene
+        let newGenome: Gene[] = []
+        let newGene: Gene
+        let pickedPremadeAllele: Allele
+        let newAllele: Allele
+        let numOfAlleles: number
+        let allelesInNewGene: Allele[] = []
 
         for(let i = 0; i < listOfPremadeGenes.length; i++){
 
@@ -225,16 +225,16 @@ class FishClass{
      * @param {string} probabilityType - Determines which probabilty type to use to determine the chance of each allele being picked. Example: "petshopProbabilty" or "pondProbability".
      * @returns {Allele} - The allele that was picked.
      */
-    static pickRandomAllele(Gene, probabilityType){
+    static pickRandomAllele(gene: Gene, probabilityType: string){
 
-        let randNum
-        let allele
+        let randNum: number
+        let allele: Allele
 
         randNum = Math.random()
 
-        for(let j = 0; j < Gene.alleles.length; j++){
+        for(let j = 0; j < gene.alleles.length; j++){
 
-            allele = Gene.alleles[j]
+            allele = gene.alleles[j]
 
             if(randNum <= allele[probabilityType]){
                 return allele
@@ -249,7 +249,7 @@ class FishClass{
      * @param {Allele[]} alleles - An array of 0, 1, or 2 alleles.
      * @returns {Allele[]} alleles - An array of the same alleles but sorted by most dominant.
      */
-    static orderAllelesByDominance(alleles){
+    static orderAllelesByDominance(alleles: Allele[]){
         if(alleles.length <= 1 || alleles[0].dominance > alleles[1].dominance){
             return alleles
         } else {
@@ -263,21 +263,21 @@ class FishClass{
      * Generates a new fish. This function is not used for fish born to other in-game fish.
      * @param {string} type - The source of the fish, e.g. petshop, starter, or pond.
      * @param {boolean} isMale - True if male.
-     * @param {number} ownerId - The id of the owner of the new fish.
-     * @param {number} tankId - The id of the tank of the new fish.
+     * @param {string} ownerId - The id of the owner of the new fish.
+     * @param {string} tankId - The id of the tank of the new fish.
      * @returns {Fish} - The new fish.
      */
-    static generateRandomFish(type , isMale, ownerId, tankId){
+    static generateRandomFish(type: string, isMale: boolean, ownerId: string, tankId: string){
 
-        let age
-        let name 
-        let species
-        let health
-        let petshopFish
-        let hunger
+        let age: number
+        let name: string
+        let species: string
+        let health: number
+        let petshopFish: boolean
+        let hunger: number
         let mainGenome
-        let forSale
-        let salePrice = -1
+        let forSale: boolean
+        let salePrice: number = -1
         
 
         if (type === 'starter'){
@@ -300,7 +300,7 @@ class FishClass{
             petshopFish = true
             ownerId = ''
             tankId = ''
-            isMale = Math.round(Math.random())
+            isMale = Math.random() > .5 ? true : false 
             forSale = true
             
 
