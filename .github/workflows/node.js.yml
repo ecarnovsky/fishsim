@@ -31,7 +31,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build --if-present
+    - run: npm start
     - run: node ./built/daily-turnover/daily-turnover-fetch.js
       env: 
         CRON_JOB_GITHUB_KEY: ${{ secrets.CRON_JOB_GITHUB_KEY }}
