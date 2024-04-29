@@ -21,16 +21,22 @@ const GUPPY_GENE_LIST = [
 
     new Gene("tail angle", GeneTypes.Autosomal, [
         // 100% (base is a full half circle)
-        new PremadeAllele(undefined, 80, 0.50, 0.90, [
-            new MutatableTrait("tailAnglePercent", TraitTypes.BodyValue, MutationRates.Middle, 0)
+        new PremadeAllele(undefined, 80, 0.49, 0.90, [
+            new MutatableTrait("varInTailAnglePercent", TraitTypes.BodyValue, MutationRates.Middle, 0)
         ]),
         // 80%
-        new PremadeAllele(undefined, 50, 0.30, 0.10, [
-            new MutatableTrait("varInTailAnglePercent", TraitTypes.BodyValue, MutationRates.Middle, -20)
+        new PremadeAllele(undefined, 50, 0.25, 0.10, [
+            new MutatableTrait("varInTailAnglePercent", TraitTypes.BodyValue, MutationRates.Middle, -10)
         ]),
         // 70%
         new PremadeAllele(undefined, 30, 0.20, 0.00, [
+            new MutatableTrait("varInTailAnglePercent", TraitTypes.BodyValue, MutationRates.Middle, -20)
+        ]),
+        new PremadeAllele(undefined, 20, 0.05, 0.00, [
             new MutatableTrait("varInTailAnglePercent", TraitTypes.BodyValue, MutationRates.Middle, -30)
+        ]),
+        new PremadeAllele(undefined, 15, 0.01, 0.00, [
+            new MutatableTrait("varInTailAnglePercent", TraitTypes.BodyValue, MutationRates.Middle, -40)
         ])
     ]),
 
@@ -64,9 +70,17 @@ const GUPPY_GENE_LIST = [
 
     new Gene("tuxedo", GeneTypes.XLinked, [
         // tuxedo / half-black
-        new PremadeAllele("Ni2", 70, 0.20, 0.00, [
+        new PremadeAllele("Ni2", 70, 0.10, 0.00, [
             new MutatableTrait("varInTuxTopLength", TraitTypes.BodyValue, MutationRates.Middle, 0),
             new MutatableTrait("varInTuxLowLength", TraitTypes.BodyValue, MutationRates.Middle, 0)
+        ]),
+        new PremadeAllele("Ni2", 65, 0.05, 0.00, [
+            new MutatableTrait("varInTuxTopLength", TraitTypes.BodyValue, MutationRates.Middle, -5),
+            new MutatableTrait("varInTuxLowLength", TraitTypes.BodyValue, MutationRates.Middle, -1)
+        ]),
+        new PremadeAllele("Ni2", 60, 0.05, 0.00, [
+            new MutatableTrait("varInTuxTopLength", TraitTypes.BodyValue, MutationRates.Middle, 10),
+            new MutatableTrait("varInTuxLowLength", TraitTypes.BodyValue, MutationRates.Middle, 1)
         ]),
         // no tuxedo / half-black
         new PremadeAllele("ni2", 0, 0.80, 1, [])

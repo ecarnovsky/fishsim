@@ -46,9 +46,14 @@ for (let i = 0; i < canvasArr.length; i++){
   const varInBodyThickness = 0
   const varInTailLength = 20
   const varInTailRadius = 0
-  const varInTailAngle = -10
-  const varInTuxTopLength = 0
-  const varInTuxLowLength = 0
+
+  tempGeneHolder =  mainGenome.filter(el => el.name === "tail angle")[0]
+  const varInTailAngle = tempGeneHolder.alleles[0].mutatableTraits.filter(el => el.name === "varInTailAnglePercent")[0].value
+
+  let varInTuxTopLength 
+  let varInTuxLowLength
+
+  //tailAnglePercent
 
   // The below code sets variables to true
   // or false depending of if the fish has
@@ -58,7 +63,10 @@ for (let i = 0; i < canvasArr.length; i++){
 
   tempGeneHolder = mainGenome.filter(el => el.name === "tuxedo")[0]
   const tuxedo = tempGeneHolder.alleles.length >= 1 && tempGeneHolder.alleles[0].abbreviation === "Ni2" ? true : false
-
+  if(tuxedo){
+    varInTuxTopLength = tempGeneHolder.alleles[0].mutatableTraits.filter(el => el.name === "varInTuxTopLength")[0].value
+    varInTuxLowLength = tempGeneHolder.alleles[0].mutatableTraits.filter(el => el.name === "varInTuxLowLength")[0].value
+  }
 
   tempGeneHolder = mainGenome.filter(el => el.name === "black pigment")[0]
   const blackPigPossible = tempGeneHolder.alleles[0].abbreviation === "M" ? true : false
@@ -94,6 +102,7 @@ for (let i = 0; i < canvasArr.length; i++){
   let bodyLength = DEFAULT_GUPPY_BODY_LENGTH + varInBodyLength
   let bodyThickness = DEFAULT_GUPPY_BODY_THICKNESS + varInBodyThickness
   let tailLength = isMale? DEFAULT_GUPPY_TAIL_LENGTH + varInTailLength : 0
+  longfinSuppressant? tailLength = 0 : null
   let tailRadius = DEFAULT_GUPPY_TAIL_RADIUS + varInTailRadius
   let tailAngle = DEFAULT_GUPPY_TAIL_ANGLE + varInTailAngle
   let tuxTopLength = DEFAULT_TUX_TOP_LENGTH + varInTuxTopLength
