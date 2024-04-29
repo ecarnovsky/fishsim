@@ -44,14 +44,52 @@
     <main>
         <i class="fa-solid fa-arrow-left fa-xl clickable return-to-tank-btn"></i>
 
-        <p><%=fish[0].name%></p>
-        <span><%=fish[0].mainGenome%></span>
+        <% for (let i = 0; i < fish.length ; i++){ %>
+            <div class="fish-block-tank-view" data-fishid="<%=fish[i]._id%>" data-fishmaingenome="<%=JSON.stringify(fish[i].mainGenome)%>">
+                <a href="../fish/<%=fish[i]._id%>"><canvas></canvas></a>
+                <span><%= fish[i].name%></span> 
+                <button>Rename</button>
+                <button>Add Comment</button>
+                <%if(fish[i].isMale){%>
+                    <i aria-label="male" class="fa-solid fa-mars sex" style="color: #1717e1;"></i>
+                <%}else{%>
+                    <i aria-label="female" class="fa-solid fa-venus sex" style="color: #d52675;"></i>
+                <%}%>
+                <span class="age"><%=fish[i].age%> months old</span>
+                <%if(fish[i].health > 90){%>
+                    <span>Health: Excellent</span>
+                <%}else if (fish[i].health > 70){%>
+                    <span>Health: Good</span>
+                <%}else if (fish[i].health > 50){%>
+                    <span>Health: Okay</span>
+                <%}else if (fish[i].health > 30){%>
+                    <span>Health: Bad</span>
+                <%}else{%>
+                    <span>Health: Horrible</span>
+                <%}%>
+                <!-- <span><%=fish[i].health%>/100 health</span> -->
+
+                <%if(fish[i].hunger < 100){%>
+                    <span>Hungry</span>
+                <%}%>
+                <!-- <span><%=fish[i].hunger%>/100 hunger</span> -->
+                <select name="sale-status" class="sale-status">
+                    <option value="Not for Sale">Not for Sale</option>
+                    <option value="For Sale">For Sale</option>
+                </select>
+                <label for="price">Price: $</label>
+                <input id="price" type="number">
+                <button class="sell-player-btn">Confirm</button>
+                <button class="sell-petshop-btn">Sell to Petshop</button>
+
+            </div>
+        <% } %>
         
     </main>  
 
     <script src="/js/guppy-image-gen.js"></script>
-
+    <script src="/js/sell-fish.js"></script>
     <script src="/js/fish-controls.js"></script>
-    <script src="/js/daily-turnover-button.js"></script>
+
 </body>
 </html>

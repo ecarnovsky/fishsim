@@ -41,11 +41,11 @@ class FishClass{
         }
  
 
-        if (fish.species == 'Guppy' && !fish.isMale && fish.age > 4 && owner.numberOfFish < owner.fishLimit){
+        if (fish.species == 'Guppy' && !fish.isMale && fish.age >= 5 && owner.numberOfFish < owner.fishLimit){
             
             
             // add && el.health => 20 once done testing
-            let maleGuppies = tankMates.filter( el => el.isMale && el.species === 'Guppy' ) 
+            let maleGuppies = tankMates.filter( el => el.isMale && el.species === 'Guppy' && el.age >= 3) 
             
     
             if (maleGuppies.length != 0){

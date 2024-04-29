@@ -119,6 +119,72 @@ for (let i = 0; i < canvasArr.length; i++){
   }
   let eyePoint = new Point(headPoint.x + 14, headPoint.y + 6)
 
+  
+  function createBodyGradient(){
+
+    const ctx = canvas.getContext("2d"); 
+
+    const gradient = ctx.createLinearGradient(20, 0, 220, 0);
+
+    gradient.addColorStop(.13, BASE_COLORS.Brown);
+
+    let step1Num = 0.35
+    let step1Pig = 'yellow'
+    let step2Num = 0.7
+    let step2Pig = 'red'
+    let step3Num = 0.8
+    let step3Pig = 'yellow'
+    let step4Num = 0.9
+    let step4Pig = 'black'
+
+    let step1Absent = false
+    let step2Absent = false
+    let step3Absent = false
+    let step4Absent = false
+
+    if(step1Pig === 'red' && redPigPossible){
+      gradient.addColorStop(step1Num, redPigmentColor);
+    } else if (step1Pig === 'yellow' && yellowPigPossible) {
+      gradient.addColorStop(step1Num, yellowPigmentColor)
+    } else if (step1Pig === 'blue' && bluePigPossible){
+      gradient.addColorStop(step1Num, yellowPigmentColor)
+    } else {
+      step1Absent = true
+    }
+    if(step2Pig === 'red' && redPigPossible){
+      gradient.addColorStop(step2Num, redPigmentColor);
+    } else if (step2Pig === 'yellow' && yellowPigPossible) {
+      gradient.addColorStop(step2Num, yellowPigmentColor)
+    } else if (step2Pig === 'blue' && bluePigPossible){
+      gradient.addColorStop(step2Num, yellowPigmentColor)
+    } else {
+      step2Absent = true
+    }
+    if(step3Pig === 'red' && redPigPossible){
+      gradient.addColorStop(step3Num, redPigmentColor);
+    } else if (step3Pig === 'yellow' && yellowPigPossible) {
+      gradient.addColorStop(step3Num, yellowPigmentColor)
+    } else if (step3Pig === 'blue' && bluePigPossible){
+      gradient.addColorStop(step3Num, yellowPigmentColor)
+    } else {
+      step3Absent = true
+    }
+    if(step4Pig === 'red' && redPigPossible){
+      gradient.addColorStop(step4Num, redPigmentColor);
+    } else if (step4Pig === 'yellow' && yellowPigPossible) {
+      gradient.addColorStop(step4Num, yellowPigmentColor)
+    } else if (step4Pig === 'blue' && bluePigPossible){
+      gradient.addColorStop(step4Num, yellowPigmentColor)
+    } else {
+      step4Absent = true
+    }
+
+    if(step1Absent && step2Absent && step3Absent && step4Absent){
+      gradient.addColorStop(.13, '#E0E0E0')
+    }
+
+    return gradient;
+  }
   function createFinGradient(){
 
     const ctx = canvas.getContext("2d"); 
@@ -134,12 +200,19 @@ for (let i = 0; i < canvasArr.length; i++){
     let step4Num = 0.8
     let step4Pig = 'red'
 
+    let step1Absent = false
+    let step2Absent = false
+    let step3Absent = false
+    let step4Absent = false
+
     if(step1Pig === 'red' && redPigPossible){
       gradient.addColorStop(step1Num, redPigmentColor);
     } else if (step1Pig === 'yellow' && yellowPigPossible) {
       gradient.addColorStop(step1Num, yellowPigmentColor)
     } else if (step1Pig === 'blue' && bluePigPossible){
       gradient.addColorStop(step1Num, yellowPigmentColor)
+    } else {
+      step1Absent = true
     }
     if(step2Pig === 'red' && redPigPossible){
       gradient.addColorStop(step2Num, redPigmentColor);
@@ -147,6 +220,8 @@ for (let i = 0; i < canvasArr.length; i++){
       gradient.addColorStop(step2Num, yellowPigmentColor)
     } else if (step2Pig === 'blue' && bluePigPossible){
       gradient.addColorStop(step2Num, yellowPigmentColor)
+    } else {
+      step2Absent = true
     }
     if(step3Pig === 'red' && redPigPossible){
       gradient.addColorStop(step3Num, redPigmentColor);
@@ -154,6 +229,8 @@ for (let i = 0; i < canvasArr.length; i++){
       gradient.addColorStop(step3Num, yellowPigmentColor)
     } else if (step3Pig === 'blue' && bluePigPossible){
       gradient.addColorStop(step3Num, yellowPigmentColor)
+    } else {
+      step3Absent = true
     }
     if(step4Pig === 'red' && redPigPossible){
       gradient.addColorStop(step4Num, redPigmentColor);
@@ -161,6 +238,12 @@ for (let i = 0; i < canvasArr.length; i++){
       gradient.addColorStop(step4Num, yellowPigmentColor)
     } else if (step4Pig === 'blue' && bluePigPossible){
       gradient.addColorStop(step4Num, yellowPigmentColor)
+    } else {
+      step4Absent = true
+    }
+
+    if(step1Absent && step2Absent && step3Absent && step4Absent){
+      gradient.addColorStop(0, '#E0E0E0')
     }
 
     return gradient;
@@ -582,26 +665,26 @@ for (let i = 0; i < canvasArr.length; i++){
   //   gradient.addColorStop(.8, redPigmentColor);
 
   //   return gradient;
-  // }
-  function createBodyGradient(){
+  // // }
+  // function createBodyGradient(){
 
-    const ctx = canvas.getContext("2d"); 
+  //   const ctx = canvas.getContext("2d"); 
 
-    // Create a radial gradient
-    // The inner circle is at x=110, y=90, with radius=30
-    // The outer circle is at x=100, y=100, with radius=70
-    const gradient = ctx.createLinearGradient(20, 0, 220, 0);
+  //   // Create a radial gradient
+  //   // The inner circle is at x=110, y=90, with radius=30
+  //   // The outer circle is at x=100, y=100, with radius=70
+  //   const gradient = ctx.createLinearGradient(20, 0, 220, 0);
 
-    // Add three color stops
+  //   // Add three color stops
     
-    gradient.addColorStop(.13, BASE_COLORS.Brown);
-    gradient.addColorStop(.35, yellowPigmentColor);
-    gradient.addColorStop(.7, redPigmentColor);
-    gradient.addColorStop(.8, yellowPigmentColor);
-    gradient.addColorStop(.9, blackPigmentColor);
+  //   gradient.addColorStop(.13, BASE_COLORS.Brown);
+  //   gradient.addColorStop(.35, yellowPigmentColor);
+  //   gradient.addColorStop(.7, redPigmentColor);
+  //   gradient.addColorStop(.8, yellowPigmentColor);
+  //   gradient.addColorStop(.9, blackPigmentColor);
 
-    return gradient;
-  }
+  //   return gradient;
+  // }
 
   // function drawTail(fillStyle, stroke = true) {
   //     if (canvas.getContext) {
