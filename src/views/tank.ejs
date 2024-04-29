@@ -68,22 +68,22 @@
                     <%}%>
                     <span class="age"><%=fish[i].age%> months old</span>
                     <%if(fish[i].health > 90){%>
-                        <span>excellent</span>
-                    <%}else if (fish[i].health > 80){%>
-                        <span>great</span>
+                        <span>Health: Excellent</span>
                     <%}else if (fish[i].health > 70){%>
-                        <span>good</span>
-                    <%}else if (fish[i].health > 60){%>
-                        <span>okay</span>
-                    <%}else if (fish[i].health > 40){%>
-                        <span>bad</span>
+                        <span>Health: Good</span>
+                    <%}else if (fish[i].health > 50){%>
+                        <span>Health: Okay</span>
                     <%}else if (fish[i].health > 30){%>
-                        <span>horrible</span>
+                        <span>Health: Bad</span>
                     <%}else{%>
-                        <span>dying</span>
+                        <span>Health: Horrible</span>
                     <%}%>
-                    <span><%=fish[i].health%>/100 health</span>
-                    <span><%=fish[i].hunger%>/100 hunger</span>
+                    <!-- <span><%=fish[i].health%>/100 health</span> -->
+
+                    <%if(fish[i].hunger < 100){%>
+                        <span>Hungry</span>
+                    <%}%>
+                    <!-- <span><%=fish[i].hunger%>/100 hunger</span> -->
                     <input type="checkbox" class="fish-checkbox" value="<%=fish[i]._id%>">
                 </div>
             <% } %>

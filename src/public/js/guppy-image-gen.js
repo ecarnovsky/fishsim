@@ -47,6 +47,8 @@ for (let i = 0; i < canvasArr.length; i++){
   const varInTailLength = 20
   const varInTailRadius = 0
   const varInTailAngle = -10
+  const varInTuxTopLength = 0
+  const varInTuxLowLength = 0
 
   // The below code sets variables to true
   // or false depending of if the fish has
@@ -58,6 +60,27 @@ for (let i = 0; i < canvasArr.length; i++){
   const tuxedo = tempGeneHolder.alleles.length >= 1 && tempGeneHolder.alleles[0].abbreviation === "Ni2" ? true : false
 
 
+  tempGeneHolder = mainGenome.filter(el => el.name === "black pigment")[0]
+  const blackPigPossible = tempGeneHolder.alleles[0].abbreviation === "M" ? true : false
+
+  tempGeneHolder = mainGenome.filter(el => el.name === "red pigment")[0]
+  const redPigPossible = tempGeneHolder.alleles[0].abbreviation === "E" ? true : false
+
+  tempGeneHolder = mainGenome.filter(el => el.name === "yellow pigment")[0]
+  const yellowPigPossible = tempGeneHolder.alleles[0].abbreviation === "X" ? true : false
+
+  tempGeneHolder = mainGenome.filter(el => el.name === "blue pigment")[0]
+  const bluePigPossible = tempGeneHolder.alleles[0].abbreviation === "G" ? true : false
+
+
+  tempGeneHolder = mainGenome.filter(el => el.name === "albino 1")[0]
+  let albino = tempGeneHolder.alleles[0].abbreviation === "a1" ? true : false
+  if(!albino){
+    tempGeneHolder = mainGenome.filter(el => el.name === "albino 2")[0]
+    albino = tempGeneHolder.alleles[0].abbreviation === "a2" ? true : false
+  }
+
+
   //NOTE TO SELF: DEFAULT_ variables need to be moved to the top of the file
   const DEFAULT_GUPPY_BODY_LENGTH = 90
   const DEFAULT_GUPPY_BODY_THICKNESS = 25
@@ -65,15 +88,20 @@ for (let i = 0; i < canvasArr.length; i++){
   const DEFAULT_GUPPY_TAIL_RADIUS = 25
   // 100% of pi
   const DEFAULT_GUPPY_TAIL_ANGLE = 100
-
+  const DEFAULT_TUX_TOP_LENGTH = 55
+  const DEFAULT_TUX_LOW_LENGTH = -10
+ 
   let bodyLength = DEFAULT_GUPPY_BODY_LENGTH + varInBodyLength
   let bodyThickness = DEFAULT_GUPPY_BODY_THICKNESS + varInBodyThickness
   let tailLength = isMale? DEFAULT_GUPPY_TAIL_LENGTH + varInTailLength : 0
   let tailRadius = DEFAULT_GUPPY_TAIL_RADIUS + varInTailRadius
   let tailAngle = DEFAULT_GUPPY_TAIL_ANGLE + varInTailAngle
+  let tuxTopLength = DEFAULT_TUX_TOP_LENGTH + varInTuxTopLength
+  let tuxLowLength = DEFAULT_TUX_LOW_LENGTH + varInTuxLowLength
 
   if(!isMale){
     bodyLength += 10
+    tuxTopLength -= 15
   }
 
   const totalFishLength = bodyLength + tailRadius + tailLength
@@ -90,6 +118,116 @@ for (let i = 0; i < canvasArr.length; i++){
     stomachPoint3 = new Point(stomachPoint2.x + (bodyLength / 8), headPoint.y + bodyThickness)
   }
   let eyePoint = new Point(headPoint.x + 14, headPoint.y + 6)
+
+  function createFinGradient(){
+
+    const ctx = canvas.getContext("2d"); 
+
+    const gradient = ctx.createRadialGradient(0, 105, 75, 70, 62, 160);
+
+    let step1Num = 0.1 
+    let step1Pig = 'red'
+    let step2Num = 0.4
+    let step2Pig = 'yellow'
+    let step3Num = 0.5
+    let step3Pig = 'yellow'
+    let step4Num = 0.8
+    let step4Pig = 'red'
+
+    if(step1Pig === 'red' && redPigPossible){
+      gradient.addColorStop(step1Num, redPigmentColor);
+    } else if (step1Pig === 'yellow' && yellowPigPossible) {
+      gradient.addColorStop(step1Num, yellowPigmentColor)
+    } else if (step1Pig === 'blue' && bluePigPossible){
+      gradient.addColorStop(step1Num, yellowPigmentColor)
+    }
+    if(step2Pig === 'red' && redPigPossible){
+      gradient.addColorStop(step2Num, redPigmentColor);
+    } else if (step2Pig === 'yellow' && yellowPigPossible) {
+      gradient.addColorStop(step2Num, yellowPigmentColor)
+    } else if (step2Pig === 'blue' && bluePigPossible){
+      gradient.addColorStop(step2Num, yellowPigmentColor)
+    }
+    if(step3Pig === 'red' && redPigPossible){
+      gradient.addColorStop(step3Num, redPigmentColor);
+    } else if (step3Pig === 'yellow' && yellowPigPossible) {
+      gradient.addColorStop(step3Num, yellowPigmentColor)
+    } else if (step3Pig === 'blue' && bluePigPossible){
+      gradient.addColorStop(step3Num, yellowPigmentColor)
+    }
+    if(step4Pig === 'red' && redPigPossible){
+      gradient.addColorStop(step4Num, redPigmentColor);
+    } else if (step4Pig === 'yellow' && yellowPigPossible) {
+      gradient.addColorStop(step4Num, yellowPigmentColor)
+    } else if (step4Pig === 'blue' && bluePigPossible){
+      gradient.addColorStop(step4Num, yellowPigmentColor)
+    }
+
+    return gradient;
+  }
+
+/**
+ * Given two points and a x-coordinate, this 
+ * function will find the y-coordinate that 
+ * corresponds to the x-coordinate on the line
+ * that connects the two points.
+ * @param {number} x - The x-coordinate whose corresponding y-coordinate you are looking for.
+ * @param {Point} point1 - The first point.
+ * @param {Point} point2  - The second point.
+ * @returns {number} The y-coordinate.
+ */
+  function getYCoorBetweenTwoPoints(x, point1, point2){
+    const slope = (point2.y - point1.y) / (point2.x - point1.x)
+    const yIntercept = point1.y - (slope * point1.x)
+    return slope * x + yIntercept
+  }
+
+
+  function drawTux(){
+
+    const ctx = canvas.getContext("2d");
+
+    if (tuxTopLength > 100){
+      tuxTopLength = 100
+    } else if (tuxTopLength < 0){
+      tuxTopLength = 0
+    }
+
+    let frontTopPointOfTux = new Point(
+      tailBaseTopPoint.x - ((tailBaseTopPoint.x  - headPoint.x) * (tuxTopLength * 0.01)),
+      tailBaseTopPoint.y
+    )
+    let frontBottomPointOfTux = new Point()
+
+    if (!isMale){
+      // Female
+      frontBottomPointOfTux.x = frontTopPointOfTux.x - tuxLowLength
+      frontBottomPointOfTux.y = tailBaseBottomPoint.y
+
+      // Stops the lines from going out of bounds
+      frontBottomPointOfTux.x < stomachPoint3.x ? frontBottomPointOfTux.x = stomachPoint3.x : null
+      frontBottomPointOfTux.x > tailBaseBottomPoint.x ? frontBottomPointOfTux.x = tailBaseBottomPoint.x : null
+    } else {
+      // Male
+      frontBottomPointOfTux.x = (frontTopPointOfTux.x - tuxLowLength) < stomachPoint1.x ? stomachPoint1.x : (frontTopPointOfTux.x - tuxLowLength)
+      frontBottomPointOfTux.y = getYCoorBetweenTwoPoints(frontBottomPointOfTux.x, tailBaseBottomPoint, stomachPoint1)
+    }
+
+    ctx.beginPath()
+    // top left
+    ctx.moveTo(frontTopPointOfTux.x, frontTopPointOfTux.y)
+    // top right
+    ctx.lineTo(tailBaseTopPoint.x, tailBaseTopPoint.y)
+    // arch drawn to bottom right
+    makeArchBetweenPoints(tailBaseTopPoint.x, tailBaseTopPoint.y, (tailBaseBottomPoint.x - 7), ((tailBaseTopPoint.y + tailBaseBottomPoint.y) / 2) , tailBaseBottomPoint.x, tailBaseBottomPoint.y, ctx)
+    // Bottom left
+    ctx.lineTo(frontBottomPointOfTux.x, frontBottomPointOfTux.y)
+    ctx.closePath()
+
+    ctx.fillStyle = "#202020"
+    ctx.fill()
+  }
+
 
   function drawBody(color, stroke = true) {
     if (canvas.getContext) {
@@ -247,6 +385,8 @@ for (let i = 0; i < canvasArr.length; i++){
     }
   }
 
+  
+
 
 
   /////////////////////////////////////////////
@@ -394,14 +534,17 @@ for (let i = 0; i < canvasArr.length; i++){
       }
       drawBody(bodyColor, true)
 
+      // if(tuxedo){
+      //   if(isMale){
+      //     drawBody(BASE_COLORS.Black, false )
+      //   } else {
+      //     drawBody(BASE_COLORS.Black, false)
+      //   }
+      // }
       if(tuxedo){
-        if(isMale){
-          drawBody(BASE_COLORS.Black, false )
-        } else {
-          drawBody(BASE_COLORS.Black, false)
-        }
+        drawTux()
       }
-      
+
       if(isMale){
         drawDorsalFin(createFinGradient())
         if(pattern){
@@ -423,23 +566,23 @@ for (let i = 0; i < canvasArr.length; i++){
   }
 
 
-  function createFinGradient(){
+  // function createFinGradient(){
 
-    const ctx = canvas.getContext("2d"); 
+  //   const ctx = canvas.getContext("2d"); 
 
-    // Create a radial gradient
-    // The inner circle is at x=110, y=90, with radius=30
-    // The outer circle is at x=100, y=100, with radius=70
-    const gradient = ctx.createRadialGradient(0, 105, 75, 70, 62, 160);
+  //   // Create a radial gradient
+  //   // The inner circle is at x=110, y=90, with radius=30
+  //   // The outer circle is at x=100, y=100, with radius=70
+  //   const gradient = ctx.createRadialGradient(0, 105, 75, 70, 62, 160);
 
 
-    gradient.addColorStop(.1, redPigmentColor);
-    gradient.addColorStop(.4, yellowPigmentColor);
-    gradient.addColorStop(.5, yellowPigmentColor);
-    gradient.addColorStop(.8, redPigmentColor);
+  //   gradient.addColorStop(.1, redPigmentColor);
+  //   gradient.addColorStop(.4, yellowPigmentColor);
+  //   gradient.addColorStop(.5, yellowPigmentColor);
+  //   gradient.addColorStop(.8, redPigmentColor);
 
-    return gradient;
-  }
+  //   return gradient;
+  // }
   function createBodyGradient(){
 
     const ctx = canvas.getContext("2d"); 

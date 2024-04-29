@@ -65,8 +65,8 @@ const GUPPY_GENE_LIST = [
     new Gene("tuxedo", GeneTypes.XLinked, [
         // tuxedo / half-black
         new PremadeAllele("Ni2", 70, 0.20, 0.00, [
-            new MutatableTrait("varInTuxTopPoint", TraitTypes.BodyValue, MutationRates.Middle, 0),
-            new MutatableTrait("varInTuxLowPoint", TraitTypes.BodyValue, MutationRates.Middle, 0)
+            new MutatableTrait("varInTuxTopLength", TraitTypes.BodyValue, MutationRates.Middle, 0),
+            new MutatableTrait("varInTuxLowLength", TraitTypes.BodyValue, MutationRates.Middle, 0)
         ]),
         // no tuxedo / half-black
         new PremadeAllele("ni2", 0, 0.80, 1, [])
