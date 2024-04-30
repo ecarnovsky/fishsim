@@ -106,6 +106,18 @@ const GUPPY_GENE_LIST = [
         // albino
         new PremadeAllele('a2', 0, 0.05, 0.00, [])
     ]),
+    new Gene("koi", GeneTypes.Autosomal, [
+        // no koi
+        new PremadeAllele('K', 100, 0.98, 1, []),
+        // koi
+        new PremadeAllele('k', 0, 0.02, 0.00, [])
+    ]),
+    new Gene("mosaic", GeneTypes.XLinked, [
+        // mosaic
+        new PremadeAllele('Mo', 100, 0.20, 0.15, []),
+        // not mosaic
+        new PremadeAllele('mo', 0, 0.80, 0.85, [])
+    ]),
 
 
 

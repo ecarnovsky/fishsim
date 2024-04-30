@@ -165,48 +165,48 @@
     ]
 
     static GUPPY_COLOR_ALLELES = [
-        [
-            // black pigment
-            {'abbreviation':'M', 'petshopProbability': 0.70, 'pondProbability': 0.90},
-            // no black pigment
-            {'abbreviation':'m', 'petshopProbability': 0.30, 'pondProbability': 0.10}
-        ],
-        [
-            // allows blue pigment
-            {'abbreviation':'G', 'petshopProbability': 0.30, 'pondProbability': 0.40},
-            // no blue pigment
-            {'abbreviation':'g', 'petshopProbability': 0.70, 'pondProbability': 0.60}
-        ],
-        [
-            // red pigment
-            {'abbreviation':'E', 'petshopProbability': 0.70, 'pondProbability': 0.90},
-            // no red pigment
-            {'abbreviation':'e', 'petshopProbability': 0.30, 'pondProbability': 0.10}
-        ],
-        [
-            // yellow pigment
-            {'abbreviation':'X', 'petshopProbability': 0.70, 'pondProbability': 0.30},
-            // no yellow pigment
-            {'abbreviation':'x', 'petshopProbability': 0.30, 'pondProbability': 0.70}
-        ],
-        [
-            //  no moscow
-            {'abbreviation':'O', 'petshopProbability': 0.90, 'pondProbability': 1},
-            // moscow
-            {'abbreviation':'o', 'petshopProbability': 0.1, 'pondProbability': 0}
-        ],
-        [
-            // no koi
-            {'abbreviation':'K', 'petshopProbability': 0.98, 'pondProbability': 1},
-            // koi
-            {'abbreviation':'k', 'petshopProbability': 0.02, 'pondProbability': 0}
-        ],
-        [
-            // tuxedo
-            {'abbreviation':'T', 'petshopProbability': 0.30, 'pondProbability': 0},
-            // none
-            {'abbreviation':'t', 'petshopProbability': 0.70, 'pondProbability': 1}
-        ],
+        // [
+        //     // black pigment
+        //     {'abbreviation':'M', 'petshopProbability': 0.70, 'pondProbability': 0.90},
+        //     // no black pigment
+        //     {'abbreviation':'m', 'petshopProbability': 0.30, 'pondProbability': 0.10}
+        // ],
+        // [
+        //     // allows blue pigment
+        //     {'abbreviation':'G', 'petshopProbability': 0.30, 'pondProbability': 0.40},
+        //     // no blue pigment
+        //     {'abbreviation':'g', 'petshopProbability': 0.70, 'pondProbability': 0.60}
+        // ],
+        // [
+        //     // red pigment
+        //     {'abbreviation':'E', 'petshopProbability': 0.70, 'pondProbability': 0.90},
+        //     // no red pigment
+        //     {'abbreviation':'e', 'petshopProbability': 0.30, 'pondProbability': 0.10}
+        // ],
+        // [
+        //     // yellow pigment
+        //     {'abbreviation':'X', 'petshopProbability': 0.70, 'pondProbability': 0.30},
+        //     // no yellow pigment
+        //     {'abbreviation':'x', 'petshopProbability': 0.30, 'pondProbability': 0.70}
+        // ],
+        // [
+        //     //  no moscow
+        //     {'abbreviation':'O', 'petshopProbability': 0.90, 'pondProbability': 1},
+        //     // moscow
+        //     {'abbreviation':'o', 'petshopProbability': 0.1, 'pondProbability': 0}
+        // ],
+        // [
+        //     // no koi
+        //     {'abbreviation':'K', 'petshopProbability': 0.98, 'pondProbability': 1},
+        //     // koi
+        //     {'abbreviation':'k', 'petshopProbability': 0.02, 'pondProbability': 0}
+        // ],
+        // [
+        //     // tuxedo
+        //     {'abbreviation':'T', 'petshopProbability': 0.30, 'pondProbability': 0},
+        //     // none
+        //     {'abbreviation':'t', 'petshopProbability': 0.70, 'pondProbability': 1}
+        // ],
         [
             // none
             {'abbreviation':'N', 'petshopProbability': 0.80, 'pondProbability': 1},
@@ -222,8 +222,8 @@
             {'abbreviation':'a', 'petshopProbability': 0.90, 'pondProbability': 1}
         ],
         [
-            // mosaic
-            {'abbreviation':'P', 'petshopProbability': 0.40, 'pondProbability': 0},
+            // // mosaic
+            // {'abbreviation':'P', 'petshopProbability': 0.40, 'pondProbability': 0},
             // leopard
             {'abbreviation':'pl', 'petshopProbability': 0.40, 'pondProbability': 0.10},
             // lace
