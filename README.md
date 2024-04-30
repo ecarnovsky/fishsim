@@ -6,8 +6,11 @@ Fish Sim is still very much so a work in progress. Currently I’m focusing on d
 The template I used to help me get started can be found [here](https://github.com/100devs/todo-mvc-auth-local).
 
 ## Features I plan to add:
+- User profiles
 - Ability to upload a profile picture
 - ~~Cron jobs that interact with the database~~ Added!
+- Password resetting
+- Ability to trade fish with other users
 - Discussion forums
 - Koi and Bettas
 - More realistic guppy color genetics
