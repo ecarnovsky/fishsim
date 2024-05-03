@@ -118,6 +118,18 @@ const GUPPY_GENE_LIST = [
         // not mosaic
         new PremadeAllele('mo', 0, 0.80, 0.85, [])
     ]),
+    new Gene("grass", GeneTypes.XLinked, [
+        // grass
+        new PremadeAllele('Gra', 100, 0.3, 0.01, []),
+        // no grass
+        new PremadeAllele('gra', 0, 0.97, 0.99, [])
+    ]),
+    new Gene("blond", GeneTypes.Autosomal, [
+        // not blond
+        new PremadeAllele('B', 100, 0.35, 0.65, []),
+        // blond (black gets extremely dull)
+        new PremadeAllele('b', 0, 0.65, 0.35, [])
+    ]),
 
 
 

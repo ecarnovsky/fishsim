@@ -12,6 +12,7 @@ const mainRoutes = require('./routes/main.js')
 const townRoutes = require('./routes/town.js')
 const tankRoute = require('./routes/tank.js')
 const forumsRoute = require('./routes/forums.js')
+const passwordResetRoute = require('./routes/passwordreset.js')
 const path = require('path')
 
 
@@ -48,6 +49,7 @@ app.use('/', mainRoutes)
 app.use('/town', townRoutes)
 app.use('/tank', tankRoute)
 app.use('/forums', forumsRoute)
+app.use('/passwordreset', passwordResetRoute)
 
 
 app.listen(process.env.PORT, ()=>{

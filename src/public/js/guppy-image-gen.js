@@ -71,6 +71,9 @@ for (let i = 0; i < canvasArr.length; i++){
   tempGeneHolder = mainGenome.filter(el => el.name === "mosaic")[0]
   const mosaic = tempGeneHolder.alleles.length >= 1 && tempGeneHolder.alleles[0].abbreviation === "Mo" ? true : false
 
+  tempGeneHolder = mainGenome.filter(el => el.name === "grass")[0]
+  const grass = tempGeneHolder.alleles.length >= 1 && tempGeneHolder.alleles[0].abbreviation === "Gra" ? true : false
+
   tempGeneHolder = mainGenome.filter(el => el.name === "black pigment")[0]
   const blackPigPossible = tempGeneHolder.alleles[0].abbreviation === "M" ? true : false
 
@@ -528,7 +531,6 @@ for (let i = 0; i < canvasArr.length; i++){
 
 
   let leopard = false
-  let grass = false
   let lace = false 
   let pattern 
   if(leopard || mosaic || grass || lace){

@@ -8,7 +8,10 @@ const UserSchema = new mongoose.Schema({
   money: {type: Decimal128},
   password: String, 
   numberOfFish: {type: Number},
-  fishLimit: {type: Number}
+  fishLimit: {type: Number},
+  joinDate: Date,
+  passwordResetToken: String,
+  passwordResetTokenDate: String
 })
 
 
